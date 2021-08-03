@@ -1,0 +1,8 @@
+<lcgdict>
+ <class name="G4VMP::PDGCode"/>
+ <class name="G4VMP::GenParticle" />
+ <class name="G4VMP::GenParticleCollection"/>
+ <class name="art::Ptr<G4VMP::GenParticle>"/>
+ <class name="art::PtrVector<G4VMP::GenParticle>"/>
+ <class name="art::Wrapper<G4VMP::GenParticleCollection>"/>
+</lcgdict>

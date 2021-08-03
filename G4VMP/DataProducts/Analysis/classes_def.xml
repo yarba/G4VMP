@@ -1,0 +1,9 @@
+
+<lcgdict>
+ <class name="G4VmpBeamThinTargetConfig" classVersion="10"/>
+ <class name="art::Wrapper<G4VmpBeamThinTargetConfig>"/>
+ <class name="InfoChi2" classVersion="10"/>
+ <class name="art::Wrapper<InfoChi2>"/>
+ <class name="G4VmpRecordChi2" classVersion="10"/>
+ <class name="art::Wrapper<G4VmpRecordChi2>"/>
+</lcgdict>

@@ -1,0 +1,4 @@
+<lcgdict>
+ <class name="G4VMP::G4VmpModelConfig"/>
+ <class name="art::Wrapper<G4VMP::G4VmpModelConfig>"/>
+</lcgdict>

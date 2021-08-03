@@ -1,0 +1,6 @@
+<lcgdict>
+ <class name="G4VMP::G4VmpVtx"/>
+ <class name="G4VMP::G4VmpParticle"/>
+ <class name="std::vector<G4VMP::G4VmpParticle>"/>
+ <class name="art::Wrapper<G4VMP::G4VmpVtx>"/>
+</lcgdict>
