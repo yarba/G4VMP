@@ -38,17 +38,14 @@ cd ..
 mkdir geant4-10-07-ref-05-build
 cd geant4-10-07-ref-05-build
 
-# NOTE: make sure to include -DGEANT4_USE_GDML=ON 
-#       in case geometry input is envisioned
-#
-# NOTE: if one wants to build static libs instead of shared ones,
-#       one should all to cmake the following options:
-#       -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON
-#
-# NOTE: since mid-10.7.ref-XX cycle, c++17 is STANDARD, 
-#       so there's no need to explicitly specify -DGEANT4_BUILD_CXXSTD=17 
-#       also, since ref-05, CMAKE_CXX_STANDARD replaces GEANT4_BUILD_CXXSTD
-#
+NOTE: make sure to include -DGEANT4_USE_GDML=ON 
+      in case geometry input is envisioned
+NOTE: if one wants to build static libs instead of shared ones,
+      one should all to cmake the following options:
+      -DBUILD_SHARED_LIBS=OFF -DBUILD_STATIC_LIBS=ON
+NOTE: since mid-10.7.ref-XX cycle, c++17 is STANDARD, 
+      so there's no need to explicitly specify -DGEANT4_BUILD_CXXSTD=17 
+      also, since ref-05, CMAKE_CXX_STANDARD replaces GEANT4_BUILD_CXXSTD
 
 cmake -DCMAKE_INSTALL_PREFIX=$G4INSTALL \
 -DGEANT4_USE_GDML=ON -DXERCESC_ROOT_DIR=$XERCESCROOT \
@@ -67,13 +64,13 @@ export MRB_PROJECT=G4VMP
 
 mrb newDev [ -v vX_YY_ZZ -q eXY:prof ]
 source localProducts*/setup
-# JUST an EXAMPLE: mrb newDev -v dev -q e20:prof
-#                  source localProducts_G4VMP_dev_e20_prof/setup
+JUST an EXAMPLE: mrb newDev -v dev -q e20:prof
+                 source localProducts_G4VMP_dev_e20_prof/setup
   
-# NOTE: Add NEW PACKAGE to $MRB_SOURCE/srcs (e.g. G4VMP), THEN run "mrb uc" so that 
-#       srcs/CMakeLists.txt is updated accordingly, and files .cmake_add_subdirs and
-#       .cmake_include_dirs are also updated properly
-#       This was NOT the case with (much) earlier versions of the tools...
+NOTE: Add NEW PACKAGE to $MRB_SOURCE/srcs (e.g. G4VMP), THEN run "mrb uc" so that 
+      srcs/CMakeLists.txt is updated accordingly, and files .cmake_add_subdirs and
+      .cmake_include_dirs are also updated properly
+      This was NOT the case with (much) earlier versions of the tools...
 
 cd $MRB_SOURCE}/srcs
 git clone git@github.com:yarba/G4VMP.git 
