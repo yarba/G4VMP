@@ -11,7 +11,8 @@ git clone git@github.com:yarba/G4VMP.git (SSH)
 
 git clone https://github.com/yarba/G4VMP.git (HTTPS)
 
-This revision is compatible with geant4-10-07-ref-05 as well as art v3_09_02 and art_root_io v1_08_02 (via setup of critic v2_08_02 portmanteau).
+This revision is compatible with geant4-10-07-ref-05 as well as art v3_09_03 
+and art_root_io v1_08_03 (via setup of critic v2_08_03 portmanteau).
 Compiler gcc/g++ and CLHEP 2.4.4.1 will be set up as part of art.
 Root will be set up as part of art_root_io.
 Also required are cmake v3_20_0 and mrb v5_10_00 (both are required by art v3_09_02).
@@ -23,7 +24,7 @@ Example procedure:
 
 source /cvmfs/geant4-ib.opensciencegrid.org/products/setup
 
-setup critic v2_08_02 -q e20:prof
+setup critic v2_08_03 -q e20:prof
 
 setup xerces_c v3_2_3 -q e20:prof
 
@@ -66,7 +67,7 @@ make install
 
 cd <your-G4VMP-area>
 
-setup mrb v5_10_00
+setup mrb v5_12_02
 
 export MRB_PROJECT=G4VMP
 
@@ -79,6 +80,7 @@ source localProducts*/setup
 JUST an EXAMPLE: 
 
 mrb newDev -v dev -q e20:prof
+
 source localProducts_G4VMP_dev_e20_prof/setup
   
 NOTE: Add NEW PACKAGE to $MRB_SOURCE/srcs (e.g. G4VMP), THEN run "mrb uc" so that 

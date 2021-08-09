@@ -2,7 +2,7 @@
 
 # The *parent* line must the first non-commented line and defines this product and version
 # The version, if any at all,  should be of the form vxx_yy_zz (e.g. v01_02_03)
-parent G4VMP v1_00_00
+parent G4VMP v0_00_02
 defaultqual e20
 
 # These optional lines define the installed directories where headers,
@@ -30,9 +30,9 @@ defaultqual e20
 
 
 product          version
-art_root_io     v1_08_02
+art_root_io     v1_08_03
 # --> Only if using public g4 release --> geant4          v4_10_6_p01d
-cetbuildtools   v8_10_00        -       only_for_build
+cetbuildtools   v8_11_02        -       only_for_build
 end_product_list
 
 # We now define allowed qualifiers and the corresponding qualifiers for the depdencies.
