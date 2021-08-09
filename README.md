@@ -15,7 +15,7 @@ This revision is compatible with geant4-10-07-ref-05 as well as art v3_09_03
 and art_root_io v1_08_03 (via setup of critic v2_08_03 portmanteau).
 Compiler gcc/g++ and CLHEP 2.4.4.1 will be set up as part of art.
 Root will be set up as part of art_root_io.
-Also required are cmake v3_20_0 and mrb v5_10_00 (both are required by art v3_09_02).
+Also required are cmake v3_20_0 and mrb v5_12_02 (both are required by art v3_09_03).
 To build Geant4 one also needs xerces_c v3_2_3.
 
 =====================================================================
