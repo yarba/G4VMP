@@ -30,7 +30,7 @@ setup xerces_c v3_2_3 -q e20:prof
 
 setup cmake v3_20_0
 
-cd <path-to-your-g4-area>
+cd \<path-to-your-g4-area\>
 
 git clone ssh://git@gitlab.cern.ch:7999/geant4/geant4-dev.git geant4-10-07-ref-05
 
@@ -65,7 +65,7 @@ make -j8
 
 make install
 
-cd <your-G4VMP-area>
+cd \<your-G4VMP-area\>
 
 setup mrb v5_12_02
 
