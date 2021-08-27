@@ -4,7 +4,10 @@
 // Art
 #include "fhiclcpp/ParameterSet.h"
 #include "art/Framework/Services/Registry/ActivityRegistry.h"
-#include "art/Framework/Services/Registry/ServiceMacros.h"
+// --> split the one below and use separate includes in hh and cc;
+// --> otherwise it won't compile   
+// --> #include "art/Framework/Services/Registry/ServiceMacros.h"
+#include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
 
 #include <iostream>
 #include <string>

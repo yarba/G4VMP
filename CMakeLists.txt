@@ -1,9 +1,9 @@
 
 cmake_minimum_required (VERSION 3.14...3.18 FATAL_ERROR)
 
-project(G4VMP)
-
 find_package(cetbuildtools REQUIRED)
+
+project(G4VMP)
 
 list(APPEND CMAKE_MODULE_PATH $ENV{CANVAS_ROOT_IO_DIR}/Modules $ENV{ART_DIR}/Modules)
 

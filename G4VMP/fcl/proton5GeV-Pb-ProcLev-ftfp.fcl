@@ -74,7 +74,7 @@ physics: {
 
      PrimaryGenerator:
      {
-        module_type: EventGenerator
+        module_type: "G4VMP/EventGenerators/EventGenerator"
 	nparticles : 1
 	pdgcode:  2212
 //	pdgcode:  211

@@ -74,7 +74,7 @@ physics: {
 
      PrimaryGenerator:
      {
-        module_type: EventGenerator
+        module_type: "G4VMP/EventGenerators/EventGenerator"
 	nparticles : 1
 	pdgcode:  2212
 //	pdgcode:  211
@@ -101,10 +101,10 @@ physics: {
 	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
 	   //
 	   // this is for running on LQ1:
-	   // Path2Records : "/home/yarba_j/dossier-json"
+	   Path2Records : "/home/yarba_j/dossier-json"
 	   //
 	   // this is for running on WC-IC
-	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+	   // Path2Records : "/work1/g4v/yarba_j/dossier-json"
 # new record ids for 5GeVc/ proton on Pb, including both *proton* (FW) and pion (FW+LA) production
 	   DBRecords: [ 
 			10759,  10760,  10761,  10762, 10763, 10764, 10765, 10766, 10767, 10768, 10769, 10770, 10771
@@ -126,10 +126,10 @@ physics: {
 	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
 	   //
 	   // this is for running on LQ1:
-	   // Path2Records : "/home/yarba_j/dossier-json"
+	   Path2Records : "/home/yarba_j/dossier-json"
 	   //
 	   // this is for running on WC-IC
-	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+	   // Path2Records : "/work1/g4v/yarba_j/dossier-json"
 # new record ids for 5GeVc/ proton on Pb
 	   DBRecords: [ 
 	                10759,  10760,  10761,  10762, 10763, 10764, 10765, 10766, 10767, 10768, 10769, 10770, 10771

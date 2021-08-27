@@ -1,0 +1,109 @@
+BEGIN_PROLOG
+
+# config for default FTFP universe
+
+FTFPDefault : { 
+    module_type:  ProcLevelMPVaryProducer 
+    errorOnFailureToPut: false 
+    Verbosity: 0
+    HadronicModel: {
+        DefaultPhysics: true
+        ModelParameters: {
+        } # end-of-ModelParameters
+    } # end-of-HadronicModel
+} # end-of-FTFPDefault
+
+# parameters for block of FTFP universes
+#        FTFP  BARYON_NUCDESTR_P1_TGT            0         0.01       flat
+#        FTFP  USE_BARYON_NUCDESTR_P1_ADEP_TGT            1            1       flat
+#        FTFP       BARYON_PROC1_A1            0           50       flat
+#        FTFP       BARYON_PROC1_B1            0            5       flat
+#        FTFP       BARYON_PROC1_A2         -100            0       flat
+#        FTFP       BARYON_PROC1_B2            0            5       flat
+
+FTFPRandomUniv0001 : { 
+    module_type:  ProcLevelMPVaryProducer 
+    errorOnFailureToPut: false 
+    Verbosity: 0
+    HadronicModel: {
+        DefaultPhysics: false
+        ModelParameters: {
+            BARYON_NUCDESTR_P1_TGT : 0.00893963
+            USE_BARYON_NUCDESTR_P1_ADEP_TGT : 1
+            BARYON_PROC1_A1      : 20.8259
+            BARYON_PROC1_B1      : 2.14524
+            BARYON_PROC1_A2      : -91.8163
+            BARYON_PROC1_B2      : 1.81382
+        } # end-of-ModelParameters
+    } # end-of-HadronicModel
+} # end-of-FTFPRandomUniv0001
+
+FTFPRandomUniv0002 : { 
+    module_type:  ProcLevelMPVaryProducer 
+    errorOnFailureToPut: false 
+    Verbosity: 0
+    HadronicModel: {
+        DefaultPhysics: false
+        ModelParameters: {
+            BARYON_NUCDESTR_P1_TGT : 0.00816134
+            USE_BARYON_NUCDESTR_P1_ADEP_TGT : 1
+            BARYON_PROC1_A1      : 8.28913
+            BARYON_PROC1_B1      : 1.46915
+            BARYON_PROC1_A2      : -96.9101
+            BARYON_PROC1_B2      : 4.58457
+        } # end-of-ModelParameters
+    } # end-of-HadronicModel
+} # end-of-FTFPRandomUniv0002
+
+FTFPRandomUniv0003 : { 
+    module_type:  ProcLevelMPVaryProducer 
+    errorOnFailureToPut: false 
+    Verbosity: 0
+    HadronicModel: {
+        DefaultPhysics: false
+        ModelParameters: {
+            BARYON_NUCDESTR_P1_TGT : 0.00227644
+            USE_BARYON_NUCDESTR_P1_ADEP_TGT : 1
+            BARYON_PROC1_A1      : 19.9047
+            BARYON_PROC1_B1      : 3.30531
+            BARYON_PROC1_A2      : -93.1491
+            BARYON_PROC1_B2      : 1.27736
+        } # end-of-ModelParameters
+    } # end-of-HadronicModel
+} # end-of-FTFPRandomUniv0003
+
+FTFPRandomUniv0004 : { 
+    module_type:  ProcLevelMPVaryProducer 
+    errorOnFailureToPut: false 
+    Verbosity: 0
+    HadronicModel: {
+        DefaultPhysics: false
+        ModelParameters: {
+            BARYON_NUCDESTR_P1_TGT : 0.00507006
+            USE_BARYON_NUCDESTR_P1_ADEP_TGT : 1
+            BARYON_PROC1_A1      : 45.6672
+            BARYON_PROC1_B1      : 2.84181
+            BARYON_PROC1_A2      : -67.6617
+            BARYON_PROC1_B2      : 0.566116
+        } # end-of-ModelParameters
+    } # end-of-HadronicModel
+} # end-of-FTFPRandomUniv0004
+
+FTFPRandomUniv0005 : { 
+    module_type:  ProcLevelMPVaryProducer 
+    errorOnFailureToPut: false 
+    Verbosity: 0
+    HadronicModel: {
+        DefaultPhysics: false
+        ModelParameters: {
+            BARYON_NUCDESTR_P1_TGT : 0.00269035
+            USE_BARYON_NUCDESTR_P1_ADEP_TGT : 1
+            BARYON_PROC1_A1      : 13.2916
+            BARYON_PROC1_B1      : 0.0371569
+            BARYON_PROC1_A2      : -90.1577
+            BARYON_PROC1_B2      : 1.82366
+        } # end-of-ModelParameters
+    } # end-of-HadronicModel
+} # end-of-FTFPRandomUniv0005
+
+END_PROLOG
