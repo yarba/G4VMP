@@ -168,12 +168,17 @@ setup clhep v2_4_4_2 -q e20:prof
 cd \<you-g4-install-area\> # e.g. /project/Geant4/yarba_j/geant4-local-builds/gcc-9.3.0
 
 git clone ssh://git@gitlab.cern.ch:7999/geant4/geant4-dev.git geant4-10-07-ref-06
+
 cd geant4-10-07-ref-06
+
 git checkout geant4-10-07-ref-06
+
 export G4INSTALL=$PWD
 
 cd ..
+
 mkdir geant4-10-07-ref-06-build
+
 cd geant4-10-07-ref-06-build
 
 cmake -DCMAKE_INSTALL_PREFIX=$G4INSTALL \
@@ -183,6 +188,7 @@ cmake -DCMAKE_INSTALL_PREFIX=$G4INSTALL \
 $G4INSTALL
 
 make -j20
+
 make install
 
 =========================================================
