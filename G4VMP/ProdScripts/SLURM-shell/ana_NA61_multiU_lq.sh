@@ -56,34 +56,33 @@ echo " momentum(z) = ${momz} "
 
 # more "uniform" approach as CVMFS is mounted on both Wilson & LQ1 
 #
-source  /cvmfs/larsoft.opensciencegrid.org/products/setup
 
-setup cmake v3_10_1
-setup mrb v1_14_00
+source /cvmfs/geant4-ib.opensciencegrid.org/products/setup
 
-setup art v2_11_03 -q e17:prof
-#
-# needed if using local G4 build !
-# in lieu of UPS build of geant4 v4_10_4-whatever...
-#
-setup xerces_c v3_2_2 -q e17:prof
+setup xerces_c v3_2_3 -q e20:prof
+setup cmake v3_20_0
+setup mrb v5_12_02
 
 cd ${WORKDIR_TOP}
 source ./localProducts*/setup
 
-# mrbsetenv is an alias for the complete command below; 
-# it will NOT work if issued from a script - one has to "source" it explicitly
-# and this should be done AFTER source-ing this ./localProducts...../setup thing
-# such deps on MRB are NOT super convenient, and at some point we might want
-# to explore alternatives ^_^
+# IN THE PAST mrbsetenv was an alias for source ${MRB_DIR}/bin/mrbSetEnv
+# it did NOT work if issued from a script - one has to "source" it explicitly
+# BUT as of MRB v5-series, such scripts is no longer there, however, mrbsetenv
+# seems to work just fine from the script
 #
-source ${MRB_DIR}/bin/mrbSetEnv
+mrbsetenv
 
-# needed if using local G4 build !
-# in lieu of UPS build of geant4 v4_10_4-whatever...
-#
-cd ${MRB_SOURCE}/artg4tk
-source ./geant4make-no-ups.sh geant4-10-06-ref-01 /home/yarba_j/geant4-local-builds/gcc-7.3.0
+cd ${MRB_SOURCE}/G4VMP
+
+node_name=`uname -n`
+
+G4LOCATION="/work1/g4v/yarba_j/geant4-local-builds/gcc-9.3.0"
+if [[ $node_name =~ "lq" ]]; then
+G4LOCATION="/project/Geant4/yarba_j/geant4-local-builds/gcc-9.3.0"
+fi
+
+source ./geant4make-no-ups.sh geant4-10-07-ref-06 ${G4LOCATION}
 
 rundirname=/scratch/analysis_${proc_level}_${beam}${momz}GeV_${target}
 if [ ! -d "${rundirname}" ]; then
@@ -96,7 +95,7 @@ echo " I am in $PWD "
 #
 # Copy over common-use scripts
 #
-G4ParamTest=${MRB_SOURCE}/artg4tk/artg4tk/G4PhysModelParamStudy
+G4ParamTest=${MRB_SOURCE}/G4VMP/G4VMP
 /bin/mkdir ${rundirname}/HelperScripts
 ${rundirname}/HelperScripts
 rsync -h --progress ${G4ParamTest}/ProdScripts/HelperScripts/art_services.sh ${rundirname}/HelperScripts
@@ -112,7 +111,13 @@ JSONDIR=${rundirname}/json
 if [ ! -d "${JSONDIR}" ]; then
 /bin/mkdir ${JSONDIR}
 fi 
-rsync -h --progress /home/yarba_j/dossier-json/ExpDataJSON.tgz ${JSONDIR}
+
+ExpDataLOCATION="/work1/g4v/yarba_j/dossier-json"
+if [[ $node_name =~ "lq" ]]; then
+ExpDataLOCATION="/home/yarba_j/dossier-json"
+fi
+rsync -h --progress ${ExpDataLOCATION}/ExpDataJSON.tgz ${JSONDIR}
+
 cd ${JSONDIR}
 tar -xzf ${JSONDIR}/ExpDataJSON.tgz
 cd ${rundirname}
@@ -245,7 +250,19 @@ tar zcf ${TARFILE} ${ts_filename}.root *.fcl
 
 
 DATE=`date +"%m-%d-%y"`
-G4VMP_OUT="/lustre1/g4/yarba_j/g4vmp-study"
+
+
+G4VMP_OUT_BASE="/wclustre/g4p/yarba_j"
+if [[ $node_name =~ "lq" ]]; then
+G4VMP_OUT_BASE="/lustre1/g4/yarba_j"
+fi
+
+if [ ! -d "${G4VMP_OUT_BASE}" ]; then
+mkdir ${G4VMP_OUT_BASE}
+fi
+
+G4VMP_OUT="${G4VMP_OUT_BASE}/g4vmp-study"
+
 if [ ! -d "${G4VMP_OUT}/${DATE}" ]; then
 mkdir ${G4VMP_OUT}/${DATE}
 fi

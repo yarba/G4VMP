@@ -6,6 +6,16 @@ if [ "x" == "x$WORKDIR_TOP" ] ; then
    exit 3
 fi
 
+label_uni=${1}
+if [ "x" == "x$label_uni" ]; then
+   echo " label of the universe is NOT provided; bail out"
+   exit 3;
+fi
+
+# the following two will work only if launched with MPI (--mpi=pmi2)
+# JobID=${PMI_RANK})
+# JobID=$((1+${PMI_RANK}))
+#
 # this one (hopefully) works if launched as follows:
 # srun -l simulate_multiU_mpi.sh
 # or (hopefully) when launcehed with MPI
@@ -17,16 +27,14 @@ echo " JobID = ${JobID} --> will sleep ${SLEEP_TIME} seconds"
 
 # define "experiment" (exp.dataset)
 #
-export experiment=HARP
+export experiment=NA61
 
 # in principle, we need to make sure that the number of jobs
 # does not exceed the number of cores, or the jobs will
 # compete for resources (as it happens in amd32_g4val_slow !)
 #
-# target_list=( C Cu Pb )
-# momz_list=( 3.0 5.0 8.0 12.0 )
-target_list=( C Cu )
-momz_list=( 8.0 )
+target_list=( C )
+momz_list=(  31.0 )
 
 ntgts=${#target_list[@]}
 nmoms=${#momz_list[@]}
@@ -34,6 +42,7 @@ nmoms=${#momz_list[@]}
 njobsmax=$((${ntgts}*${nmoms}))
 
 if [ ${JobID} -gt ${njobsmax} ]; then
+echo " JobID ${JobID} exceeds max number of needed jobs (${njobsmax}) " 
 exit
 fi
 
@@ -81,7 +90,8 @@ fi
 
 source ./geant4make-no-ups.sh geant4-10-07-ref-06 ${G4LOCATION}
 
-rundirname=/scratch/analysis_${proc_level}_${beam}${momz}GeV_${target}
+# --> rundirname=/scratch/analysis_${proc_level}_${beam}${momz}GeV_${target}
+rundirname=/dev/shm/analysis_${proc_level}_${beam}${momz}GeV_${target}
 if [ ! -d "${rundirname}" ]; then
 /bin/mkdir ${rundirname}
 fi
@@ -97,6 +107,7 @@ G4ParamTest=${MRB_SOURCE}/G4VMP/G4VMP
 ${rundirname}/HelperScripts
 rsync -h --progress ${G4ParamTest}/ProdScripts/HelperScripts/art_services.sh ${rundirname}/HelperScripts
 /bin/chmod +x ${rundirname}/HelperScripts/art_services.sh
+${rundirname}/HelperScripts
 rsync -h --progress ${G4ParamTest}/ProdScripts/exp_data_includes/exp_data.sh ${rundirname}/HelperScripts
 /bin/chmod +x ${rundirname}/HelperScripts/exp_data.sh
 
@@ -125,21 +136,21 @@ cd ${rundirname}
 # Note: PATH2EVT is set via env.var. on input to sbatch
 #
 evtfiledir=${PATH2EVT}/${proc_level}_${beam}${momz}GeV_${target}
- 
+
+# 
 # NOTE: obvioulsy, it wont work if the evtfiledir is empty or doesn't exist
 #       alternatively one may compose files names explicitly (e.g. from 0 to 31)
 #
 # ---> nfiles=`/bin/ls -alF ${rundirname}/*.root | wc -l`
 # NOTE: Or maybe just as follows ???
 # nfiles=`/bin/ls -alF ${rundirname}/*.root | wc -l`
-#
-nfiles=`/bin/ls -alF ${evtfiledir}/*.root | wc -l`
+nfiles=`/bin/ls -alF ${evtfiledir}/*${label_uni}*.root | wc -l`
 
 config_base=analysis_${proc_level}_${beam}${momz}GeV_${target}_${experiment}
 
-config=${config_base}.fcl
+config=${config_base}_${label_uni}.fcl
 
-ts_filename=${proc_level}_${beam}${momz}GeV_${target}-ProcL_${experiment}
+ts_filename=${proc_level}_${beam}${momz}GeV_${target}-ProcL_${experiment}_${label_uni}
 
 /usr/bin/printf "process_name: processANALYSIS \n" >> ${config}
 
@@ -150,8 +161,7 @@ ts_filename=${proc_level}_${beam}${momz}GeV_${target}-ProcL_${experiment}
 /usr/bin/printf "   maxEvents: -1 \n"  >> ${config}
 /usr/bin/printf "   fileNames: [ \n " >> ${config}
 icount=0
-# ---> evtrootfile_list=`/bin/ls -alF ${rundirname}/*.root | awk '{print $NF}'`
-evtrootfile_list=`/bin/ls -alF ${evtfiledir}/*.root | awk '{print $NF}'`
+evtrootfile_list=`/bin/ls -alF ${evtfiledir}/*${label_uni}*.root | awk '{print $NF}'`
 for ff in ${evtrootfile_list}; do
 /usr/bin/printf "               \"${ff}\"" >> ${config}
 icount=$((${icount}+1))
@@ -174,14 +184,19 @@ cfg_services_analysis >> ${config}
 
 /usr/bin/printf "   analyzers: { \n" >> ${config}
 
-# now the chain of analyzers...
+# now the analyser... 
 #
-# first of all, default
-#
-/usr/bin/printf "      ${proc_level}Default${experiment}: \n" >> ${config}
+
+/usr/bin/printf "      ${proc_level}${label_uni}${experiment}: \n" >> ${config}
 /usr/bin/printf "      { \n" >> ${config}
 /usr/bin/printf "         module_type: Analyzer${experiment} \n" >> ${config}
-/usr/bin/printf "         ProductLabel: \"${proc_level}Default\" \n" >> ${config}
+
+if [ "Default" == "${label_uni}"  ]; then
+/usr/bin/printf "         ProductLabel: \"${proc_level}${label_uni}\" \n" >> ${config}
+else
+/usr/bin/printf "         ProductLabel: \"${proc_level}Random${label_uni}\" \n" >> ${config}
+fi
+
 /usr/bin/printf "         IncludeExpData: \n" >> ${config}
 /usr/bin/printf "         { \n" >> ${config}
 /usr/bin/printf "            UseASCIIRecords: true \n " >> ${config}
@@ -189,26 +204,7 @@ cfg_services_analysis >> ${config}
 exp_data_${beam}${momz}GeV_${target}_${experiment} >> ${config} 
 /usr/bin/printf "\n         } \n" >> ${config}
 /usr/bin/printf "      } \n" >> ${config}
-#
-# now variants
-#
-pattern=0000
-for (( i=1; i<=${NUniv}; ++i )) do
-pos=$((${#pattern}-${#i}))
-# echo ${pattern:0:${pos}}
-univ=${pattern:0:${pos}}${i}
-/usr/bin/printf "      ${proc_level}Univ${univ}${experiment}: \n" >> ${config}
-/usr/bin/printf "      { \n" >> ${config}
-/usr/bin/printf "         module_type: Analyzer${experiment} \n" >> ${config}
-/usr/bin/printf "         ProductLabel: \"${proc_level}RandomUniv${univ}\" \n" >> ${config}
-/usr/bin/printf "         IncludeExpData: \n" >> ${config}
-/usr/bin/printf "         { \n" >> ${config}
-/usr/bin/printf "            UseASCIIRecords: true \n " >> ${config}
-/usr/bin/printf "            Path2Records : \"${JSONDIR}\" \n " >>  ${config}
-exp_data_${beam}${momz}GeV_${target}_${experiment} >> ${config}
-/usr/bin/printf "\n         } \n" >> ${config}
-/usr/bin/printf "      } \n" >> ${config}
-done
+
 
 /usr/bin/printf " \n" >> ${config}
 /usr/bin/printf "   } \n" >> ${config} # this is the end of analyzers-block
@@ -217,14 +213,7 @@ done
 
 # schedule analyzers for the run
 /usr/bin/printf "   path2: [ \n" >> ${config}
-/usr/bin/printf "            ${proc_level}Default${experiment} \n" >> ${config}
-pattern=0000
-for (( i=1; i<=${NUniv}; ++i )) do
-pos=$((${#pattern}-${#i}))
-# echo ${pattern:0:${pos}}
-univ=${pattern:0:${pos}}${i}
-/usr/bin/printf "          , ${proc_level}Univ${univ}${experiment} \n" >> ${config}
-done
+/usr/bin/printf "            ${proc_level}${label_uni}${experiment} \n" >> ${config}
 /usr/bin/printf "          ] \n" >> ${config} 
 
 /usr/bin/printf "   end_paths: [ path2 ] \n" >> ${config}
@@ -234,7 +223,10 @@ done
 /usr/bin/printf "} \n" >> ${config}
 
 LOGDIR=${G4ParamTest}/ProdScripts/SLURM-shell
-LOGFILE=${LOGDIR}/LOG_ANA_${SLURM_JOB_ID}_${proc_level}_${beam}${momz}GeV_${target}.log
+LOGFILE=${LOGDIR}/LOG_ANA_${SLURM_JOB_ID}_${proc_level}_${beam}${momz}GeV_${target}_${label_uni}.log
+
+echo " starting art job at `date` "
+
 art -c ${config} >& ${LOGFILE}
 
 # NOW NEED TO 
@@ -242,13 +234,15 @@ art -c ${config} >& ${LOGFILE}
 # --> TRANSFERE OUTPUT TO /lfstev
 # --> CLEANUP
 
-TARFILE=${rundirname}/analysis_${proc_level}_${beam}${momz}GeV_${target}.tgz
+TARFILE=${rundirname}/analysis_${proc_level}_${beam}${momz}GeV_${target}_${label_uni}.tgz
 tar zcf ${TARFILE} ${ts_filename}.root *.fcl
 
 
 DATE=`date +"%m-%d-%y"`
 
-G4VMP_OUT_BASE="/wclustre/g4p/yarba_j"
+
+# G4VMP_OUT_BASE="/wclustre/g4p/yarba_j"
+G4VMP_OUT_BASE="/wclustre/g4v/yarba_j"
 if [[ $node_name =~ "lq" ]]; then
 G4VMP_OUT_BASE="/lustre1/g4/yarba_j"
 fi
@@ -259,18 +253,13 @@ fi
 
 G4VMP_OUT="${G4VMP_OUT_BASE}/g4vmp-study"
 
-if [ ! -d "${G4VMP_OUT}" ]; then
-mkdir ${G4VMP_OUT}
-fi
-
 if [ ! -d "${G4VMP_OUT}/${DATE}" ]; then
 mkdir ${G4VMP_OUT}/${DATE}
 fi
-if [ ! -d "${G4VMP_OUT}/${DATE}/analysis_${proc_level}_${beam}_${experiment}" ]; then
+if [ ! -d "${G4VMP_OUT}/${DATE}/analysis_${proc_level}_${target}" ]; then
 mkdir ${G4VMP_OUT}/${DATE}/analysis_${proc_level}_${beam}_${experiment}
 fi
 
-# --> fcp -c /usr/bin/rcp ${TARFILE} ibtevnfsg4:/lfstev/g4p/yarba_j/g4studies/${CURRENTDATE}/analysis_${proc_level}_${beam}_HARP
 rsync -h -z --progress ${TARFILE} ${G4VMP_OUT}/${DATE}/analysis_${proc_level}_${beam}_${experiment}
 
 /bin/rm -rf ${rundirname}

@@ -25,8 +25,9 @@ export experiment=HARP
 #
 # target_list=( C Cu Pb )
 # momz_list=( 3.0 5.0 8.0 12.0 )
-target_list=( C Cu )
-momz_list=( 8.0 )
+# --> target_list=( C Cu Ta Pb )
+target_list=( C )
+momz_list=( 5.0 )
 
 ntgts=${#target_list[@]}
 nmoms=${#momz_list[@]}
@@ -81,7 +82,8 @@ fi
 
 source ./geant4make-no-ups.sh geant4-10-07-ref-06 ${G4LOCATION}
 
-rundirname=/scratch/analysis_${proc_level}_${beam}${momz}GeV_${target}
+# --> rundirname=/scratch/analysis_${proc_level}_${beam}${momz}GeV_${target}
+rundirname=/dev/shm/analysis_${proc_level}_${beam}${momz}GeV_${target}
 if [ ! -d "${rundirname}" ]; then
 /bin/mkdir ${rundirname}
 fi

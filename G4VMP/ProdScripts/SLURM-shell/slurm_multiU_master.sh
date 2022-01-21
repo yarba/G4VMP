@@ -23,6 +23,7 @@ echo " maxevents per core = ${maxevents}"
 echo " WORKDIR_TOP = ${WORKDIR_TOP}"
 echo " SLURM_SUBMIT_DIR = ${SLURM_SUBMIT_DIR}"
 
-srun -l $1
+# --> srun -l $1 
+srun -l $1 $2 $3
 
 

@@ -6,6 +6,9 @@ if [ "x" == "x$WORKDIR_TOP" ] ; then
    exit 3
 fi
 
+NU1=${1}
+NU2=${2}
+
 # the following two will work only if launched with MPI (--mpi=pmi2)
 # JobID=${PMI_RANK})
 # JobID=$((1+${PMI_RANK}))
@@ -152,6 +155,21 @@ GEN_RNDM=12345
 #
 seed=1234
 outlabel=out${process}
+
+LOGDIR=${G4ParamTest}/ProdScripts/SLURM-shell
+
+# --> export LD_LIBRARY_PATH=${MRB_BUILDDIR}/artg4tk/lib:$LD_LIBRARY_PATH
+echo " CET_SUBDIR = ${CET_SUBDIR} "
+export LD_LIBRARY_PATH=${MRB_BUILDDIR}/G4VMP/${CET_SUBDIR}.e20.prof/lib:$LD_LIBRARY_PATH
+
+echo " ***** ===== ***** "
+echo "LD_LIBRARY_PATH = ${LD_LIBRARY_PATH}"
+echo " ***** ===== ***** "
+
+# Do Default only if NU1=0
+#
+if [ "1" == "$NU1" ]; then
+
 outfile=Evt-${config_base}-Default
 if [ ! "x" == "x$JobID" ]; then
 # ---> seed=$((${seed}+${JobID}))
@@ -199,15 +217,6 @@ cfg_generator >> ${config}
 
 /usr/bin/printf "} \n" >> ${config}
 
-# --> export LD_LIBRARY_PATH=${MRB_BUILDDIR}/artg4tk/lib:$LD_LIBRARY_PATH
-echo " CET_SUBDIR = ${CET_SUBDIR} "
-export LD_LIBRARY_PATH=${MRB_BUILDDIR}/G4VMP/${CET_SUBDIR}.e20.prof/lib:$LD_LIBRARY_PATH
-
-echo " ***** ===== ***** "
-echo "LD_LIBRARY_PATH = ${LD_LIBRARY_PATH}"
-echo " ***** ===== ***** "
-
-LOGDIR=${G4ParamTest}/ProdScripts/SLURM-shell
 LOGFILE=${LOGDIR}/LOG_SIM_${SLURM_JOB_ID}_${proc_level}_${beam}${momz}GeV_${target}-Default-${JobID}.log
 
 art -c ${config} >& ${LOGFILE}
@@ -231,9 +240,12 @@ done
 
 /bin/rm *.root
 
+fi   # end doing Default
+
 pattern=0000
 
-for (( i=1; i<=${NUniv}; ++i )) do
+# --> for (( i=1; i<=${NUniv}; ++i )) do
+for (( i=${NU1}; i<=${NU2}; ++i )) do
 
 RUN_NUMBER=${i}
 
@@ -242,7 +254,6 @@ seed=$((1234+${i}))
 pos=$((${#pattern}-${#i}))
 # echo ${pattern:0:${pos}}
 univ=${pattern:0:${pos}}${i}
-
 #
 outfile=Evt-${config_base}-add-Univ${univ}
 outlabel=out${process}Univ${univ}
