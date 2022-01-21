@@ -181,6 +181,10 @@ mkdir geant4-10-07-ref-06-build
 
 cd geant4-10-07-ref-06-build
 
+NOTE: Starting release 11.0 the Default build is MT \
+       thus it may make sense to use flag -DGEANT4_BUILD_MULTITHREADED=OFF \
+       Also one may want to consider -DGEANT4_USE_SYSTEM_EXPAT=OFF 
+
 cmake -DCMAKE_INSTALL_PREFIX=$G4INSTALL \
 -DGEANT4_USE_GDML=ON -DXERCESC_ROOT_DIR=$XERCESCROOT \
 -DGEANT4_USE_SYSTEM_CLHEP=ON \
