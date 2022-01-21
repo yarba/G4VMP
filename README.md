@@ -158,10 +158,11 @@ mrb b
 
 
 For building Geant4 (before anything else)
+
 =========================================================
 
-\# in addition to setting up xerces_c and cmake:
-\#
+In addition to setting up xerces_c and cmake:
+
 setup clhep v2_4_4_2 -q e20:prof
 
 cd \<you-g4-install-area\> # e.g. /project/Geant4/yarba_j/geant4-local-builds/gcc-9.3.0
