@@ -55,6 +55,25 @@ FTFPRandomUniv0002 : {
     } # end-of-HadronicModel
 } # end-of-FTFPRandomUniv0002
 
+
+# Fit vs IAEA/ITEP (proton & neutron spectra), poly3
+#
+FTFPFitNucDestr : {
+    module_type:  ProcLevelVmpProducer 
+    errorOnFailureToPut: false 
+    Verbosity: 0
+    HadronicModel: {
+        DefaultPhysics: false
+        ModelParameters: {
+            BARYON_NUCDESTR_P1_TGT : 0.0041
+            USE_BARYON_NUCDESTR_P1_ADEP_TGT : 1
+            BARYON_NUCDESTR_P2_TGT : 11.35
+            BARYON_NUCDESTR_P3_TGT : 2.94
+            BARYON_EXCI_E_PER_WNDNUCLN : 24.1
+        } # end-of-ModelParameters
+    } # end-of-HadronicModel
+} # end-of-FTFPFitNucDestr
+
 # 100NP, poly3
 #
 FTFPBestFit1 : { 

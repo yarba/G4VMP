@@ -468,19 +468,18 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      multiUniv.Add( &ftfBaryonNucDestrP1Tgt );
      ftfBaryonNucDestrP1TgtADEP.SetEnabled(true);  
      multiUniv.Add( &ftfBaryonNucDestrP1TgtADEP ); 
-/* */
-/*
      ftfBaryonNucDestrP2Tgt.SetEnabled(true);
      multiUniv.Add( &ftfBaryonNucDestrP2Tgt );
      ftfBaryonNucDestrP3Tgt.SetEnabled(true);     
      multiUniv.Add( &ftfBaryonNucDestrP3Tgt ); 
+/*
      ftfBaryonPtNucDestrP1.SetEnabled(true); 
      multiUniv.Add( &ftfBaryonPtNucDestrP1 );
      ftfBaryonPtNucDestrP2.SetEnabled(true); 
      multiUniv.Add( &ftfBaryonPtNucDestrP2 );
+*/
      ftfBaryonExciEWndNucln.SetEnabled(true); // ( "BARYON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100. );
      multiUniv.Add( &ftfBaryonExciEWndNucln );
-*/
 
      ftfBaryonProc0A1.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc0A1 );
@@ -491,7 +490,6 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      ftfBaryonProc0B2.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc0B2 );
 
-/*
      ftfBaryonProc1A1.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc1A1 );
      ftfBaryonProc1B1.SetEnabled(true);
@@ -500,7 +498,6 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      multiUniv.Add( &ftfBaryonProc1A2 );
      ftfBaryonProc1B2.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc1B2 );
-*/
 /*
      ftfBaryonProc4A1.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc4A1 );

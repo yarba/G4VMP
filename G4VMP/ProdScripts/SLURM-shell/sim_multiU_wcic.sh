@@ -15,12 +15,18 @@ NU2=${2}
 #
 # this one (hopefully) works if launched as follows:
 # srun -l simulate_multiU_mpi.sh
-# or (hopefully) when launcehed with MPI
+# or (hopefully) when launched with MPI
 JobID=$((1+${SLURM_PROCID}))
+# JobID=$((9+${SLURM_PROCID}))
+
 
 echo " JobID = ${JobID} --> maxevents = ${maxevents} "
 
-SLEEP_TIME=$((${RANDOM}%60+1))
+# Space jobs in time not randomly but by 15 seconds
+# ... in a hope it'll be enough for mrbsetenv NOT to hiccup...
+# 
+# --> SLEEP_TIME=$((${RANDOM}%60+1))
+SLEEP_TIME=$((JobID*15))
 echo " JobID = ${JobID} --> will sleep ${SLEEP_TIME} seconds"
 /usr/bin/sleep ${SLEEP_TIME}
 
@@ -42,8 +48,12 @@ echo " Start job ${JobID}: ${start_time}"
 source /cvmfs/geant4-ib.opensciencegrid.org/products/setup
 
 setup xerces_c v3_2_3 -q e20:prof
-setup cmake v3_20_0
-setup mrb v5_12_02
+# --> setup cmake v3_20_0
+# --> setup mrb v5_12_02
+setup critic v2_09_00 -q e20:prof
+setup cmake v3_22_0
+setup mrb v5_19_05
+
 
 cd ${WORKDIR_TOP}
 source ./localProducts*/setup
@@ -67,16 +77,15 @@ if [[ $node_name =~ "lq" ]]; then
 G4LOCATION="/project/Geant4/yarba_j/geant4-local-builds/gcc-9.3.0"
 fi
 
-# source ./geant4make-no-ups.sh geant4-10-07-ref-06 /project/Geant4/yarba_j/geant4-local-builds/gcc-9.3.0
-source ./geant4make-no-ups.sh geant4-10-07-ref-06 ${G4LOCATION}
+source ./geant4make-no-ups.sh geant4-11-00 ${G4LOCATION}
 echo " G4INSTALL = ${G4INSTALL} "
 
 # setup output destiation dir
 #
 DATE=`date +"%m-%d-%y"`
 
-# G4VMP_OUT_BASE="/wclustre/g4v/yarba_j"
-G4VMP_OUT_BASE="/wclustre/g4p/yarba_j"
+G4VMP_OUT_BASE="/wclustre/g4v/yarba_j"
+# G4VMP_OUT_BASE="/wclustre/g4p/yarba_j"
 if [[ $node_name =~ "lq" ]]; then
 G4VMP_OUT_BASE="/lustre1/g4/yarba_j"
 fi
@@ -166,7 +175,7 @@ echo " ***** ===== ***** "
 echo "LD_LIBRARY_PATH = ${LD_LIBRARY_PATH}"
 echo " ***** ===== ***** "
 
-# Do Default only if NU1=0
+# Do Default only if NU1=1
 #
 if [ "1" == "$NU1" ]; then
 

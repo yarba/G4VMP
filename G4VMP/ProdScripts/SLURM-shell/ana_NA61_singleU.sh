@@ -119,9 +119,9 @@ if [ ! -d "${JSONDIR}" ]; then
 /bin/mkdir ${JSONDIR}
 fi 
 
-ExpDataLOCATION="/work1/g4v/yarba_j/dossier-json"
+ExpDataLOCATION="/work1/g4v/yarba_j/dossier-json-update"
 if [[ $node_name =~ "lq" ]]; then
-ExpDataLOCATION="/home/yarba_j/dossier-json"
+ExpDataLOCATION="/home/yarba_j/dossier-json-update"
 fi
 rsync -h --progress ${ExpDataLOCATION}/ExpDataJSON.tgz ${JSONDIR}
 
