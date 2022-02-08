@@ -125,7 +125,7 @@ mrbsetenv
 
 cd $MRB_SOURCE}/srcs/G4VMP
 
-source ./geant4make-no-ups.sh geant4-11-00 <path-to-your-g4-area>
+source ./geant4make-no-ups.sh geant4-11-00 \<path-to-your-g4-area\>
 
 cd $MRB_BUILDDIR
 
