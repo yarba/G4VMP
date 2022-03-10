@@ -27,14 +27,14 @@ echo " JobID = ${JobID} --> will sleep ${SLEEP_TIME} seconds"
 
 # define "experiment" (exp.dataset)
 #
-export experiment=NA61
+export experiment=NA49
 
 # in principle, we need to make sure that the number of jobs
 # does not exceed the number of cores, or the jobs will
 # compete for resources (as it happens in amd32_g4val_slow !)
 #
 target_list=( C )
-momz_list=(  31.0 )
+momz_list=(  158.0 )
 
 ntgts=${#target_list[@]}
 nmoms=${#momz_list[@]}
@@ -268,5 +268,4 @@ rsync -h -z --progress ${TARFILE} ${G4VMP_OUT}/${DATE}/analysis_${proc_level}_${
 /bin/rm -rf ${rundirname}
 
 exit
-
 

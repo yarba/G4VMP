@@ -27,14 +27,15 @@ echo " JobID = ${JobID} --> will sleep ${SLEEP_TIME} seconds"
 
 # define "experiment" (exp.dataset)
 #
-export experiment=NA61
+export experiment=HARP
 
 # in principle, we need to make sure that the number of jobs
 # does not exceed the number of cores, or the jobs will
 # compete for resources (as it happens in amd32_g4val_slow !)
 #
-target_list=( C )
-momz_list=(  31.0 )
+target_list=( C Cu Pb Ta )
+# momz_list=( 3.0 5.0 8.0 12.0 )
+momz_list=( 8.0 )
 
 ntgts=${#target_list[@]}
 nmoms=${#momz_list[@]}
@@ -42,7 +43,6 @@ nmoms=${#momz_list[@]}
 njobsmax=$((${ntgts}*${nmoms}))
 
 if [ ${JobID} -gt ${njobsmax} ]; then
-echo " JobID ${JobID} exceeds max number of needed jobs (${njobsmax}) " 
 exit
 fi
 
@@ -60,9 +60,6 @@ echo " beam = ${beam} "
 echo " pdgcode = ${pdgcode} "
 echo " momentum(z) = ${momz} "
 
-# more "uniform" approach as CVMFS is mounted on both Wilson & LQ1 
-#
-
 source /cvmfs/geant4-ib.opensciencegrid.org/products/setup
 
 setup critic v2_09_00 -q e20:prof
@@ -77,14 +74,18 @@ source ./localProducts*/setup
 # it did NOT work if issued from a script - one has to "source" it explicitly
 # BUT as of MRB v5-series, such scripts is no longer there, however, mrbsetenv
 # seems to work just fine from the script
+# NOTE: mrbSetEnv moved to ${MRB_DIR}/libexec
+#
+# Since v5_19_05, problematic if used multiple times
 #
 # ---> mrbsetenv
 #
 mrbslp
 
+# needed if using local G4 build !
+# in lieu of UPS build of geant4 v4_10_4-whatever...
+#
 cd ${MRB_SOURCE}/G4VMP
-
-node_name=`uname -n`
 
 G4LOCATION="/work1/g4v/yarba_j/geant4-local-builds/gcc-9.3.0"
 if [[ $node_name =~ "lq" ]]; then
@@ -107,7 +108,6 @@ echo " I am in $PWD "
 #
 G4ParamTest=${MRB_SOURCE}/G4VMP/G4VMP
 /bin/mkdir ${rundirname}/HelperScripts
-# ---> ??? ${rundirname}/HelperScripts
 rsync -h --progress ${G4ParamTest}/ProdScripts/HelperScripts/art_services.sh ${rundirname}/HelperScripts
 /bin/chmod +x ${rundirname}/HelperScripts/art_services.sh
 # ---> ??? ${rundirname}/HelperScripts
@@ -126,6 +126,7 @@ ExpDataLOCATION="/work1/g4v/yarba_j/dossier-json"
 if [[ $node_name =~ "lq" ]]; then
 ExpDataLOCATION="/home/yarba_j/dossier-json"
 fi
+
 rsync -h --progress ${ExpDataLOCATION}/ExpDataJSON.tgz ${JSONDIR}
 
 cd ${JSONDIR}
@@ -154,6 +155,7 @@ config_base=analysis_${proc_level}_${beam}${momz}GeV_${target}_${experiment}
 config=${config_base}_${label_uni}.fcl
 
 ts_filename=${proc_level}_${beam}${momz}GeV_${target}-ProcL_${experiment}_${label_uni}
+
 
 /usr/bin/printf "process_name: processANALYSIS \n" >> ${config}
 
@@ -268,5 +270,6 @@ rsync -h -z --progress ${TARFILE} ${G4VMP_OUT}/${DATE}/analysis_${proc_level}_${
 /bin/rm -rf ${rundirname}
 
 exit
+
 
 

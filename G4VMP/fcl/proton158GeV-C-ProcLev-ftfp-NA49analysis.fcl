@@ -1,0 +1,144 @@
+
+#include "ftf-params-process-level-include.fcl"
+
+process_name:processA
+
+source: 
+{
+  module_type: EmptyEvent
+  maxEvents:   10000
+}
+
+services: 
+{
+
+  message : 
+  {
+     # debugModules : ["*"]
+     # suppressInfo : []    
+     destinations : 
+     {
+       LogToConsole : 
+       {
+         type : "cout"
+         threshold : "DEBUG"
+         categories : 
+	 {
+           ArtReport: { 
+	      reportEvery: 100
+	      limit: 50
+	   }
+	   # using limit=0 will suppress lots of info,
+	   # including Time & Memory reports, event success rate, etc.
+	   # default : { limit : 0 }
+	   default : { limit : 50 }
+         }
+       }
+     }
+  }
+
+  TFileService :
+  {
+    fileName: "proton158GeV-C-FTFP-BestFit2_NA49.root"
+  }
+
+  RandomNumberGenerator: {}
+         
+  PhysModelConfig: 
+  {
+        Verbosity: false
+  }
+     
+  ProcLevelSimSetup:
+  {
+	HadronicModelName: "FTFP"
+	TargetNucleus: "C"
+	RNDMSeed: 12345
+  }
+
+} #end of services
+
+outputs: 
+{
+   out1: 
+   {
+      module_type: RootOutput   
+      fileName: "Evt-proton158GeV-C-FTFP-BestFit2.root"
+   }
+}
+
+physics: {
+
+  producers: 
+  {
+
+     PrimaryGenerator:
+     {
+        module_type: "G4VMP/EventGenerators/EventGenerator"
+	nparticles : 1
+	pdgcode:  2212
+//	pdgcode:  211
+	momentum: [ 0., 0., 158. ] // in GeV 
+     }
+
+//     FTFPDefault           : @local::FTFPDefault
+     FTFPBestFit2    : @local::FTFPBestFit2
+    
+  }
+  
+  analyzers:
+  {
+  
+     FTFPBestFit2NA49:
+     {
+        module_type: AnalyzerNA49
+	ProductLabel: "FTFPBestFit2"
+	IncludeExpData: 
+	{
+	   UseASCIIRecords: true
+	   //
+	   // this is for running on Wilson:
+	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
+	   //
+	   // this is for running on LQ1:
+	   // Path2Records : "/home/yarba_j/dossier-json"
+	   //
+	   // this is for running on WC-IC
+	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+# new record ids for 158GeVc/ proton on C
+	   DBRecords: [ 
+	      14649, 14650, 14651, 14652, 14653, 14654, 14655, 14656, 14657,
+	      14658, 14659, 14660, 14661, 14662, 14663, 14664, 14665, 14666, 
+              14667, 14668, 14669, 14670, 14671, 14672, 14673, 14674, 14675, 
+              14676, 14677, 14678, 14679, 14680, 14681, 14682, 
+	      14683, 14684, 14685, 14686, 14687, 14688, 14689, 14690, 14691,
+              14692, 14693, 14694, 14695, 14696, 14697, 14698, 14699, 14700, 
+              14701, 14702, 14703, 14704, 14705, 14706, 14707,
+	      14708, 14709, 14710, 14711, 14712, 14713, 14714, 14715, 14716, 14717, 
+              14718, 14719, 14720, 14721, 14722, 14723, 14724, 14725, 14726, 14727, 
+              14728, 14729, 14730, 14731, 14732, 14733, 14734, 14735, 14736, 14737, 
+              14738, 14739, 14740, 14741, 14742, 14743, 14744, 14745, 14746, 14747
+		      ]
+	}
+     }
+
+  }
+  
+  path1:   [ PrimaryGenerator 
+	     , FTFPBestFit2 
+	   ]
+  path2:   [ 
+             FTFPBestFit2NA49
+	   ] 
+  stream1: [ out1 ]
+
+  trigger_paths: [ path1 ]
+  #
+  # NOTE: Remember, if you have an end_path, you should put your analyzer(s) there !
+  #       Otherwise, they will NOT be included in the exec.
+  #       If you don't have an end_path, things will magically work though... 
+  #        
+   end_paths:     [ path2, stream1 ]
+//  end_paths:     [ stream1 ]
+
+}

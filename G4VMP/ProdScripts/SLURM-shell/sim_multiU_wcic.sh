@@ -25,8 +25,8 @@ echo " JobID = ${JobID} --> maxevents = ${maxevents} "
 # Space jobs in time not randomly but by 15 seconds
 # ... in a hope it'll be enough for mrbsetenv NOT to hiccup...
 # 
-# --> SLEEP_TIME=$((${RANDOM}%60+1))
-SLEEP_TIME=$((JobID*15))
+SLEEP_TIME=$((${RANDOM}%60+1))
+# SLEEP_TIME=$((JobID*15))
 echo " JobID = ${JobID} --> will sleep ${SLEEP_TIME} seconds"
 /usr/bin/sleep ${SLEEP_TIME}
 
@@ -62,8 +62,15 @@ source ./localProducts*/setup
 # it did NOT work if issued from a script - one has to "source" it explicitly
 # BUT as of MRB v5-series, such scripts is no longer there, however, mrbsetenv
 # seems to work just fine from the script
+# ... OK, the script seems to have moved to ${MRB_DIR}/libexec which doesn't
+# seem to be in the PATH...
 #
-mrbsetenv
+# ---> mrbsetenv
+#
+# if the local modules are installed (in a UPS-ish way) to localProducts* area,
+# ona can do the following instead of mrbsetenv
+#
+mrbslp
 
 # needed if using local G4 build !
 # in lieu of UPS build of geant4 v4_10_4-whatever...

@@ -230,8 +230,8 @@ void G4VMP::AnalyzerNA49::beginJob()
 
    // fHistoSecProton.push_back( tfs->make<TH1D>( "proton_dNdxF",   "Integrated", fNPBinsXF-1, fPBinsXF ) );
    // fHistoSecProton.push_back( tfs->make<TProfile>( "proton_pT",  "Integrated", fNPBinsXF-1, fPBinsXF, 0., 10. ) );
-   fHistoSecProton.push_back(  new TH1D( "tmp_proton_dNdxF",   "Integrated", 2000, -1., 1. ) );
-   fHistoSecProton.push_back(  new TProfile( "tmp_proton_pT",  "Integrated", 2000, -1., 1., 0., 10. ) );
+   fHistoSecProton.push_back(  new TH1D( "tmp_proton_dNdxF",   "Integrated", 4000, -1., 1. ) );
+   fHistoSecProton.push_back(  new TProfile( "tmp_proton_pT",  "Integrated", 4000, -1., 1., 0., 10. ) );
    
    // booking histos for double diff. pt ** proton ** spectra
    
@@ -244,7 +244,7 @@ void G4VMP::AnalyzerNA49::beginJob()
      std::string title = "xF=" + PrXFLabel[nb];
      hname = "tmp_proton_pT_DDIFF_" + osBin.str();
      // ---> fHistoPTProton.push_back( tfs->make<TH1D>( hname.c_str(), title.c_str(), fNPBinsPT-1, fPBinsPT ) );     
-     fHistoPTProton.push_back( new TH1D( hname.c_str(), title.c_str(), 250, 0., 2.5 ) );     
+     fHistoPTProton.push_back( new TH1D( hname.c_str(), title.c_str(), 5000, 0., 2.5 ) );     
    }
    
    // secondary anti-proton
@@ -260,8 +260,8 @@ void G4VMP::AnalyzerNA49::beginJob()
    // ---> fHistoSecAntiProton.push_back( tfs->make<TH1D>( "antiproton_dNdxF",  "Integrated", npbarbins, pbarbins ) );	
    // ---> fHistoSecAntiProton.push_back( tfs->make<TProfile>( "antiproton_pT", "Integrated", npbarbins, pbarbins, 0., 10. ) );	
 */
-   fHistoSecAntiProton.push_back( new TH1D( "tmp_antiproton_dNdxF",  "Integrated", 2000, -1., 1. ) );	
-   fHistoSecAntiProton.push_back( new TProfile( "tmp_antiproton_pT", "Integrated", 2000, -1., 1., 0., 10. ) );	
+   fHistoSecAntiProton.push_back( new TH1D( "tmp_antiproton_dNdxF",  "Integrated", 4000, -1., 1. ) );	
+   fHistoSecAntiProton.push_back( new TProfile( "tmp_antiproton_pT", "Integrated", 4000, -1., 1., 0., 10. ) );	
    
    fNPbarBinsXF = 14; // 13+1
    fPbarBinsXF = new double[fNPbarBinsXF];
@@ -302,7 +302,7 @@ void G4VMP::AnalyzerNA49::beginJob()
      osBin << nb;
      std::string title = "xF=" + PbarXFLabel[nb];
      hname = "tmp_antiproton_pT_DDIFF_" + osBin.str();
-     fHistoPTAntiProton.push_back( new TH1D( hname.c_str(), title.c_str(), 250, 0., 2.5 ) );     
+     fHistoPTAntiProton.push_back( new TH1D( hname.c_str(), title.c_str(), 500, 0., 2.5 ) );     
    }
    
    // secondary pions
@@ -400,15 +400,15 @@ void G4VMP::AnalyzerNA49::beginJob()
    
    // ---> fHistoSecPiMinus.push_back( tfs->make<TH1D>( "piminus_dNdxF",   "Integrated", fNPiBinsXF-1, fPiBinsXF ) );
    // ---> fHistoSecPiMinus.push_back( tfs->make<TProfile>( "piminus_pT",  "Integrated", fNPiBinsXF-1, fPiBinsXF, 0., 10. ) );
-   fHistoSecPiMinus.push_back( new TH1D( "tmp_piminus_dNdxF",   "Integrated", 2000, -1., 1. ) );
-   fHistoSecPiMinus.push_back( new TProfile( "tmp_piminus_pT",  "Integrated", 2000, -1., 1., 0., 10. ) );
+   fHistoSecPiMinus.push_back( new TH1D( "tmp_piminus_dNdxF",   "Integrated", 4000, -1., 1. ) );
+   fHistoSecPiMinus.push_back( new TProfile( "tmp_piminus_pT",  "Integrated", 4000, -1., 1., 0., 10. ) );
 
    // book histos for integrated ** pi+ ** spectra
    
    // ---> fHistoSecPiPlus.push_back( tfs->make<TH1D>( "piplus_dNdxF",   "Integrated", fNPiBinsXF-1, fPiBinsXF ) );
    // ---> fHistoSecPiPlus.push_back( tfs->make<TProfile>( "piplus_pT",  "Integrated", fNPiBinsXF-1, fPiBinsXF, 0., 10. ) );
-   fHistoSecPiPlus.push_back( new TH1D( "tmp_piplus_dNdxF",   "Integrated", 2000, -1., 1. ) );
-   fHistoSecPiPlus.push_back( new TProfile( "tmp_piplus_pT",  "Integrated", 2000, -1., 1., 0., 10. ) );
+   fHistoSecPiPlus.push_back( new TH1D( "tmp_piplus_dNdxF",   "Integrated", 4000, -1., 1. ) );
+   fHistoSecPiPlus.push_back( new TProfile( "tmp_piplus_pT",  "Integrated", 4000, -1., 1., 0., 10. ) );
 
    // book histos for double diff. pt ** pi-/pi+ ** spectra
 
@@ -419,10 +419,10 @@ void G4VMP::AnalyzerNA49::beginJob()
      std::string title = "xF=" + PiXFLabel[nb];
      hname = "tmp_piminus_pT_DDIFF_" + osBin.str();
      // ---> fHistoPTPiMinus.push_back( tfs->make<TH1D>( hname.c_str(), title.c_str(), fNPiBinsPT-1, fPiBinsPT ) ); 
-     fHistoPTPiMinus.push_back( new TH1D( hname.c_str(), title.c_str(), 250, 0., 2.5 ) ); 
+     fHistoPTPiMinus.push_back( new TH1D( hname.c_str(), title.c_str(), 500, 0., 2.5 ) ); 
      hname = "tmp_piplus_pT_DDIFF_" + osBin.str();  
      // ---> fHistoPTPiPlus.push_back( tfs->make<TH1D>( hname.c_str(),  title.c_str(), fNPiBinsPT-1, fPiBinsPT ) );     
-     fHistoPTPiPlus.push_back( new TH1D( hname.c_str(),  title.c_str(), 250, 0., 2.5 ) );     
+     fHistoPTPiPlus.push_back( new TH1D( hname.c_str(),  title.c_str(), 500, 0., 2.5 ) );     
    }
    
    // booking histos for secondary ** neutron ** integrated spectra
@@ -662,7 +662,7 @@ void G4VMP::AnalyzerNA49::endJob()
          }
 	 h1->Scale( fXSecOnTarget/((double)stat) ); // Note: NO scaling with "width" here - see comment earlier
       }
-      
+            
       rebinMC2Data( "tmp_" );
       
       for ( itr=fVDBRecID2MC.begin(); itr!=fVDBRecID2MC.end(); ++itr )
@@ -950,7 +950,7 @@ void G4VMP::AnalyzerNA49::analyze( const art::Event& e )
 	   fHistoSecProton[0]->Fill( xF );
 	   fHistoSecProton[1]->Fill( xF, pT );
 	   int nb = -1;
-	   for ( int ib=0; ib<fNPBinsXF; ++ib ) // # number of proton bins are N and the size is N+1, while for pions # is N+1
+	   for ( int ib=0; ib<fNPBinsXF-1; ++ib ) // # number of proton bins are N and the size is N+1, while for pions # is N+1
 	                                        // need to make it uniform !!!
 	   {
 	         if ( xF > fPBinsXF[ib] && xF <= fPBinsXF[ib+1] )
@@ -969,7 +969,7 @@ void G4VMP::AnalyzerNA49::analyze( const art::Event& e )
 	   fHistoSecAntiProton[0]->Fill( xF );
 	   fHistoSecAntiProton[1]->Fill( xF, pT );
 	   int nb = -1;
-	   for ( int ib=0; ib<fNPbarBinsXF; ++ib ) // # number of proton bins are N and the size is N+1, while for pions # is N+1
+	   for ( int ib=0; ib<fNPbarBinsXF-1; ++ib ) // # number of proton bins are N and the size is N+1, while for pions # is N+1
 	                                        // need to make it uniform !!!
 	   {
 	         if ( xF > fPbarBinsXF[ib] && xF <= fPbarBinsXF[ib+1] )
