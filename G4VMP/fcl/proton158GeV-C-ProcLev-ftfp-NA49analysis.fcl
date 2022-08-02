@@ -1,16 +1,13 @@
 
-#include "ftf-fits-harp-na61-bestfit-nucdestr.fcl"
-// #include "ftf-fit-qex-proc1-nucdestr-p1-NA61-NA49.fcl"
-// #include "ftf-fit-qex-proc1-nucdestr-p1-NA49.fcl"
-// #include "ftf-fit-qex-proc0-nucdestr-p1-NA61.fcl"
 // #include "ftf-params-process-level-include.fcl"
+#include "ftf-Tune2022-v0.fcl"
 
 process_name:processA
 
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   1000000
+  maxEvents:   100000
 }
 
 services: 
@@ -43,9 +40,7 @@ services:
 
   TFileService :
   {
-//    fileName: "proton158GeV-C-FTFP-combo-BestFitPoly3_NA49.root"
-//    fileName: "proton158GeV-C-FTFP-FitProc0QEX2022_NA49.root"
-    fileName: "proton158GeV-C-FTFP-FitProc1QEX2022_NA49.root"
+    fileName: "proton158GeV-C-FTFP-Default_NA49.root"
   }
 
   RandomNumberGenerator: {}
@@ -69,9 +64,7 @@ outputs:
    out1: 
    {
       module_type: RootOutput   
-//      fileName: "Evt-proton158GeV-C-FTFP-BestFitPoly3.root"
-//      fileName: "Evt-proton158GeV-C-FTFP-FitProc0QEX2022.root"
-      fileName: "Evt-proton158GeV-C-FTFP-FitProc1QEX2022.root"
+      fileName: "Evt-proton158GeV-C-FTFP-Default.root"
    }
 }
 
@@ -90,9 +83,6 @@ physics: {
      }
 
      FTFPDefault           : @local::FTFPDefault
-//     FTFPBestFitPoly3    : @local::FTFPBestFitPoly3
-//     FTFPFitProc0QEX2022          : @local::FTFPFitProc0QEX2022
-     FTFPFitProc1QEX2022          : @local::FTFPFitProc1QEX2022
     
   }
   
@@ -132,56 +122,13 @@ physics: {
 	}
      }
 
-//     FTFPBestFitPoly3NA49:
-//     FTFPFitProc0QEX2022NA49:
-     FTFPFitProc1QEX2022NA49:
-     {
-        module_type: AnalyzerNA49
-//	ProductLabel: "FTFPBestFitPoly3"
-//	ProductLabel: "FTFPFitProc0QEX2022"
-	ProductLabel: "FTFPFitProc1QEX2022"
-	IncludeExpData: 
-	{
-	   UseASCIIRecords: true
-	   //
-	   // this is for running on Wilson:
-	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
-	   //
-	   // this is for running on LQ1:
-	   // Path2Records : "/home/yarba_j/dossier-json"
-	   //
-	   // this is for running on WC-IC
-	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
-# new record ids for 158GeVc/ proton on C
-	   DBRecords: [ 
-	      14649, 14650, 14651, 14652, 14653, 14654, 14655, 14656, 14657,
-	      14658, 14659, 14660, 14661, 14662, 14663, 14664, 14665, 14666, 
-              14667, 14668, 14669, 14670, 14671, 14672, 14673, 14674, 14675, 
-              14676, 14677, 14678, 14679, 14680, 14681, 14682, 
-	      14683, 14684, 14685, 14686, 14687, 14688, 14689, 14690, 14691,
-              14692, 14693, 14694, 14695, 14696, 14697, 14698, 14699, 14700, 
-              14701, 14702, 14703, 14704, 14705, 14706, 14707,
-	      14708, 14709, 14710, 14711, 14712, 14713, 14714, 14715, 14716, 14717, 
-              14718, 14719, 14720, 14721, 14722, 14723, 14724, 14725, 14726, 14727, 
-              14728, 14729, 14730, 14731, 14732, 14733, 14734, 14735, 14736, 14737, 
-              14738, 14739, 14740, 14741, 14742, 14743, 14744, 14745, 14746, 14747
-		      ]
-	}
-     }
-
   }
   
   path1:   [ PrimaryGenerator 
-//	     , FTFPBestFitPoly3 
              , FTFPDefault
-//	     , FTFPFitProc0QEX2022
-	     , FTFPFitProc1QEX2022
 	   ]
   path2:   [ 
-//             FTFPBestFitPoly3NA49
-             FTFPDefaultNA49, 
-//	     FTFPFitProc0QEX2022NA49
-	     FTFPFitProc1QEX2022NA49
+             FTFPDefaultNA49 
 	   ] 
   stream1: [ out1 ]
 
@@ -191,7 +138,7 @@ physics: {
   #       Otherwise, they will NOT be included in the exec.
   #       If you don't have an end_path, things will magically work though... 
   #        
-   end_paths:     [ path2 ] // , stream1 ]
+   end_paths:     [ path2, stream1 ]
 //  end_paths:     [ stream1 ]
 
 }

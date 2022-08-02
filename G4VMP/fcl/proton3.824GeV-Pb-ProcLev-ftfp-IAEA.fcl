@@ -1,0 +1,107 @@
+
+#include "ftf-Tune2022-v0.fcl"
+
+process_name: processA 
+ 
+source: { 
+   module_type: EmptyEvent 
+   maxEvents: 100000 
+} 
+ 
+services: { 
+
+   message: { 
+      debugModules : ["*"] 
+      suppressInfo : [] 
+      destinations : { 
+         LogToConsole : { 
+            type : "cout" 
+            threshold : "DEBUG" 
+            categories : { default : { limit : 50 } } 
+       } 
+      } 
+   } 
+
+   TFileService: 
+   { 
+      fileName: "proton3.824GeV-Pb-FTFP_IAEA.root" 
+   } 
+
+   RandomNumberGenerator: {} 
+
+  PhysModelConfig: 
+  {
+        Verbosity: false
+  }
+     
+  ProcLevelSimSetup:
+  {
+	HadronicModelName: "FTFP"
+	TargetNucleus: "Pb"
+	RNDMSeed: 12345
+  }
+
+} 
+ 
+physics: { 
+ 
+   producers: 
+   { 
+
+     PrimaryGenerator:
+     {
+        module_type: "G4VMP/EventGenerators/EventGenerator"
+	nparticles : 1
+	pdgcode:  2212
+//	pdgcode:  211
+	momentum: [ 0., 0., 3.824 ] // in GeV 
+     }
+
+     FTFPDefault           : @local::FTFPDefault
+     FTFPTune2022v0        : @local::FTFPTune2022v0
+
+   } 
+ 
+   analyzers: 
+   { 
+
+      FTFPDefaultIAEA: 
+      { 
+         module_type: AnalyzerIAEA 
+         ProductLabel: "FTFPDefault" 
+         IncludeExpData: 
+         { 
+            UseASCIIRecords: true 
+            Path2Records : "/work1/g4v/yarba_j/dossier-json" 
+            DBRecords: [ 189636, 189637, 189638, 189639, 189640, 189641 ]
+         } 
+      } 
+
+      FTFPTune2022v0IAEA: 
+      { 
+         module_type: AnalyzerIAEA 
+         ProductLabel: "FTFPTune2022v0" 
+         IncludeExpData: 
+         { 
+            UseASCIIRecords: true 
+            Path2Records : "/work1/g4v/yarba_j/dossier-json" 
+            DBRecords: [ 189636, 189637, 189638, 189639, 189640, 189641 ]
+         } 
+      } 
+ 
+   } 
+ 
+  path1:   [ PrimaryGenerator 
+             , FTFPDefault
+	     , FTFPTune2022v0 
+	   ]
+
+   path2: [ 
+            FTFPDefaultIAEA
+            , FTFPTune2022v0IAEA 
+          ] 
+
+   trigger_paths: [ path1 ]
+   end_paths: [ path2 ] 
+ 
+} 

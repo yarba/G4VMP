@@ -1,7 +1,8 @@
 #!/bin/sh
 
 #-----------------------------------------------------------------------
-# Bourne shell environment setup script for Geant4 10.3.0
+# Bourne shell environment setup script, originally for Geant4 10.3.0
+# but this modified revision works up to 11.0.r06
 #
 # This script will configure your environment to provide a setup which 
 # can be used to build user applications using the old Geant4 GNUmakefile 

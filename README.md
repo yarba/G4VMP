@@ -11,11 +11,11 @@ git clone git@github.com:yarba/G4VMP.git (SSH)
 
 git clone https://github.com/yarba/G4VMP.git (HTTPS)
 
-This revision is compatible with geant4-11-00 as well as art v3_10_00 
-and art_root_io v1_09_00 (via setup of critic v2_00_00 portmanteau).
+This revision is compatible with geant4-11-00-ref-06 as well as art v3_11_01 
+and art_root_io v1_10_01 (via setup of critic v2_10_01 portmanteau).
 Compiler gcc/g++ and CLHEP 2.4.5.1 will be set up as part of art.
 Root will be set up as part of art_root_io.
-Also required are cmake v3_22_0 and mrb v5_19_05 (both are required by art v3_10_00).
+Also required are cmake v3_23_1 and mrb v6_04_01 (both are required by art v3_11_01).
 To build Geant4 one also needs xerces_c v3_2_3.
 
 ==========================================
@@ -24,11 +24,11 @@ Example procedure:
 
 source /cvmfs/geant4-ib.opensciencegrid.org/products/setup
 
-setup critic v2_09_00 -q e20:prof
+setup critic v2_10_01 -q e20:prof
 
 setup xerces_c v3_2_3 -q e20:prof
 
-setup cmake v3_22_0
+setup cmake v3_22_2
 
 cd \<path-to-your-g4-area\>
 
@@ -36,35 +36,20 @@ cd \<path-to-your-g4-area\>
 
 Geant4 collaborators can obtain the source code from the repo (authentination required):
 
-git clone ssh://git@gitlab.cern.ch:7999/geant4/geant4-dev.git geant4-11-00
+git clone ssh://git@gitlab.cern.ch:7999/geant4/geant4-dev.git geant4-11-00-ref-06
 
-cd geant4-11-00
+cd geant4-11-00-ref-06
 
-git checkout geant4-11-00
+git checkout geant4-11-00-ref-06
 
-==========================================
-
-Others can download public version of the Geant4 website:
-
-wget https://cern.ch/geant4-data/releases/geant4-v11.0.0.tar.gz
-
-tar xzf geant4-v11.0.0.tar.gz
-
-In this case one has to renaim the Geant4 directory to match the naming convention:
-
-mv geant4-v11.0.0 geant4-11-00
-
-cd geant4-11-00
-
-==========================================
 
 export G4INSTALL=$PWD
 
 cd ..
 
-mkdir geant4-11-00-build
+mkdir geant4-11-00-ref-06-build
 
-cd geant4-11-00-build
+cd geant4-11-00-ref-06-build
 
 NOTE: make sure to include -DGEANT4_USE_GDML=ON 
       in case geometry input is envisioned
@@ -92,7 +77,7 @@ make install
 
 cd \<your-G4VMP-area\>
 
-setup mrb v5_19_05
+setup mrb v6_04_01
 
 export MRB_PROJECT=G4VMP
 
@@ -125,11 +110,30 @@ mrbsetenv
 
 cd $MRB_SOURCE}/srcs/G4VMP
 
-source ./geant4make-no-ups.sh geant4-11-00 \<path-to-your-g4-area\>
+source ./geant4make-no-ups.sh geant4-11-00-ref-06 \<path-to-your-g4-area\>
 
 cd $MRB_BUILDDIR
 
 mrb b
+
+=========================================================
+
+ADDITIONAL INFORMATION
+
+One can also install everything in a form of "local products".
+However, with the way G4VMP is setup right now, it will require to permit all
+absolute paths in transitive dependencies in targets exported by project G4VMP.
+As of right now, this is turned OFF in art/mrb.
+And it is not clear how to properly set it to ON via mrb tools.
+Thus it will require a "hack", i.e. after building MANUALLY changing
+in the CMakeCache.txt file:
+G4VMP_IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES:BOOL=
+to the following:
+G4VMP_IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES:BOOL=ON
+
+This will allow to use mrbslp in the batch jobs instead of mrbsetenv as 
+the later can cause issues when used in production scripts.
+
 
 =========================================================
 

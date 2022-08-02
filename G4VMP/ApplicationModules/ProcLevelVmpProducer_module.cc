@@ -289,7 +289,7 @@ void G4VMP::ProcLevelVmpProducer::beginRun( art::Run& run )
    // Insert the RunProduct (model(s) config info)
    //
    std::unique_ptr<G4VmpModelConfig> pcfg(new G4VmpModelConfig(*fModelConfig));   
-   run.put(std::move(pcfg));   
+   run.put(std::move(pcfg),art::fullRun());   
 
    return;
 
