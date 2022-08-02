@@ -188,11 +188,11 @@ ModelParam  ftfMesonExciEWndNucln( "MESON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100.
 
 // ** selected FTF parameters of nuclear destruction for baryon/proton **
 //
-ModelParam  ftfBaryonNucDestrP1Tgt( "BARYON_NUCDESTR_P1_TGT", "FTFP", 0., 0.01 );
+ModelParam  ftfBaryonNucDestrP1Tgt( "BARYON_NUCDESTR_P1_TGT", "FTFP", 0.001732, 0.001732 ); // 0., 0.01 );
 ModelParam  ftfBaryonNucDestrP1TgtADEP( "USE_BARYON_NUCDESTR_P1_ADEP_TGT", "FTFP", 1, 1 );
 //
-ModelParam  ftfBaryonNucDestrP2Tgt( "BARYON_NUCDESTR_P2_TGT", "FTFP", 2., 16. );
-ModelParam  ftfBaryonNucDestrP3Tgt( "BARYON_NUCDESTR_P3_TGT", "FTFP", 0., 4. );
+ModelParam  ftfBaryonNucDestrP2Tgt( "BARYON_NUCDESTR_P2_TGT", "FTFP", 4.276, 4.276 ); // 2., 16. );
+ModelParam  ftfBaryonNucDestrP3Tgt( "BARYON_NUCDESTR_P3_TGT", "FTFP", 0.274, 0.274 ); // 0., 4. );
 //
 ModelParam  ftfBaryonPtNucDestrP1( "BARYON_PT2_NUCDESTR_P1", "FTFP", 0., 0.25 );
 ModelParam  ftfBaryonPtNucDestrP2( "BARYON_PT2_NUCDESTR_P2", "FTFP", 0., 0.25 );
@@ -201,18 +201,18 @@ ModelParam  ftfBaryonPtNucDestrP2( "BARYON_PT2_NUCDESTR_P2", "FTFP", 0., 0.25 );
 //
 // EXCI_E is in the units of CLHEP::MeV which is set to 1. in the CLHEP/Units
 //
-ModelParam  ftfBaryonExciEWndNucln( "BARYON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100. );
+ModelParam  ftfBaryonExciEWndNucln( "BARYON_EXCI_E_PER_WNDNUCLN", "FTFP", 26.11, 26.11 );  // 0., 100. );
 
 // ** selected FTF parameters of quarck exchange w/o or with exitation, for baryon/proton **
 //
-ModelParam  ftfBaryonProc0A1( "BARYON_PROC0_A1", "FTFP",   0., 25. );
-ModelParam  ftfBaryonProc0B1( "BARYON_PROC0_B1", "FTFP",   0.,  5. );
-ModelParam  ftfBaryonProc0A2( "BARYON_PROC0_A2", "FTFP", -50.,  0. );
-ModelParam  ftfBaryonProc0B2( "BARYON_PROC0_B2", "FTFP",   0.,  5. );
-ModelParam  ftfBaryonProc1A1( "BARYON_PROC1_A1", "FTFP",   0., 50. ); //-40., 40. );
-ModelParam  ftfBaryonProc1B1( "BARYON_PROC1_B1", "FTFP",   0.,  5. );
-ModelParam  ftfBaryonProc1A2( "BARYON_PROC1_A2", "FTFP",-100.,  0. ); // -100.,100. );
-ModelParam  ftfBaryonProc1B2( "BARYON_PROC1_B2", "FTFP",   0.,  5. );
+ModelParam  ftfBaryonProc0A1( "BARYON_PROC0_A1", "FTFP",   7., 25. );  // 0., 25. ); // too wide 
+ModelParam  ftfBaryonProc0B1( "BARYON_PROC0_B1", "FTFP",   0.9, 2.5 ); // 0.,  5. ); // too wide
+ModelParam  ftfBaryonProc0A2( "BARYON_PROC0_A2", "FTFP", -50.,  0. );  // 0 would mean there's no "correction term"
+ModelParam  ftfBaryonProc0B2( "BARYON_PROC0_B2", "FTFP",   0.,  5. );   
+ModelParam  ftfBaryonProc1A1( "BARYON_PROC1_A1", "FTFP",  12.5, 50. ); // 0., 50. ); // too wide //-40., 40. );
+ModelParam  ftfBaryonProc1B1( "BARYON_PROC1_B1", "FTFP",   0.5, 1.2 ); // 0.,  5. ); // too wide
+ModelParam  ftfBaryonProc1A2( "BARYON_PROC1_A2", "FTFP",-100.,  0. ); 
+ModelParam  ftfBaryonProc1B2( "BARYON_PROC1_B2", "FTFP",   1., 5.); // 0.,  5. );
 // Basically, P4 = A1 + A2 * exp(-B2*y)   since B1=0 (D) & A3=0 (D)
 ModelParam  ftfBaryonProc4A1( "BARYON_PROC4_A1", "FTFP",   0.,  1. );
 // ModelParam  ftfBaryonProc4B1( "BARYON_PROC4_B1", "FTFP",   0.,  1. ); // D=0.
@@ -463,15 +463,18 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      ftfMesonExciEWndNucln.SetEnabled(true); // ( "MESON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100. );
      multiUniv.Add( &ftfMesonExciEWndNucln );
 */
-/* */
+
      ftfBaryonNucDestrP1Tgt.SetEnabled(true); 
      multiUniv.Add( &ftfBaryonNucDestrP1Tgt );
      ftfBaryonNucDestrP1TgtADEP.SetEnabled(true);  
      multiUniv.Add( &ftfBaryonNucDestrP1TgtADEP ); 
+
+/*
      ftfBaryonNucDestrP2Tgt.SetEnabled(true);
      multiUniv.Add( &ftfBaryonNucDestrP2Tgt );
      ftfBaryonNucDestrP3Tgt.SetEnabled(true);     
      multiUniv.Add( &ftfBaryonNucDestrP3Tgt ); 
+*/
 /*
      ftfBaryonPtNucDestrP1.SetEnabled(true); 
      multiUniv.Add( &ftfBaryonPtNucDestrP1 );
@@ -481,6 +484,7 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      ftfBaryonExciEWndNucln.SetEnabled(true); // ( "BARYON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100. );
      multiUniv.Add( &ftfBaryonExciEWndNucln );
 
+/*
      ftfBaryonProc0A1.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc0A1 );
      ftfBaryonProc0B1.SetEnabled(true);
@@ -489,7 +493,8 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      multiUniv.Add( &ftfBaryonProc0A2 );
      ftfBaryonProc0B2.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc0B2 );
-
+*/
+/* */
      ftfBaryonProc1A1.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc1A1 );
      ftfBaryonProc1B1.SetEnabled(true);
@@ -498,6 +503,7 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      multiUniv.Add( &ftfBaryonProc1A2 );
      ftfBaryonProc1B2.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc1B2 );
+/* */
 /*
      ftfBaryonProc4A1.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc4A1 );

@@ -21,15 +21,15 @@ fi
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Fe,momz=3.824,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 # --> sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
-sbatch -N 1 -n 1 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
- 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Pb,momz=3.824,NUniv=${nuni},maxevents=50000" \
-	slurm_multiU_master.sh sim_multiU_wcic_1.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Pb,momz=3.824,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 
 # HARP and/or ITEP771
 #
 # 5 GeV/c proton on C, Cu, Pb
 #
-# sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
+#sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=C,momz=5.0,NUniv=${nuni},maxevents=100000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 #sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
@@ -44,7 +44,7 @@ sbatch -N 1 -n 1 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
 #sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=C,momz=7.5,NUniv=${nuni},maxevents=100000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
-#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=12:00:00 --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Cu,momz=7.5,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 #sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
@@ -53,9 +53,9 @@ sbatch -N 1 -n 1 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
 #
 # 8 GeV/c proton on Ta
 #
-#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
-# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Ta,momz=8.0,NUniv=${nuni},maxevents=50000" \
-#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+ 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Ta,momz=8.0,NUniv=${nuni},maxevents=50000" \
+	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 
 # NA61
 #

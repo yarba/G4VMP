@@ -33,9 +33,10 @@ export experiment=HARP
 # does not exceed the number of cores, or the jobs will
 # compete for resources (as it happens in amd32_g4val_slow !)
 #
-target_list=( C Cu Pb Ta )
+target_list=( C Cu Pb ) # Ta )
+# target_list=( Ta )
 # momz_list=( 3.0 5.0 8.0 12.0 )
-momz_list=( 8.0 )
+momz_list=( 3.0 )
 
 ntgts=${#target_list[@]}
 nmoms=${#momz_list[@]}
