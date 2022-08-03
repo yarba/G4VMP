@@ -1,0 +1,177 @@
+
+// #include "ftf-fits-harp-na61-bestfit-nucdestr.fcl"
+// #include "ftf-fit-qex-proc1-nucdestr-p1-NA61-NA49.fcl"
+// #include "ftf-fit-qex-proc1-nucdestr-p1-NA61.fcl"
+// #include "ftf-fit12pars-harp-na61.fcl"
+// #include "ftf-params-process-level-include.fcl"
+#include "ftf-Tune2022-v0.fcl"
+
+process_name:processA
+
+source: 
+{
+  module_type: EmptyEvent
+  maxEvents:   100000
+}
+
+services: 
+{
+
+  message : 
+  {
+     # debugModules : ["*"]
+     # suppressInfo : []    
+     destinations : 
+     {
+       LogToConsole : 
+       {
+         type : "cout"
+         threshold : "DEBUG"
+         categories : 
+	 {
+           ArtReport: { 
+	      reportEvery: 100
+	      limit: 50
+	   }
+	   # using limit=0 will suppress lots of info,
+	   # including Time & Memory reports, event success rate, etc.
+	   # default : { limit : 0 }
+	   default : { limit : 50 }
+         }
+       }
+     }
+  }
+
+  TFileService :
+  {
+    fileName: "proton31GeV-C-FTFP_NA61.root"
+  }
+
+  RandomNumberGenerator: {}
+         
+  PhysModelConfig: 
+  {
+        Verbosity: false
+  }
+     
+  ProcLevelSimSetup:
+  {
+	HadronicModelName: "FTFP"
+	TargetNucleus: "C"
+	RNDMSeed: 12345
+  }
+
+} #end of services
+
+outputs: 
+{
+   out1: 
+   {
+      module_type: RootOutput   
+      fileName: "Evt-proton31GeV-C-FTFP.root"
+   }
+}
+
+physics: {
+
+  producers: 
+  {
+
+     PrimaryGenerator:
+     {
+        module_type: "G4VMP/EventGenerators/EventGenerator"
+	nparticles : 1
+	pdgcode:  2212
+//	pdgcode:  211
+	momentum: [ 0., 0., 31. ] // in GeV 
+     }
+
+     FTFPDefault           : @local::FTFPDefault
+     FTFPTune2022v0        : @local::FTFPTune2022v0
+    
+  }
+  
+  analyzers:
+  {
+
+     FTFPDefaultNA61:
+     {
+        module_type: AnalyzerNA61
+	ProductLabel: "FTFPDefault"
+	IncludeExpData: 
+	{
+	   UseASCIIRecords: true
+	   //
+	   // this is for running on Wilson:
+	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
+	   //
+	   // this is for running on LQ1:
+	   // Path2Records : "/home/yarba_j/dossier-json"
+	   //
+	   // this is for running on WC-IC
+	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+# new record ids for 31GeVc/ proton on C
+	   DBRecords: [ 
+	   14572, 14573, 14574, 14575, 14576, 14577, 14578,
+	   14579, 14580, 14581, 14582, 14583, 14584, 14585, 14586,
+	   14587, 14588, 14589, 14590, 14591, 14592, 14593, 14594,
+	   14595, 14596, 14597, 14598, 14599, 14600, 14601,
+	   14603, 14604, 14605, 14606, 14607, 14608, 14609, 14610, 14611, 14612, 14613,
+	   14614, 14615, 14616, 14617, 14618, 14619, 14620, 14621, 14622, 14623, 14624,
+	   14625, 14626, 14627, 14628, 14629, 14630, 14631, 14632, 14633, 14634
+		      ]
+	}
+     }
+
+  
+     FTFPTune2022v0NA61:
+     {
+        module_type: AnalyzerNA61
+	ProductLabel: "FTFPTune2022v0"
+	IncludeExpData: 
+	{
+	   UseASCIIRecords: true
+	   //
+	   // this is for running on Wilson:
+	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
+	   //
+	   // this is for running on LQ1:
+	   // Path2Records : "/home/yarba_j/dossier-json"
+	   //
+	   // this is for running on WC-IC
+	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+# new record ids for 31GeVc/ proton on C
+	   DBRecords: [ 
+	   14572, 14573, 14574, 14575, 14576, 14577, 14578,
+	   14579, 14580, 14581, 14582, 14583, 14584, 14585, 14586,
+	   14587, 14588, 14589, 14590, 14591, 14592, 14593, 14594,
+	   14595, 14596, 14597, 14598, 14599, 14600, 14601,
+	   14603, 14604, 14605, 14606, 14607, 14608, 14609, 14610, 14611, 14612, 14613,
+	   14614, 14615, 14616, 14617, 14618, 14619, 14620, 14621, 14622, 14623, 14624,
+	   14625, 14626, 14627, 14628, 14629, 14630, 14631, 14632, 14633, 14634
+		      ]
+	}
+     }
+
+  }
+  
+  path1:   [ PrimaryGenerator 
+	     , FTFPDefault 
+             , FTFPTune2022v0
+	   ]
+  path2:   [ 
+             FTFPDefaultNA61
+             , FTFPTune2022v0NA61
+	   ] 
+  stream1: [ out1 ]
+
+  trigger_paths: [ path1 ]
+  #
+  # NOTE: Remember, if you have an end_path, you should put your analyzer(s) there !
+  #       Otherwise, they will NOT be included in the exec.
+  #       If you don't have an end_path, things will magically work though... 
+  #        
+   end_paths:     [ path2 ] #, stream1 ]
+//  end_paths:     [ stream1 ]
+
+}
