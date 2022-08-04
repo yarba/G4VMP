@@ -40,7 +40,7 @@ services:
 
   TFileService :
   {
-    fileName: "proton5GeV-Pb-FTFP_HARP.root"
+    fileName: "proton5GeV-C-FTFP_HARP.root"
   }
 
   RandomNumberGenerator: {}
@@ -53,7 +53,7 @@ services:
   ProcLevelSimSetup:
   {
 	HadronicModelName: "FTFP"
-	TargetNucleus: "Pb"
+	TargetNucleus: "C"
 	RNDMSeed: 12345
   }
 
@@ -64,7 +64,7 @@ outputs:
    out1: 
    {
       module_type: RootOutput   
-      fileName: "Evt-proton5GeV-Pb-FTFP.root"
+      fileName: "Evt-proton5GeV-C-FTFP.root"
    }
 }
 
@@ -106,11 +106,11 @@ physics: {
 	   //
 	   // this is for running on WC-IC
 	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
-# new record ids for 5GeVc/ proton on Pb, including both *proton* (FW) and pion (FW+LA) production
-	   DBRecords: [ 
-			10759,  10760,  10761,  10762, 10763, 10764, 10765, 10766, 10767, 10768, 10769, 10770, 10771
-	              , 10811,  10812,  10813,  10814, 10815, 10816, 10817, 10818, 10819, 10820, 10821, 10822, 10823
-		     , 200100, 200101, 200102, 200103
+# new record ids for 5GeVc/ proton on C, including both *proton* (FW) and pion (FW+LA) production
+	   DBRecords: [
+                         10551, 10552, 10553, 10554, 10555, 10556, 10557, 10558, 10559, 10560, 10561, 10562, 10563
+		       , 10603, 10604, 10605, 10606, 10607, 10608, 10609, 10610, 10611, 10612, 10613, 10614, 10615
+		       , 200004, 200005, 200006, 200007 
 		      ]
 	}
      }
@@ -131,15 +131,15 @@ physics: {
 	   //
 	   // this is for running on WC-IC
 	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
-# new record ids for 5GeVc/ proton on Pb
+# new record ids for 5GeVc/ proton on C
 	   DBRecords: [ 
-	                10759,  10760,  10761,  10762, 10763, 10764, 10765, 10766, 10767, 10768, 10769, 10770, 10771
-	              , 10811,  10812,  10813,  10814, 10815, 10816, 10817, 10818, 10819, 10820, 10821, 10822, 10823 
-		     , 200100, 200101, 200102, 200103
+                         10551, 10552, 10553, 10554, 10555, 10556, 10557, 10558, 10559, 10560, 10561, 10562, 10563
+		       , 10603, 10604, 10605, 10606, 10607, 10608, 10609, 10610, 10611, 10612, 10613, 10614, 10615
+		       , 200004, 200005, 200006, 200007 
 		      ]
 	}
      }
-
+     
   }
   
   path1:   [ PrimaryGenerator 
@@ -147,7 +147,7 @@ physics: {
 	     , FTFPTune2022v0 
 	   ]
   path2:   [ 
-               FTFPDefaultHARP 
+             FTFPDefaultHARP 
 	     , FTFPTune2022v0HARP
 	   ] 
   stream1: [ out1 ]
