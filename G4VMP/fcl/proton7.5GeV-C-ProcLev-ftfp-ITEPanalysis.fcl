@@ -1,0 +1,156 @@
+
+// #include "ftf-fits-harp-na61-bestfit-nucdestr.fcl"
+#include "ftf-Tune2022-v0.fcl"
+
+process_name:processA
+
+source: 
+{
+  module_type: EmptyEvent
+  maxEvents:   100000
+}
+
+services: 
+{
+
+  message : 
+  {
+     # debugModules : ["*"]
+     # suppressInfo : []    
+     destinations : 
+     {
+       LogToConsole : 
+       {
+         type : "cout"
+         threshold : "DEBUG"
+         categories : 
+	 {
+           ArtReport: { 
+	      reportEvery: 100
+	      limit: 50
+	   }
+	   # using limit=0 will suppress lots of info,
+	   # including Time & Memory reports, event success rate, etc.
+	   # default : { limit : 0 }
+	   default : { limit : 50 }
+         }
+       }
+     }
+  }
+
+  TFileService :
+  {
+    fileName: "proton7.5GeV-C-FTFP_ITEP.root"
+  }
+
+  RandomNumberGenerator: {}
+         
+  PhysModelConfig: 
+  {
+        Verbosity: false
+  }
+     
+  ProcLevelSimSetup:
+  {
+	HadronicModelName: "FTFP"
+	TargetNucleus: "C"
+	RNDMSeed: 12345
+  }
+
+} #end of services
+
+
+physics: {
+
+  producers: 
+  {
+
+     PrimaryGenerator:
+     {
+        module_type: "G4VMP/EventGenerators/EventGenerator"
+	nparticles : 1
+	pdgcode:  2212
+//	pdgcode:  211
+	momentum: [ 0., 0., 7.5 ] // in GeV 
+     }
+
+     FTFPDefault           : @local::FTFPDefault
+     FTFPTune2022v0        : @local::FTFPTune2022v0
+    
+  }
+  
+  analyzers:
+  {
+  
+     FTFPDefaultITEP:
+     {
+        module_type: AnalyzerITEP
+	ProductLabel: "FTFPDefault"
+	IncludeExpData: 
+	{
+	   UseASCIIRecords: true
+	   //
+	   // this is for running on Wilson:
+	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
+	   //
+	   // this is for running on LQ1:
+	   // Path2Records : "/home/yarba_j/dossier-json"
+	   //
+	   // this is for running on WC-IC
+	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+# new record ids for 7.5GeVc/ proton on C
+	   DBRecords: [ 
+                         2371, 2372, 2373, 2374, 2375, 2376, 2377, 2378, 2379, 2380
+		       , 2381, 2382, 2383, 2384, 2385, 2386, 2387, 2388, 2389, 2390
+		       , 2391, 2392, 2393, 2394, 2395, 2396, 2397, 2398, 2399
+		       , 2402, 2403, 2404, 2405
+		      ]
+	}
+     }
+
+     FTFPTune2022v0ITEP:
+     {
+        module_type: AnalyzerITEP
+	ProductLabel: "FTFPTune2022v0"
+	IncludeExpData: 
+	{
+	   UseASCIIRecords: true
+	   //
+	   // this is for running on Wilson:
+	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
+	   //
+	   // this is for running on LQ1:
+	   // Path2Records : "/home/yarba_j/dossier-json"
+	   //
+	   // this is for running on WC-IC
+	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+# new record ids for 7.5GeVc/ proton on C
+	   DBRecords: [ 
+                         2371, 2372, 2373, 2374, 2375, 2376, 2377, 2378, 2379, 2380
+		       , 2381, 2382, 2383, 2384, 2385, 2386, 2387, 2388, 2389, 2390
+		       , 2391, 2392, 2393, 2394, 2395, 2396, 2397, 2398, 2399
+		       , 2402, 2403, 2404, 2405
+		      ]
+	}
+     }
+
+  }
+  
+  path1:   [ PrimaryGenerator 
+             , FTFPDefault
+	     , FTFPTune2022v0 
+	   ]
+  path2:   [ 
+               FTFPDefaultITEP 
+	     , FTFPTune2022v0ITEP
+	   ] 
+
+  trigger_paths: [ path1 ]
+  #
+  # NOTE: Remember, if you have an end_path, you should put your analyzer(s) there !
+  #       Otherwise, they will NOT be included in the exec.
+  #       If you don't have an end_path, things will magically work though... 
+  #        
+   end_paths:     [ path2 ]
+
+}
