@@ -36,7 +36,7 @@ export experiment=HARP
 target_list=( C Cu Pb ) # Ta )
 # target_list=( Ta )
 # momz_list=( 3.0 5.0 8.0 12.0 )
-momz_list=( 3.0 )
+momz_list=( 5.0 12.0 )
 
 ntgts=${#target_list[@]}
 nmoms=${#momz_list[@]}
@@ -63,10 +63,10 @@ echo " momentum(z) = ${momz} "
 
 source /cvmfs/geant4-ib.opensciencegrid.org/products/setup
 
-setup critic v2_09_00 -q e20:prof
+setup critic v2_10_01 -q e20:prof
 setup xerces_c v3_2_3 -q e20:prof
-setup cmake v3_22_0
-setup mrb v5_19_05
+setup cmake v3_22_2
+setup mrb v6_04_01
 
 cd ${WORKDIR_TOP}
 source ./localProducts*/setup
@@ -93,7 +93,7 @@ if [[ $node_name =~ "lq" ]]; then
 G4LOCATION="/project/Geant4/yarba_j/geant4-local-builds/gcc-9.3.0"
 fi
 
-source ./geant4make-no-ups.sh geant4-11-00 ${G4LOCATION}
+source ./geant4make-no-ups.sh geant4-11-00-ref-06 ${G4LOCATION}
 
 # --> rundirname=/scratch/analysis_${proc_level}_${beam}${momz}GeV_${target}
 rundirname=/dev/shm/analysis_${proc_level}_${beam}${momz}GeV_${target}

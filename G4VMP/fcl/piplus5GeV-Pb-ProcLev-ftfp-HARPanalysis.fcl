@@ -1,12 +1,13 @@
 
-#include "ftf-params-process-level-include.fcl"
+// #include "ftf-params-process-level-include.fcl"
+#include "ftf-PionTune-v0.fcl"
 
 process_name:processA
 
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   100000
+  maxEvents:   250000
 }
 
 services: 
@@ -81,7 +82,10 @@ physics: {
 	momentum: [ 0., 0., 5. ] // in GeV 
      }
 
-     FTFPDefault           : @local::FTFPDefault    
+//     FTFPDefault           : @local::FTFPDefault    
+     FTFPPionNucDestr           : @local::FTFPPionNucDestr    
+//     FTFPPiplusPr1QEX       : @local::FTFPPiplusPr1QEX    
+//     FTFPAllPionsPr1QEX       : @local::FTFPAllPionsPr1QEX    
 
   }
   
@@ -112,14 +116,49 @@ physics: {
 		      ]
 	}
      }
+
+     FTFPPionNucDestrHARP:
+//     FTFPPiplusPr1QEXHARP:
+//     FTFPAllPionsPr1QEXHARP:
+     {
+        module_type: AnalyzerHARP
+	ProductLabel: "FTFPPionNucDestr"
+//	ProductLabel: "FTFPPiplusPr1QEX"
+//	ProductLabel: "FTFPAllPionsPr1QEX"
+	IncludeExpData: 
+	{
+	   UseASCIIRecords: true
+	   //
+	   // this is for running on Wilson:
+	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
+	   //
+	   // this is for running on LQ1:
+	   // Path2Records : "/home/yarba_j/dossier-json"
+	   //
+	   // this is for running on WC-IC
+	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+# new record ids for 5GeVc/ pi+ on Pb, including both *proton* (FW) and pion (FW+LA) production
+	   DBRecords: [
+                          10109, 10110, 10111, 10112, 10113, 10114, 10115, 10116, 10117, 10118, 10119, 10120, 10121
+			, 10161, 10162, 10163, 10164, 10165, 10166, 10167, 10168, 10169, 10170, 10171, 10172, 10173
+			, 200132, 200133, 200134, 200135
+		      ]
+	}
+     }
      
   }
   
   path1:   [ PrimaryGenerator 
-             , FTFPDefault
+//             , FTFPDefault
+	     , FTFPPionNucDestr
+//	     , FTFPPiplusPr1QEX
+//	     , FTFPAllPionsPr1QEX
 	   ]
   path2:   [ 
-             FTFPDefaultHARP 
+//             FTFPDefaultHARP, 
+	     FTFPPionNucDestrHARP
+//	     FTFPPiplusPr1QEXHARP
+//	     FTFPAllPionsPr1QEXHARP
 	   ] 
   stream1: [ out1 ]
 

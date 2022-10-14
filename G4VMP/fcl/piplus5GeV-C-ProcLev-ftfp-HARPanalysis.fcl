@@ -1,12 +1,13 @@
 
-#include "ftf-params-process-level-include.fcl"
+// #include "ftf-params-process-level-include.fcl"
+#include "ftf-PionTune-v0.fcl"
 
 process_name:processA
 
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   100000
+  maxEvents:   250000
 }
 
 services: 
@@ -81,17 +82,23 @@ physics: {
 	momentum: [ 0., 0., 5. ] // in GeV 
      }
 
-     FTFPDefault           : @local::FTFPDefault    
+//     FTFPDefault           : @local::FTFPDefault    
+//     FTFPPiplusPr1QEX       : @local::FTFPPiplusPr1QEX    
+     FTFPAllPionsPr1QEX       : @local::FTFPAllPionsPr1QEX    
 
   }
   
   analyzers:
   {
   
-     FTFPDefaultHARP:
+//     FTFPDefaultHARP:
+//     FTFPPiplusPr1QEXHARP:
+     FTFPAllPionsPr1QEXHARP:
      {
         module_type: AnalyzerHARP
-	ProductLabel: "FTFPDefault"
+//	ProductLabel: "FTFPDefault"
+//	ProductLabel: "FTFPPiplusPr1QEX"
+	ProductLabel: "FTFPAllPionsPr1QEX"
 	IncludeExpData: 
 	{
 	   UseASCIIRecords: true
@@ -115,10 +122,14 @@ physics: {
   }
   
   path1:   [ PrimaryGenerator 
-             , FTFPDefault
+//             , FTFPDefault
+//             , FTFPPiplusPr1QEX
+             , FTFPAllPionsPr1QEX
 	   ]
   path2:   [ 
-             FTFPDefaultHARP 
+//             FTFPDefaultHARP 
+//             FTFPPiplusPr1QEXHARP 
+             FTFPAllPionsPr1QEXHARP 
 	   ] 
   stream1: [ out1 ]
 

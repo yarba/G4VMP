@@ -1001,6 +1001,164 @@ void ModelConfigMapper::FillFTFPDefaults()
    cmd.str( "" );
    cmd.clear();
 
+   // Process=0 --> Qexchg w/o excitation
+   //
+   HDP.GetDefault( "FTF_PION_PROC0_A1",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc0_a1",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+     
+   HDP.GetDefault( "FTF_PION_PROC0_B1",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc0_b1",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC0_A2",  dpar ); 
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc0_a2",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC0_B2",  dpar ); 
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc0_b2",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC0_A3",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc0_a3",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC0_ATOP",dpar ); 
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc0_atop",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC0_YMIN",dpar ); 
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc0_ymin",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+ 
+   // Process=1 --> Qexchg w/excitation
+   //
+   HDP.GetDefault( "FTF_PION_PROC1_A1",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc1_a1",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC1_B1",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc1_b1",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC1_A2",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc1_a2",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC1_B2",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc1_b2",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC1_A3",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc1_a3",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC1_ATOP",dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc1_atop",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC1_YMIN",dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc1_ymin",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+
+	 //
+         // NOTE: Process #2 & 3 are projectile & target diffraction
+         //       they have more complex definition of A1 & A2 
+         //      (see around line 540 or so)
+         // SetParams( 2, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,     0.93);// Projectile diffraction
+         // SetParams( 3, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,     0.93);// Target diffraction
+         //
+   // Proc=2 & Proc=3 for the case ( AbsProjectileBaryonNumber > 1 ||  NumberOfTargetNucleons > 1 )
+   // (diffraction dissociation)
+/* RELEASE LATER !!!     */
+
+   bpar = false;
+   HDP.GetDefault( "FTF_PION_DIFF_DISSO_PROJ", bpar );
+   cmd << bpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("use_pion_diff_disso_proj",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   HDP.GetDefault( "FTF_PION_DIFF_DISSO_TGT", bpar );
+   cmd << bpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("use_pion_diff_disso_tgt",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+	 
+/* RELEASE LATER !!! */
+   // Process=4 --> Qexchg w/additional multiplier in excitation 
+   //
+   HDP.GetDefault( "FTF_PION_PROC4_A1",  dpar ); 
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc4_a1",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC4_B1",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc4_b1",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC4_A2",  dpar ); 
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc4_a2",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC4_B2",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc4_b2",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC4_A3",  dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc4_a3",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC4_ATOP",dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc4_atop",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+   
+   HDP.GetDefault( "FTF_PION_PROC4_YMIN",dpar );
+   cmd << dpar;
+   (itr2->second).insert( std::pair<std::string,std::string>("pion_proc4_ymin",cmd.str()) );
+   cmd.str( "" );
+   cmd.clear();
+/* RELEASE LATER !!! */
+
+
    // PARAMETERS OF NUCLEAR DESTRUCTION
    //
    
@@ -1363,6 +1521,54 @@ void ModelConfigMapper::FillConfigParamMapFTFP()
    (itr->second).insert( std::pair<std::string,std::string>("baryon_proc4_a3",  "BARYON_PROC4_A3") );
    (itr->second).insert( std::pair<std::string,std::string>("baryon_proc4_atop","BARYON_PROC4_ATOP") );
    (itr->second).insert( std::pair<std::string,std::string>("baryon_proc4_ymin","BARYON_PROC4_YMIN") );
+/* RELEASE LATER !!! */
+
+   // pion projectile
+   //
+
+/* RELEASE LATER !!! */
+   // Process=0 --> Qexchg w/o excitation
+   //
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc0_a1",  "PION_PROC0_A1") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc0_b1",  "PION_PROC0_B1") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc0_a2",  "PION_PROC0_A2") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc0_b2",  "PION_PROC0_B2") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc0_a3",  "PION_PROC0_A3") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc0_atop","PION_PROC0_ATOP") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc0_ymin","PION_PROC0_YMIN") );
+
+   // Process=1 --> Qexchg w/excitation
+   //
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc1_a1",  "PION_PROC1_A1") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc1_b1",  "PION_PROC1_B1") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc1_a2",  "PION_PROC1_A2") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc1_b2",  "PION_PROC1_B2") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc1_a3",  "PION_PROC1_A3") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc1_atop","PION_PROC1_ATOP") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc1_ymin","PION_PROC1_YMIN") );
+
+	 //
+         // NOTE: Process #2 & 3 are projectile & target diffraction
+         //       they have more complex definition of A1 & A2 
+         //      (see around line 540 or so)
+         // SetParams( 2, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,     0.93);// Projectile diffraction
+         // SetParams( 3, 6.0/Xinel, 0.0 ,-6.0/Xinel*16.28, 3.0 , 0.0, 0.0  ,     0.93);// Target diffraction
+         //
+/* RELEASE LATER !!! */
+
+   (itr->second).insert( std::pair<std::string,std::string>("use_pion_diff_disso_proj","PION_DIFF_DISSO_PROJ") );
+   (itr->second).insert( std::pair<std::string,std::string>("use_pion_diff_disso_tgt","PION_DIFF_DISSO_TGT") );
+
+/* RELEASE LATER !!! */
+   // Process=4 --> Qexchg w/additional multiplier in excitation 
+   //
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc4_a1",  "PION_PROC4_A1") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc4_b1",  "PION_PROC4_B1") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc4_a2",  "PION_PROC4_A2") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc4_b2",  "PION_PROC4_B2") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc4_a3",  "PION_PROC4_A3") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc4_atop","PION_PROC4_ATOP") );
+   (itr->second).insert( std::pair<std::string,std::string>("pion_proc4_ymin","PION_PROC4_YMIN") );
 /* RELEASE LATER !!! */
 
    // PARAMETERS of PARTICIPATING HADRON EXCITATION

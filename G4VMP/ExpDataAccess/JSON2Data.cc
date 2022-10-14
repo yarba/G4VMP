@@ -68,7 +68,7 @@ bool MetaData::IsMatch( const int& beamid, const double& mom,
 bool MetaData::IsBeamTargetMatch( const int& beamid, const double& mom, 
                                   const int& tgt ) const
 {
-
+   
    if ( EmulateBeamLink( beamid, mom ) == fBeamLink &&
         tgt == fTargetNucleus )
    {
@@ -97,7 +97,7 @@ int MetaData::EmulateBeamLink( const int& pid, const double& mom ) const
       {
          blnk = 12;
       }
-      else if ( fabs(mom-31.) <= 1.e-10 && fRefLink == 69 ) // NA61
+      else if ( fabs(mom-31.) <= 1.e-10 && fRefLink == 69 ) // NA61 - 31 GeV/c proton beam
       {
          blnk = 36;
       }
@@ -191,6 +191,10 @@ int MetaData::EmulateBeamLink( const int& pid, const double& mom ) const
       if ( fabs(mom-100.) <= 1.e-10  && fRefLink == 56 ) // SAS M6E
       {
          blnk = 10;
+      }
+      else if ( fabs(mom-60.) <= 1.e-10 && fRefLink == 114 ) // NA61 = 60 GeV/c pi+ beam
+      {
+          blnk = 96;
       }
       // 
       // From here on, HARP and/or ITEP771

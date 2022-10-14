@@ -54,6 +54,8 @@ namespace G4VMP {
             
       double             fMaxMomentum;
       int                fNBinsTmp;
+      bool               fMultiplicitySpectra;
+
       
       // Number of secondaries; 
       // also, Integral() used for normalization
@@ -76,7 +78,6 @@ namespace G4VMP {
       std::vector<TH1D*> fHistoK0s;
       std::vector<TH1D*> fHistoLambda;
       
-
       Chi2Calc*          fChi2Calc;
  
    };  
@@ -90,11 +91,12 @@ G4VMP::AnalyzerNA61::AnalyzerNA61( const fhicl::ParameterSet& p )
         
    fMaxMomentum = p.get<double>("MaxMomentum",50.);
    fNBinsTmp = p.get<int>("NBinsTmp",5000);
+   fMultiplicitySpectra = p.get<bool>("MultiplicitySpectra",false);
    
    fHistoNSec = 0;
    
    fThetaBinsProton.push_back( 0. );
-   fThetaBinsProton.push_back( 10. );
+// --> tmp comment for pi+ beam study   fThetaBinsProton.push_back( 10. );
    fThetaBinsProton.push_back( 20. );
    fThetaBinsProton.push_back( 40. );
    fThetaBinsProton.push_back( 60. );
@@ -291,7 +293,15 @@ void G4VMP::AnalyzerNA61::endJob()
    if ( fIncludeExpData )
    {
       
-      scale = fXSecOnTarget / stat; // delta_theta is already taken into account in analyze(...)
+      if ( fMultiplicitySpectra )
+      {
+         scale = 1. / stat ;
+      }
+      else
+      {
+         scale = fXSecOnTarget / stat; // delta_theta is already taken into account in analyze(...)
+      }
+      
       
       // the local/tmp histos scale with XSec and stat but NOT with bin width yet
       for ( size_t i=0; i<fHistoProton.size(); ++i )
@@ -322,7 +332,7 @@ void G4VMP::AnalyzerNA61::endJob()
       {
 	 fHistoLambda[i]->Scale( scale );
       }
-
+      
       // now match to exp.data
       bool ok = matchVDBRec2MC( fBTConf.GetBeamPartID(),
                                 fBTConf.GetBeamMomentum(),
@@ -457,8 +467,15 @@ void G4VMP::AnalyzerNA61::endJob()
    else
    {
 
-      scale = fXSecOnTarget / stat; // delta_theta is already taken into account in analyze(...)
-
+      if ( fMultiplicitySpectra )
+      {
+         scale = 1. / stat;
+      }
+      else
+      {
+         scale = fXSecOnTarget / stat; // delta_theta is already taken into account in analyze(...)
+      }
+      
       // no matching vs data
       for ( size_t i=0; i<fHistoProton.size(); ++i )
       {
@@ -636,12 +653,12 @@ TH1* G4VMP::AnalyzerNA61::matchExpSpectrum2MC( const int& secid,
                                                const std::vector<std::string>& input,
 					       const int& /* observable */ )
 {
-
+   
    // FIXME !!!
    // This will be redone once parnames/parvalues are finished !
    //
    std::vector<std::string> cond = extractThetaBinFromTitle( input[0] );
-
+   
    if ( secid == 2212 ) // proton
    {
       for ( size_t i=0; i<fHistoProton.size(); ++i )

@@ -201,7 +201,7 @@ exp_data_proton7.5GeV_Pb_ITEP() {
 
 # NA61
 #
-# bid=36
+# bid=36 
 
 exp_data_proton31.0GeV_C_NA61() {
 
@@ -225,6 +225,8 @@ exp_data_proton31.0GeV_C_NA61() {
 
 }
 
+
+
 # SAS M6E
 #
 # bid=12 (11 for K+, 10 for pi+)
@@ -239,11 +241,11 @@ exp_data_proton100.0GeV_C_SASM6E() {
 /usr/bin/printf "                         // secondary K+ \n"
 /usr/bin/printf "                         9014, 9015, \n"
 /usr/bin/printf "                         // secondary K- \n"
-/usr/bin/printf "                         9016, 9017, 9018, \n"
+/usr/bin/printf "                         9017, 9018, \n" # do NOT use 9016 - will not rebin
 /usr/bin/printf "                         // secondary proton \n"
-/usr/bin/printf "                         9019, 9020, \n"
-/usr/bin/printf "                         // secondary antiproton \n"
-/usr/bin/printf "                         9021, 9022, 9023 \n"
+/usr/bin/printf "                         9019, 9020 \n"
+# /usr/bin/printf "                         // secondary antiproton \n"
+# /usr/bin/printf "                         9021, 9022, 9023 \n" # do NOT use - will not rebin
 /usr/bin/printf "                       ] \n"
  
 }
@@ -581,6 +583,34 @@ exp_data_piplus5.0GeV_Pb_ITEP() {
 /usr/bin/printf "            DBRecords: [ 2251, 2252, 2253, 2254, 2260 ]"
 
 }
+
+# NA61
+#
+# bid=96 
+
+exp_data_piplus60.0GeV_C_NA61() {
+
+/usr/bin/printf "            DBRecords: [ \n"
+/usr/bin/printf "                         // secondary K- \n"
+#                                         NOTE: 200328 is for 100<theta<140 and has only 2 datapoints
+#                                         200329-200332 are (reserved) for 140 through 360
+#                                         but each has none or only 1 datapoint
+#                                         so we do not use them
+/usr/bin/printf "                         200324, 200325, 200326, 200327, 200328, \n"
+/usr/bin/printf "                         // secondary K+ \n"
+#                                         NOTE: 200338-200342 are (reserved) for 140 through 360
+#                                         but each has only 1 datapoint 
+#                                         so we're not using them
+/usr/bin/printf "                         200333, 200334, 200335, 200336, 200337, \n"
+/usr/bin/printf "                         // secondary pi- \n"
+/usr/bin/printf "                         200300, 200302, 200303, 200304, 200305, 200306, 200307, 200308, 200309, 200310, 200311, \n"
+/usr/bin/printf "                         // secondary pi+ \n"
+/usr/bin/printf "                         200312, 200314, 200315, 200316, 200317, 200318, 200319, 200320, 200321, 200322, 200323 \n"
+/usr/bin/printf "                       ] \n"
+
+}
+
+
 
 # SAS M6E
 #

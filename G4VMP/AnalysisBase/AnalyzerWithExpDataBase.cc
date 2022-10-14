@@ -181,11 +181,11 @@ bool G4VMP::AnalyzerWithExpDataBase::findExpDataByBeamTarget( const int& bid,
    std::map<int,std::string>::iterator itr = fJSONRecords.begin();
    
    for ( ; itr!=fJSONRecords.end(); ++itr )
-   {
+   {      
       fJSON2Data->ParseMetaData( itr->second );
       if ( fJSON2Data->GetMetaData().IsBeamTargetMatch( bid, bmom, tgt ) ) 
       {
-         fVDBRecID2MC.push_back( std::pair<int,TH1*>( itr->first, NULL ) );
+	 fVDBRecID2MC.push_back( std::pair<int,TH1*>( itr->first, NULL ) );
       }
    }
    

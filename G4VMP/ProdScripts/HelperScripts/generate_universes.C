@@ -164,7 +164,7 @@ ModelParam bertiniTrailingRadius("TrailingRadius","Bertini", 0.0, 5.0 );
 //
 // ** selected FTF parameters of nuclear destruction for pion/meson **
 //
-ModelParam  ftfMesonNucDestrP1Tgt( "MESON_NUCDESTR_P1_TGT", "FTFP", 0., 0.01 );
+ModelParam  ftfMesonNucDestrP1Tgt( "MESON_NUCDESTR_P1_TGT", "FTFP", 0.001026, 0.001026 ); // 0., 0.01 );
 ModelParam  ftfMesonNucDestrP1TgtADEP( "USE_MESON_NUCDESTR_P1_ADEP_TGT", "FTFP", 1, 1 );
 //
 ModelParam  ftfMesonNucDestrP2Tgt( "MESON_NUCDESTR_P2_TGT", "FTFP", 2., 16. );
@@ -184,7 +184,19 @@ ModelParam  ftfMesonPtNucDestrP2( "MESON_PT2_NUCDESTR_P2", "FTFP", 0., 0.25 );
 //
 // EXCI_E is in the units of CLHEP::MeV which is set to 1. in the CLHEP/Units
 //
-ModelParam  ftfMesonExciEWndNucln( "MESON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100. );
+ModelParam  ftfMesonExciEWndNucln( "MESON_EXCI_E_PER_WNDNUCLN", "FTFP", 58.1, 58.1 ); // 0., 100. );
+
+ModelParam  ftfPionProc1A1( "PION_PROC1_A1", "FTFP",   3.0, 10.0 ); // 1.0, 18.0 ); // D=5.77
+ModelParam  ftfPionProc1B1( "PION_PROC1_B1", "FTFP",   0.3, 0.9 ); // D=0.6 
+ModelParam  ftfPionProc1A2( "PION_PROC1_A2", "FTFP",  -9.0, -1.0 ); // -18.0, -0.5 ); // D=-5.77
+ModelParam  ftfPionProc1B2( "PION_PROC1_B2", "FTFP",   0.4, 1.2 ); // D=0.8
+// Basically, P4 = A1 + A2 * exp(-B2*y)   since B1=0 (D) & A3=0 (D)
+ModelParam  ftfPionProc4A1( "PION_PROC4_A1", "FTFP",   0.5,  1.5 ); // D=1.
+// ModelParam  ftfPionProc4B1( "PION_PROC4_B1", "FTFP",   0.,  1. ); // D=0.
+ModelParam  ftfPionProc4A2( "PION_PROC4_A2", "FTFP",  -16.5,  -5.5 ); // D=-11.02
+ModelParam  ftfPionProc4B2( "PION_PROC4_B2", "FTFP",   0.5,  1.5 ); // D=1.
+
+
 
 // ** selected FTF parameters of nuclear destruction for baryon/proton **
 //
@@ -450,10 +462,10 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      multiUniv.Add( &ftfMesonNucDestrP1Tgt );
      ftfMesonNucDestrP1TgtADEP.SetEnabled(true);  
      multiUniv.Add( &ftfMesonNucDestrP1TgtADEP ); 
-     ftfMesonNucDestrP2Tgt.SetEnabled(true);
-     multiUniv.Add( &ftfMesonNucDestrP2Tgt ); // ( "MESON_NUCDESTR_P2_TGT", "FTFP", 2., 16. );
-     ftfMesonNucDestrP3Tgt.SetEnabled(true);     
-     multiUniv.Add( &ftfMesonNucDestrP3Tgt ); // ( "MESON_NUCDESTR_P3_TGT", "FTFP", 0., 4. );
+//     ftfMesonNucDestrP2Tgt.SetEnabled(true);
+//     multiUniv.Add( &ftfMesonNucDestrP2Tgt ); // ( "MESON_NUCDESTR_P2_TGT", "FTFP", 2., 16. );
+//     ftfMesonNucDestrP3Tgt.SetEnabled(true);     
+//     multiUniv.Add( &ftfMesonNucDestrP3Tgt ); // ( "MESON_NUCDESTR_P3_TGT", "FTFP", 0., 4. );
 /*
      ftfMesonPtNucDestrP1.SetEnabled(true); 
      multiUniv.Add( &ftfMesonPtNucDestrP1 );
@@ -465,6 +477,17 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      ftfMesonExciEWndNucln.SetEnabled(true); // ( "MESON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100. );
      multiUniv.Add( &ftfMesonExciEWndNucln );
 /* */
+
+     ftfPionProc1A1.SetEnabled(true);
+     multiUniv.Add( &ftfPionProc1A1 );
+     ftfPionProc1B1.SetEnabled(true);
+     multiUniv.Add( &ftfPionProc1B1 );
+     ftfPionProc1A2.SetEnabled(true);
+     multiUniv.Add( &ftfPionProc1A2 );
+     ftfPionProc1B2.SetEnabled(true);
+     multiUniv.Add( &ftfPionProc1B2 );
+
+
 /*
      ftfBaryonNucDestrP1Tgt.SetEnabled(true); 
      multiUniv.Add( &ftfBaryonNucDestrP1Tgt );
