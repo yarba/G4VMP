@@ -28,10 +28,14 @@ setup critic v2_10_01 -q e20:prof
 
 setup xerces_c v3_2_3 -q e20:prof
 
-setup cmake v3_22_2
+setup cmake v3_22_2 
 
 cd \<path-to-your-g4-area\>
 
+==========================================
+NOTE on cmake: since installing more recent version of Art (3.13.01)
+               something on cet (see later) has changed, and now it 
+	       wants cmake v3_25_2
 ==========================================
 
 Geant4 collaborators can obtain the source code from the repo (authentination required):
