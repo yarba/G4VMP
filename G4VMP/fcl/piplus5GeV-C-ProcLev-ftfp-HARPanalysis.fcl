@@ -1,6 +1,6 @@
 
 // #include "ftf-params-process-level-include.fcl"
-#include "ftf-PionTune-v0.fcl"
+#include "ftf-Tune2022-v0.fcl"
 
 process_name:processA
 
@@ -84,7 +84,7 @@ physics: {
 
 //     FTFPDefault           : @local::FTFPDefault    
 //     FTFPPiplusPr1QEX       : @local::FTFPPiplusPr1QEX    
-     FTFPAllPionsPr1QEX       : @local::FTFPAllPionsPr1QEX    
+     FTFPPionTune2022v0      : @local::FTFPPionTune2022v0    
 
   }
   
@@ -93,12 +93,12 @@ physics: {
   
 //     FTFPDefaultHARP:
 //     FTFPPiplusPr1QEXHARP:
-     FTFPAllPionsPr1QEXHARP:
+     FTFPPionTune2022v0HARP:
      {
         module_type: AnalyzerHARP
 //	ProductLabel: "FTFPDefault"
 //	ProductLabel: "FTFPPiplusPr1QEX"
-	ProductLabel: "FTFPAllPionsPr1QEX"
+	ProductLabel: "FTFPPionTune2022v0"
 	IncludeExpData: 
 	{
 	   UseASCIIRecords: true
@@ -124,12 +124,12 @@ physics: {
   path1:   [ PrimaryGenerator 
 //             , FTFPDefault
 //             , FTFPPiplusPr1QEX
-             , FTFPAllPionsPr1QEX
+             , FTFPPionTune2022v0
 	   ]
   path2:   [ 
 //             FTFPDefaultHARP 
 //             FTFPPiplusPr1QEXHARP 
-             FTFPAllPionsPr1QEXHARP 
+             FTFPPionTune2022v0HARP 
 	   ] 
   stream1: [ out1 ]
 

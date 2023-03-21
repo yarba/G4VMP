@@ -87,7 +87,7 @@ physics: {
      }
 
      FTFPDefault           : @local::FTFPDefault
-     FTFPTune2022v0        : @local::FTFPTune2022v0
+     FTFPProtonTune2022v0        : @local::FTFPProtonTune2022v0
     
   }
   
@@ -124,10 +124,10 @@ physics: {
      }
 
   
-     FTFPTune2022v0NA61:
+     FTFPProtonTune2022v0NA61:
      {
         module_type: AnalyzerNA61
-	ProductLabel: "FTFPTune2022v0"
+	ProductLabel: "FTFPProtonTune2022v0"
 	IncludeExpData: 
 	{
 	   UseASCIIRecords: true
@@ -157,11 +157,11 @@ physics: {
   
   path1:   [ PrimaryGenerator 
 	     , FTFPDefault 
-             , FTFPTune2022v0
+             , FTFPProtonTune2022v0
 	   ]
   path2:   [ 
              FTFPDefaultNA61
-             , FTFPTune2022v0NA61
+             , FTFPProtonTune2022v0NA61
 	   ] 
   stream1: [ out1 ]
 

@@ -956,7 +956,10 @@ void JSON2Data::ConvertGraph2Histo( const char* hname )
 	 fHisto->SetBinContent( ibin, YY[i] );
          fHisto->SetBinError( ibin, EYY[i] );	 
       }
-   } 
+   }
+   
+   fHisto->GetXaxis()->SetTitle( fGraph->GetXaxis()->GetTitle() ); 
+   fHisto->GetYaxis()->SetTitle( fGraph->GetYaxis()->GetTitle() ); 
    
    return;
 

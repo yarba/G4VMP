@@ -1,0 +1,202 @@
+
+#include "ftf-Tune2022-v0.fcl"
+
+process_name:processA
+
+source: 
+{
+  module_type: EmptyEvent
+  maxEvents:   100000
+}
+
+services: 
+{
+
+  message : 
+  {
+     # debugModules : ["*"]
+     # suppressInfo : []    
+     destinations : 
+     {
+       LogToConsole : 
+       {
+         type : "cout"
+         threshold : "DEBUG"
+         categories : 
+	 {
+           ArtReport: { 
+	      reportEvery: 100
+	      limit: 50
+	   }
+	   # using limit=0 will suppress lots of info,
+	   # including Time & Memory reports, event success rate, etc.
+	   # default : { limit : 0 }
+	   default : { limit : 50 }
+         }
+       }
+     }
+  }
+
+  TFileService :
+  {
+    fileName: "piplus60GeV-C-FTFP_NA61.root"
+  }
+
+  RandomNumberGenerator: {}
+         
+  PhysModelConfig: 
+  {
+        Verbosity: false
+  }
+     
+  ProcLevelSimSetup:
+  {
+	HadronicModelName: "FTFP"
+	TargetNucleus: "C"
+	RNDMSeed: 12345
+  }
+
+} #end of services
+
+outputs: 
+{
+   out1: 
+   {
+      module_type: RootOutput   
+      fileName: "Evt-piplus60GeV-C-FTFP.root"
+   }
+}
+
+physics: {
+
+  producers: 
+  {
+
+     PrimaryGenerator:
+     {
+        module_type: "G4VMP/EventGenerators/EventGenerator"
+	nparticles : 1
+//	pdgcode:  2212
+	pdgcode:  211
+	momentum: [ 0., 0., 60. ] // in GeV 
+     }
+
+     FTFPDefault           : @local::FTFPDefault
+     FTFPPionTune2022v0    : @local::FTFPPionTune2022v0
+    
+  }
+  
+  analyzers:
+  {
+
+     FTFPDefaultNA61:
+     {
+        module_type: AnalyzerNA61
+	ProductLabel: "FTFPDefault"
+	MultiplicitySpectra: true
+	IncludeExpData: 
+	{
+	   UseASCIIRecords: true
+	   //
+	   // this is for running on Wilson:
+	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
+	   //
+	   // this is for running on LQ1:
+	   // Path2Records : "/home/yarba_j/dossier-json"
+	   //
+	   // this is for running on WC-IC
+	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+# new record ids for 60GeVc/ pi+ on C
+	   DBRecords: [ 
+	                 // pi- from 60 GeV/c pi+ on C
+			 // NOTE: 200301 is "irregular at 3<theta<10
+			 200300, 200302, 200303, 200304, 200305, 200306, 200307, 200308, 200309, 200310, 200311,
+	                 // pi+ from 60 GeV/c pi+ on C
+			 // NOTE: 200313 is "irregular at 3<theta<10
+			 200312, 200314, 200315, 200316, 200317, 200318, 200319, 200320, 200321, 200322, 200323,
+			 // K- from 60 GeV/c pi+ on C
+			 // NOTE: 200328 is for 100<theta<140 and has only 2 datapoints
+			 //       200329-200332 are (reserved) for 140 through 360
+			 //       but each has none or only 1 datapoint
+			 //       so we do not use them
+			 200324, 200325, 200326, 200327, 200328,
+			 // K+ from 60 GeV/c pi+ on C
+			 // NOTE: 200338-200342 are (reserved) for 140 through 360
+			 //       but each has only 1 datapoint 
+			 //       so we're not using them
+			 200333, 200334, 200335, 200336, 200337,
+			 // proton from 60 GeV/c pi+ on C
+			 200343, // NOTE: we do not have 0-20 histo, we have 0-10 and 10-20
+			            //       but 0<theta<20 "passes" with "10<theta<20" 
+			 200344, 200345
+		      ]
+	}
+     }
+
+  
+     FTFPPionTune2022v0NA61:
+     {
+        module_type: AnalyzerNA61
+	ProductLabel: "FTFPPionTune2022v0"
+	MultiplicitySpectra: true
+	IncludeExpData: 
+	{
+	   UseASCIIRecords: true
+	   //
+	   // this is for running on Wilson:
+	   // Path2Records : "/lfstev/g4p/yarba_j/g4studies/dossier-json"
+	   //
+	   // this is for running on LQ1:
+	   // Path2Records : "/home/yarba_j/dossier-json"
+	   //
+	   // this is for running on WC-IC
+	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
+# new record ids for 60GeVc/ pi+ on C
+	   DBRecords: [ 
+	                 // pi- from 60 GeV/c pi+ on C
+			 // NOTE: 200301 is "irregular at 3<theta<10
+			 200300, 200302, 200303, 200304, 200305, 200306, 200307, 200308, 200309, 200310, 200311,
+	                 // pi+ from 60 GeV/c pi+ on C
+			 // NOTE: 200313 is "irregular at 3<theta<10
+			 200312, 200314, 200315, 200316, 200317, 200318, 200319, 200320, 200321, 200322, 200323,
+			 // K- from 60 GeV/c pi+ on C
+			 // NOTE: 200328 is for 100<theta<140 and has only 2 datapoints
+			 //       200329-200332 are (reserved) for 140 through 360
+			 //       but each has none or only 1 datapoint
+			 //       so we do not use them
+			 200324, 200325, 200326, 200327, 200328,
+			 // K+ from 60 GeV/c pi+ on C
+			 // NOTE: 200338-200342 are (reserved) for 140 through 360
+			 //       but each has only 1 datapoint 
+			 //       so we're not using them
+			 200333, 200334, 200335, 200336, 200337,
+			 // proton from 60 GeV/c pi+ on C
+			 200343, // NOTE: we do not have 0-20 histo, we have 0-10 and 10-20
+			            //       but 0<theta<20 "passes" with "10<theta<20" 
+			 200344, 200345
+		      ]
+	}
+     }
+
+  }
+  
+  path1:   [ PrimaryGenerator 
+	     , FTFPDefault 
+             , FTFPPionTune2022v0
+	   ]
+  path2:   [ 
+             FTFPDefaultNA61
+             , FTFPPionTune2022v0NA61
+	   ] 
+  stream1: [ out1 ]
+
+  trigger_paths: [ path1 ]
+  #
+  # NOTE: Remember, if you have an end_path, you should put your analyzer(s) there !
+  #       Otherwise, they will NOT be included in the exec.
+  #       If you don't have an end_path, things will magically work though... 
+  #        
+   end_paths:     [ path2 ] #, stream1 ]
+//  end_paths:     [ stream1 ]
+
+}

@@ -5,7 +5,7 @@ process_name: processA
  
 source: { 
    module_type: EmptyEvent 
-   maxEvents: 100000 
+   maxEvents: 10000 
 } 
  
 services: { 
@@ -58,7 +58,7 @@ physics: {
      }
 
      FTFPDefault           : @local::FTFPDefault
-     FTFPTune2022v0        : @local::FTFPTune2022v0
+//     FTFPTune2022v0        : @local::FTFPTune2022v0
 
    } 
  
@@ -93,12 +93,12 @@ physics: {
  
   path1:   [ PrimaryGenerator 
              , FTFPDefault
-	     , FTFPTune2022v0 
+//	     , FTFPTune2022v0 
 	   ]
 
    path2: [ 
             FTFPDefaultIAEA
-            , FTFPTune2022v0IAEA 
+//            , FTFPTune2022v0IAEA 
           ] 
 
    trigger_paths: [ path1 ]

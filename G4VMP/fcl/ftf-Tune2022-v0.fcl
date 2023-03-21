@@ -22,7 +22,11 @@ FTFPDefault:
 }
 
 
-FTFPTune2022v0 : { 
+// for some reason the name FTFPBaryonTune2022v0 results
+// in a crash, with diagnostics of presumeably trying to change
+// a parameters BARYON_EXCI_E_PER_WNDNUCLN more than onces...
+//
+FTFPProtonTune2022v0 : { 
     module_type:  ProcLevelVmpProducer 
     errorOnFailureToPut: false 
     Verbosity: 0
@@ -30,7 +34,7 @@ FTFPTune2022v0 : {
         DefaultPhysics: false
         ModelParameters: {
             BARYON_NUCDESTR_P1_TGT : 0.00173    // +/- 0.00004
-            USE_BARYON_NUCDESTR_P1_ADEP_TGT : 1
+            USE_BARYON_NUCDESTR_P1_ADEP_TGT : 1 
             BARYON_EXCI_E_PER_WNDNUCLN : 26.1   // +/- 0.4
             BARYON_PROC1_A1      : 23.6         // +/- 0.8
             BARYON_PROC1_B1      : 0.815        // +/- 0.007
@@ -38,6 +42,27 @@ FTFPTune2022v0 : {
             BARYON_PROC1_B2      : 1.98         // +/- 0.03  
         } # end-of-ModelParameters
     } # end-of-HadronicModel
-} # end-of-FTFPTune2022v0
+} # end-of-FTFPProtonTune2022v0
+
+
+
+FTFPPionTune2022v0 : { 
+    module_type:  ProcLevelVmpProducer 
+    errorOnFailureToPut: false 
+    Verbosity: 0
+    HadronicModel: {
+        DefaultPhysics: false
+        ModelParameters: {
+            MESON_NUCDESTR_P1_TGT : 0.001026    // +/- 0.00003
+//            USE_MESON_NUCDESTR_P1_ADEP_TGT : 1 // also the DEFAULT
+            MESON_EXCI_E_PER_WNDNUCLN : 58.1   // +/- 0.7
+            PION_PROC1_A1      : 5.836         
+            PION_PROC1_B1      : 0.337        
+            PION_PROC1_A2      : -7.568        
+            PION_PROC1_B2      : 0.44          
+        } # end-of-ModelParameters
+    } # end-of-HadronicModel
+} # end-of-FTFPPionTune2022v0
+
 
 END_PROLOG
