@@ -30,7 +30,7 @@ defaultqual e20
 
 
 product          version
-art_root_io     v1_10_01
+art_root_io     v1_12_02
 # --> Only if using public g4 release --> geant4          v4_10_6_p01d
 cetbuildtools   v8_18_11        -       only_for_build
 end_product_list
@@ -41,8 +41,8 @@ end_product_list
 qualifier       art_root_io     notes
 e20:debug       e20:debug       
 e20:prof        e20:prof        
-e19:debug       e19:debug       
-e19:prof        e19:prof        
+e26:debug       e26:debug       
+e26:prof        e26:prof        
 end_qualifier_list
 #
 # --> if using public g4 release
@@ -50,8 +50,8 @@ end_qualifier_list
 #qualifier       art_root_io     geant4          notes
 #e20:debug       e20:debug       e20:debug
 #e20:prof        e20:prof        e20:prof
-#e19:debug       e19:debug       e19:debug
-#e19:prof        e19:prof        e19:prof
+#e26:debug       e26:debug       e26:debug
+#e26:prof        e26:prof        e26:prof
 #end_qualifier_list
 # -->
 

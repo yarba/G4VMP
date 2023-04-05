@@ -81,6 +81,8 @@ void PlotSensitivityIAEA( std::string dir_local,
 #include "GeneralSelection_Fragment.C"
 
       std::cout << " processing/plotting data histo --> " << hdname << std::endl;
+      hd->GetXaxis()->SetTitle("Kinetic energy of secondary neutron [MeV]");
+      hd->GetYaxis()->SetTitle("d#sigma / dE d#Theta [mb/srad/MeV]");
 
 #include "TheHistos_Fragment.C"
       

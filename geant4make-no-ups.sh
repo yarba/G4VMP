@@ -235,7 +235,7 @@ env_setup=/wclustre/g4p/g4p/download/g4data/g4-datasets-setup-${G4RELEASE}.sh
 if [[ $node_name =~ "lq" ]]; then
 env_setup=/lustre1/g4/yarba_j/local-products/g4data/g4-datasets-setup-${G4RELEASE}.sh
 fi
-source ${env_setup}
+# ---> TMP while /wcluster is fixed... or maybe forever ? --> source ${env_setup}
 
 # - Fonts for Freetype
 # FREETYPE SUPPORT NOT AVAILABLE

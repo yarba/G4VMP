@@ -58,7 +58,7 @@ physics: {
      }
 
      FTFPDefault           : @local::FTFPDefault
-//     FTFPTune2022v0        : @local::FTFPTune2022v0
+     FTFPProtonTune2022v0  : @local::FTFPProtonTune2022v0
 
    } 
  
@@ -77,10 +77,10 @@ physics: {
          } 
       } 
 
-      FTFPTune2022v0IAEA: 
+      FTFPProtonTune2022v0IAEA: 
       { 
          module_type: AnalyzerIAEA 
-         ProductLabel: "FTFPTune2022v0" 
+         ProductLabel: "FTFPProtonTune2022v0" 
          IncludeExpData: 
          { 
             UseASCIIRecords: true 
@@ -93,12 +93,12 @@ physics: {
  
   path1:   [ PrimaryGenerator 
              , FTFPDefault
-//	     , FTFPTune2022v0 
+	     , FTFPProtonTune2022v0 
 	   ]
 
    path2: [ 
             FTFPDefaultIAEA
-//            , FTFPTune2022v0IAEA 
+            , FTFPProtonTune2022v0IAEA 
           ] 
 
    trigger_paths: [ path1 ]
