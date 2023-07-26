@@ -36,7 +36,7 @@ TFile*      file            = 0;
 
 // later...
 // NA61
-std::string momentum   = "31.0GeV";
+std::string momentum   = "60.0GeV"; // "31.0GeV";
 std::string target     = "C";
 std::string experiment = "NA61";
 
@@ -60,7 +60,10 @@ std::string dir_fits =
 // std::string dir_sim_best_fit = "09-09-21-best-fits";
 // std::string dir_sim_best_fit = "11-10-21-best-fits";  
 // std::string dir_sim_best_fit = "bestfit-qex-proc0-nucdestr-p1";  
-std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst3";
+//
+// --> proton beam --> std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst3";
+// --> pion beam --> 
+std::string dir_sim_best_fit = "bestfit-pion-proc1-qex-2022";
 
 std::vector<TCanvas*> canvas;
 std::vector<TPad*> pads;
@@ -98,6 +101,12 @@ void PlotSensitivityNA61( std::string dir_local,
    
    LogX = false;
    LogY = false;
+   
+   std::vector<std::string> select_plots;
+   select_plots.push_back("10<theta<20 ");
+//   select_plots.push_back("40<theta<60 ");
+   select_plots.push_back("100<theta<140 ");
+//   select_plots.push_back("180<theta<240 ");
    
    file_dir_local += "/analysis_" + model + "_" + beam + "_" + experiment;
       
@@ -171,6 +180,26 @@ void PlotSensitivityNA61( std::string dir_local,
 	       continue;
       }
             
+      std::string hdtitle = hd->GetTitle();
+      bool selected_found = false;
+      for ( size_t isel=0; isel<select_plots.size(); ++isel )
+      {
+         if ( hdtitle.find( select_plots[isel] ) == std::string::npos )
+	 {
+	    continue;
+	 }
+	 else 
+	 {
+	    selected_found = true;
+	    break;
+	 } 
+      }
+      if ( !selected_found )
+      {
+         hkey_def = (TKey*)itr_def();
+	 continue;
+      }
+
       std::cout << " processing/plotting data histo --> " << hdname << std::endl;
 	    
       double ymax = -1.;
@@ -185,9 +214,14 @@ void PlotSensitivityNA61( std::string dir_local,
       hd->SetTitle("");
       hd->GetXaxis()->SetLabelFont(62);
       hd->GetYaxis()->SetLabelFont(62);
+      // hd->GetYaxis()->SetTitle("d#sigma / d#theta dp [mb/(GeV/c/rad)]");
+      hd->GetYaxis()->SetTitle("multiplicity [1/(GeV/c/rad)]");
       hd->GetXaxis()->SetTitleFont(62);
       hd->GetYaxis()->SetTitleFont(62);
-      hd->GetYaxis()->SetTitleOffset(1.5);
+      hd->GetXaxis()->SetTitleOffset(1.);
+      hd->GetYaxis()->SetTitleOffset(1.);
+      hd->GetXaxis()->SetTitleSize(0.05);
+      hd->GetYaxis()->SetTitleSize(0.05);
       hd->GetXaxis()->CenterTitle();
       hd->GetYaxis()->CenterTitle();
       hd->GetYaxis()->SetRangeUser( 0., ymax );
@@ -202,7 +236,7 @@ void PlotSensitivityNA61( std::string dir_local,
       hmc->SetLineWidth(2);
       hmc->SetStats(0);
       imax = hmc->GetMaximumBin();
-      if ( ymax < (hmc->GetBinContent(imax)+2.*hmc->GetBinError(imax)) )
+      if ( ymax < (hmc->GetBinContent(imax)+5.*hmc->GetBinError(imax)) )
 	 ymax = hmc->GetBinContent(imax)+2.*hmc->GetBinError(imax);
       hd->GetYaxis()->SetRangeUser( 0., ymax );
       hmc->GetYaxis()->SetRangeUser( 0., ymax );
@@ -235,8 +269,8 @@ void PlotSensitivityNA61( std::string dir_local,
            huni->SetLineColor(kGreen);
            huni->SetStats(0);
            imax = huni->GetMaximumBin();
-           if ( ymax < (huni->GetBinContent(imax)+2.*huni->GetBinError(imax)) )
-	      ymax = huni->GetBinContent(imax)+2.*huni->GetBinError(imax);
+           if ( ymax < (huni->GetBinContent(imax)+5.*huni->GetBinError(imax)) )
+	      ymax = huni->GetBinContent(imax)+5.*huni->GetBinError(imax);
            hd->GetYaxis()->SetRangeUser( 0., ymax );
            huni->GetYaxis()->SetRangeUser( 0., ymax );
            hmc->GetYaxis()->SetRangeUser( 0., ymax );
@@ -300,12 +334,16 @@ void PlotSensitivityNA61( std::string dir_local,
 	   std::string hbestname = dir_best_name + "/MC4Professor/" + hdname;
 	   TH1D* hbest = (TH1D*)file_sim_best_fit->Get( hbestname.c_str() );
 	   if ( !hbest ) continue;
-           hbest->SetLineColor(kMagenta);
-	   hbest->SetLineWidth(2);
+           hbest->SetLineColor(kCyan+1); // kMagenta);
+	   hbest->SetLineWidth(3);
            hbest->SetStats(0);
 	   PlotHisto( hbest, icount, "histE1same", 1 );
-	   chi2_sim_best_fit[icnv] += Chi2( hd, hbest );
-         
+// -->	   chi2_sim_best_fit[icnv] += Chi2( hd, hbest );
+	   double thebestchi2 = Chi2( hd, hbest );
+	   chi2_sim_best_fit[icnv] += thebestchi2;
+	   std::cout << " thebestchi2 = " << thebestchi2 << std::endl;
+	   std::cout << " chi2_sim_best_fit[" << icnv << "] / NDF = " 
+	             << chi2_sim_best_fit[icnv] << "/" << NDF[icnv] << std::endl;         
          }
       }
       
@@ -326,7 +364,7 @@ void PlotSensitivityNA61( std::string dir_local,
       // NOTE: we're already at the hd/hmc histogram, and that's where
       //       we need to be in order to draw a text over it
       // 
-      hltxt->Draw();
+// -->      hltxt->Draw();
       	    
       hkey_def = (TKey*)itr_def();
 
@@ -337,8 +375,8 @@ void PlotSensitivityNA61( std::string dir_local,
       std::string gtitle = "G4/FTF: " + momentum + " " + beam + " on " + target
                          + " #rightarrow " + secondary + " + X; data by " + experiment;
 //      gtitle += " (N. Abgrall et al. ,  Eur.Phys.J.C 76, 2016) ";
-      TLatex* gltxt = new TLatex( 0.1, 0.975, gtitle.c_str() );
-      gltxt->SetTextSize(0.025);
+      TLatex* gltxt = new TLatex( 0.32, 0.955, gtitle.c_str() );
+//      gltxt->SetTextSize(0.04 ); // 0.025);
       canvas[ih]->cd();
       gltxt->Draw();
       canvas[ih]->Update(); 
@@ -377,11 +415,13 @@ void PrepareCanvas()
    
    std::string cname = "cnv_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
                      + experiment;
-   canvas.push_back( new TCanvas( cname.c_str(), "", 920, 690 ) );
+   canvas.push_back( new TCanvas( cname.c_str(), "", 920, 360 ) ); // 690 ) );
    std::string padname = "pad_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
                        + experiment;
-   pads.push_back( new TPad( padname.c_str(), "", 0.01, 0.01, 0.99, 0.97 ) );
-   pads.back()->Divide( 4, 3, 0.01, 0.01 );
+   pads.push_back( new TPad( padname.c_str(), "", 0.01, 0.01, 0.99, 0.99 ) ); // 0.95 ) ); // 0.97 ) );
+   pads.back()->SetBottomMargin(0.2); 
+// -->    pads.back()->Divide( 4, 3, 0.01, 0.01 );
+   pads.back()->Divide( 2, 1, 0.01, 0.01 );
       // --> canvas.back()->Divide( 4, 3, 0.01, 0.01 );
    canvas.back()->cd();
    pads.back()->Draw();

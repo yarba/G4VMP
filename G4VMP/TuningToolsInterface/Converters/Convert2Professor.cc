@@ -20,11 +20,12 @@ int main()
    
    std::string analysis_files_dir = 
 //      "/wclustre/g4v/yarba_j/g4vmp-study/ana-g4.11.0.r06-pion-NucDestr-NP250";
-      "/wclustre/g4v/yarba_j/g4vmp-study/ana-g4.11.0.r06-pion-Proc1-QEX-NP150";
+//      "/wclustre/g4v/yarba_j/g4vmp-study/ana-g4.11.0.r06-pion-Proc1-QEX-NP150";
+      "/wclustre/g4v/yarba_j/g4vmp-study/ana-g4.11.0-proton-NucDestr-NP250";
 
    std::string analysis_file = "";
 
-/*
+/*  */
 // proton IAEA
 //
    analysis_file = analysis_files_dir + "/analysis_FTFP_proton_IAEA/FTFP_proton3.824GeV_C-ProcL_IAEA.root";
@@ -33,7 +34,7 @@ int main()
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_proton_IAEA/FTFP_proton3.824GeV_Pb-ProcL_IAEA.root";
    analysis_files.push_back( analysis_file.c_str() );
-*/
+/* */
 
 /*  
 // pi- HARP
@@ -45,14 +46,14 @@ int main()
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus3.0GeV_Pb-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
 */
-/* */
+/* 
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus5.0GeV_C-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus5.0GeV_Cu-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus5.0GeV_Pb-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
-/* */
+*/
 /*
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus8.0GeV_C-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
@@ -61,14 +62,14 @@ int main()
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus8.0GeV_Pb-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
 */
-/* */
+/* 
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus12.0GeV_C-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus12.0GeV_Cu-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_piminus_HARP/FTFP_piminus12.0GeV_Pb-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
-/* */
+*/
 
 /* 
 // pi- ITEP
@@ -90,14 +91,14 @@ int main()
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus3.0GeV_Pb-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
 */
-/* */
+/* 
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus5.0GeV_C-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus5.0GeV_Cu-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus5.0GeV_Pb-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
-/* */
+*/
 /*
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus8.0GeV_C-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
@@ -106,14 +107,14 @@ int main()
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus8.0GeV_Pb-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
 */
-/* */
+/* 
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus12.0GeV_C-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus12.0GeV_Cu-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_HARP/FTFP_piplus12.0GeV_Pb-ProcL_HARP.root";
    analysis_files.push_back( analysis_file.c_str() );
-/* */
+*/
 /* 
 // pi+ ITEP
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_ITEP/FTFP_piplus5.0GeV_C-ProcL_ITEP.root";
@@ -174,7 +175,7 @@ int main()
    analysis_files.push_back( analysis_file.c_str() );
 */
 
-/*
+/* */
 // proton ITEP
    analysis_file = analysis_files_dir + "/analysis_FTFP_proton_ITEP/FTFP_proton5.0GeV_C-ProcL_ITEP.root";
    analysis_files.push_back( analysis_file.c_str() );
@@ -188,7 +189,7 @@ int main()
    analysis_files.push_back( analysis_file.c_str() );
    analysis_file = analysis_files_dir + "/analysis_FTFP_proton_ITEP/FTFP_proton7.5GeV_Pb-ProcL_ITEP.root";
    analysis_files.push_back( analysis_file.c_str() );
-*/
+/* */
 
 // NA61
 //
@@ -198,12 +199,13 @@ int main()
       + "/analysis_FTFP_proton_NA61/FTFP_proton31.0GeV_C-ProcL_NA61.root";
    analysis_files.push_back( analysis_file.c_str() );
 */
+/*
 // pi+
 //
    analysis_file = analysis_files_dir 
       + "/analysis_FTFP_piplus_NA61/FTFP_piplus60.0GeV_C-ProcL_NA61.root";
    analysis_files.push_back( analysis_file.c_str() );
-
+*/
 /*
 // pi+ SAS M6E
    analysis_file = analysis_files_dir + "/analysis_FTFP_piplus_SASM6E/FTFP_piplus100.0GeV_C-ProcL_SASM6E.root";
@@ -236,9 +238,10 @@ int main()
    
    std::vector<std::string> skip_params;
 
-   skip_params.push_back("MESON_EXCI_E_PER_WNDNUCLN");
-   skip_params.push_back("MESON_NUCDESTR_P1_TGT");
 /*
+   skip_params.push_back("BARYON_EXCI_E_PER_WNDNUCLN");
+   skip_params.push_back("BARYON_NUCDESTR_P1_TGT");
+
    skip_params.push_back("BARYON_NUCDESTR_P2_TGT");
    skip_params.push_back("BARYON_NUCDESTR_P3_TGT");
 */
@@ -259,12 +262,12 @@ int main()
 // -->  default_params.push_back( std::pair<std::string,double>("MESON_PT2_NUCDESTR_P2", 0.04) );
    default_params.push_back( std::pair<std::string,double>("MESON_EXCI_E_PER_WNDNUCLN", 40.) );
 */   
-/*
+/* */
    default_params.push_back( std::pair<std::string,double>("BARYON_NUCDESTR_P1_TGT", 1.) );
    default_params.push_back( std::pair<std::string,double>("BARYON_NUCDESTR_P2_TGT", 4.) );
    default_params.push_back( std::pair<std::string,double>("BARYON_NUCDESTR_P3_TGT", 2.1) );
    default_params.push_back( std::pair<std::string,double>("BARYON_EXCI_E_PER_WNDNUCLN", 40.) );
-*/   
+/* */   
 /*
    default_params.push_back( std::pair<std::string,double>("BARYON_PROC1_A1", 25.0 ) );
    default_params.push_back( std::pair<std::string,double>("BARYON_PROC1_B1",  1.0 ) );
@@ -283,12 +286,12 @@ int main()
    default_params.push_back( std::pair<std::string,double>("BARYON_PROC0_B2",  3.0 ) );
 */
 
-/* */
+/* 
    default_params.push_back( std::pair<std::string,double>("BARYON_PROC1_A1",  5.77 ) );
    default_params.push_back( std::pair<std::string,double>("BARYON_PROC1_B1",  0.6  ) );
    default_params.push_back( std::pair<std::string,double>("BARYON_PROC1_A2", -5.77 ) );
    default_params.push_back( std::pair<std::string,double>("BARYON_PROC1_B2",  0.8 ) );
-/* */
+*/
 
    bool same_univ = false;  
    std::vector<std::string> processed_univ; 
@@ -380,6 +383,7 @@ int main()
 	       }
 */
 // --->	    
+/*
 	       if ( hname.find( "_k0s_" )    != std::string::npos ||
 	            hname.find( "_kplus_" )  != std::string::npos ||
 		    hname.find( "_kminus_" ) != std::string::npos ||
@@ -388,6 +392,10 @@ int main()
 		    ( dir_name.find("ITEP") == std::string::npos   
 		      && hname.find( "_proton_" ) != std::string::npos )  
 		  )
+*/
+	       if ( hname.find("neutron") == std::string::npos &&
+	            hname.find("Neutron") == std::string::npos 
+	          )
 	       {
 // -->	          std::cout << " ... skipping " << hname << std::endl;
 		  key = (TKey*)next();
@@ -531,7 +539,7 @@ int main()
 	       }
 */
 // --->	       
-
+/*
 	       if ( hname.find( "_k0s_" )    != std::string::npos ||
 	            hname.find( "_kplus_" )  != std::string::npos ||
 		    hname.find( "_kminus_" ) != std::string::npos ||
@@ -539,6 +547,10 @@ int main()
 		    ( dir_name.find("ITEP") == std::string::npos   
 		      && hname.find( "_proton_" ) != std::string::npos )  
 		  )
+*/
+	       if ( hname.find("neutron") == std::string::npos &&
+	            hname.find("Neutron") == std::string::npos 
+	          )
 	       {
 // -->	          std::cout << " ... skipping " << hname << std::endl;
 		  key = (TKey*)next();

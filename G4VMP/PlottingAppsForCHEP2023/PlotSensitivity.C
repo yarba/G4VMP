@@ -8,7 +8,6 @@
 #include <vector>
 
 #include "Rtypes.h"
-/*
 #include "TROOT.h"
 #include "TRint.h"
 #include "TObject.h"
@@ -26,19 +25,20 @@
 std::string file_dir_global = "/wclustre/g4v/yarba_j/g4vmp-study";
 
 std::string file_dir_local  = "";
+std::string experiment      = "";
 std::string model           = "";
 std::string beam            = "";
-std::string secondary       = "";
 TFile*      file            = 0;
-*/
-
-#include "general.h"
 
 // later...
 // NA61
-std::string momentum   = "31.0GeV";
-std::string target     = "C";
-std::string experiment = "NA61";
+// std::string momentum  = "60.0GeV";
+// std::string target    = "C";
+// std::string secondary = "piplus"; 
+// HARP
+std::string momentum  = "5.0GeV";
+std::string target    = "Pb";
+std::string secondary = "piminus"; 
 
 
 //std::string dir_fits = 
@@ -48,56 +48,74 @@ std::string experiment = "NA61";
 //std::string dir_fits = 
 //   "../ProfessorInterface/convert-TFileDirectory-to-Professor/tunes-NA61-yoda-poly3";
 std::string dir_fits =
-//    "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-12pars/tunes-harp-na61-fix-proc1-poly3-scan25";
-//     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc0-nucdestr-p1tgt-NA61/tunes-poly3-scan25";
+//    "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-12pars/tunes-harp-na61-poly3-scan25";
+//     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc1-nucdestr-p1tgt-NA61/tunes-poly3-scan25";
 //     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-bestfit-nucdestr-qex-proc0-HARP-NA61/tunes-poly4-scan25";
-//     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-bestfit-nucdestr-qex-proc0-HARP-NA61/tunes-poly4-scan25";
+//   "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-nucdestr-IAEA-ITEP-HARP/tunes-poly3-p2-4-p3-2.1-scan25";
 //     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc0-HARP-NA61/tunes-poly4-scan25";
-     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc0-HARP-NA61-tst3/tunes-poly4-all-no-scan" ;  
+//   "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc0-HARP-NA61-tst3/tunes-poly4-all-no-scan" ;  
+//   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-nucdestr-ITEP-HARP/tunes-no-FW-protons-poly3-fix-p2-p3";
+//   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-proc1-qex-HARP-NA61-np250/tunes-incl-FW-protons-poly3";
+//   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-proc1-qex-HARP-NA61-np150/tunes-piplus-beam-poly4";
+   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-proc1-qex-HARP-NA61-np150/tunes-all-pions-poly4";
 //
-//     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc1-HARP-NA61-tst3/tunes-all-poly4-no-scan";
+//   "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc1-HARP-NA61-tst3/tunes-all-poly4-no-scan";
 //
+//   "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-nucdestr-IAEA-ITEP-HARP/tunes-poly3-scan25";
 // std::string dir_sim_best_fit = "09-09-21-best-fits";
 // std::string dir_sim_best_fit = "11-10-21-best-fits";  
 // std::string dir_sim_best_fit = "bestfit-qex-proc0-nucdestr-p1";  
-std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst3";
+// std::string dir_sim_best_fit = "bestfit-qex-proc1-nucdestr-p1";  
+//std::string dir_sim_best_fit = "best-fit12pars";
+// std::string dir_sim_best_fit = "bestfit-qex-proc1-2020";  
+// std::string dir_sim_best_fit ="bestfit-nucdestr-4pars-2022";
+// std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst1";
+//
+// std::string dir_sim_best_fit = "bestfit-nucdestr-iaea-itep-harp-2022";
+// std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst3";
+// std::string dir_sim_best_fit = "bestfit-pion-nucdestr-2022";
+std::string dir_sim_best_fit = "bestfit-pion-proc1-qex-2022";
+
+std::string dir_sim_retro = "bestfit-pion-nucdestr-2019";
 
 std::vector<TCanvas*> canvas;
 std::vector<TPad*> pads;
 std::vector<double> chi2_def;
 std::vector<double> chi2_fit;
 std::vector<double> chi2_sim_best_fit;
+std::vector<double> chi2_sim_retro;
 std::vector<int> NDF;
 
 void PrepareCanvas();
-//void PlotHisto( TH1*, int, std::string, int );
-#include "PlotHisto.C"
-//void PlotGraph( TGraph*, int, std::string );
-#include "PlotGraph.C"
+void PlotHisto( TH1*, int, std::string, int );
+void PlotGraph( TGraph*, int, std::string );
 
-//double Chi2( TH1*, TH1* /*, int& */ );
-//double Chi2( TH1*, TGraphAsymmErrors* /*, int& */ );
+double Chi2( TH1*, TH1* /*, int& */ );
+double Chi2( TH1*, TGraphAsymmErrors* /*, int& */ );
 
-#include "Chi2.C"
 
-void PlotSensitivityNA61( std::string dir_local, 
+void PlotSensitivity( std::string dir_local, 
+                      std::string exp, 
 		      std::string mdl,
 		      std::string bm,
-		      std::string sec,
 		      bool        plot_mc_spread=true,
 		      bool        plot_fits=false,
-		      bool        plot_sim_best_fit=false  
+		      bool        plot_sim_best_fit=false,
+		      bool        plot_sim_retro=false  
 		    )
 {
 
 
+   std::vector<std::string> select_plots;
+//   select_plots.push_back("10<theta<20 ");
+//   select_plots.push_back("40<theta<60 ");
+   select_plots.push_back("1.55<theta<1.75 ");
+//   select_plots.push_back("180<theta<240 ");
+
    file_dir_local = dir_local;
+   experiment = exp;
    model = mdl;
    beam  = bm;
-   secondary = sec;
-   
-   LogX = false;
-   LogY = false;
    
    file_dir_local += "/analysis_" + model + "_" + beam + "_" + experiment;
       
@@ -127,6 +145,17 @@ void PlotSensitivityNA61( std::string dir_local,
       file_sim_best_fit = TFile::Open( fname_sim_best_fit.c_str() );
    }
       
+   std::string fname_sim_retro = file_dir_global + "/" + dir_sim_retro;
+   fname_sim_retro += "/analysis_" + model + "_" + beam + "_" + experiment;
+   fname_sim_retro += "/" + model + "_" + beam + momentum 
+                     + "_" + target + "-ProcL_" + experiment + ".root";
+   
+   TFile* file_sim_retro = 0;
+   if ( plot_sim_retro )
+   {
+      file_sim_retro = TFile::Open( fname_sim_retro.c_str() );
+   }
+
    PrepareCanvas();
    
    int iuniv = -1;
@@ -170,7 +199,36 @@ void PlotSensitivityNA61( std::string dir_local,
 	       hkey_def = (TKey*)itr_def();
 	       continue;
       }
-            
+      
+      std::string hdtitle = hd->GetTitle();
+      bool selected_found = false;
+      for ( size_t isel=0; isel<select_plots.size(); ++isel )
+      {
+         if ( hdtitle.find( select_plots[isel] ) == std::string::npos )
+	 {
+	    continue;
+	 }
+	 else 
+	 {
+	    selected_found = true;
+	    break;
+	 } 
+      }
+      if ( !selected_found )
+      {
+         hkey_def = (TKey*)itr_def();
+	 continue;
+      }
+
+/*
+      // skip FW production for now
+      //
+      if ( hdname.find("FW_") != std::string::npos )
+      {
+         hkey_def = (TKey*)itr_def();
+	 continue;
+      }
+*/      
       std::cout << " processing/plotting data histo --> " << hdname << std::endl;
 	    
       double ymax = -1.;
@@ -185,13 +243,17 @@ void PlotSensitivityNA61( std::string dir_local,
       hd->SetTitle("");
       hd->GetXaxis()->SetLabelFont(62);
       hd->GetYaxis()->SetLabelFont(62);
+      hd->GetYaxis()->SetTitle("d#sigma / d#theta dp [mb/(GeV/c/rad)]");
       hd->GetXaxis()->SetTitleFont(62);
       hd->GetYaxis()->SetTitleFont(62);
-      hd->GetYaxis()->SetTitleOffset(1.5);
+      hd->GetXaxis()->SetTitleOffset(1.1);
+      hd->GetYaxis()->SetTitleOffset(1.4);
+      hd->GetXaxis()->SetTitleSize(0.04);
+      hd->GetYaxis()->SetTitleSize(0.0375);
       hd->GetXaxis()->CenterTitle();
       hd->GetYaxis()->CenterTitle();
       hd->GetYaxis()->SetRangeUser( 0., ymax );
-      icount++;
+      if ( experiment == "NA61" ) icount++;
       PlotHisto( hd, icount, "p", 0 );
 	    
       // extract MC histo of the same name, from "Default"/MC4Professor
@@ -202,7 +264,7 @@ void PlotSensitivityNA61( std::string dir_local,
       hmc->SetLineWidth(2);
       hmc->SetStats(0);
       imax = hmc->GetMaximumBin();
-      if ( ymax < (hmc->GetBinContent(imax)+2.*hmc->GetBinError(imax)) )
+      if ( ymax < (hmc->GetBinContent(imax)+5.*hmc->GetBinError(imax)) )
 	 ymax = hmc->GetBinContent(imax)+2.*hmc->GetBinError(imax);
       hd->GetYaxis()->SetRangeUser( 0., ymax );
       hmc->GetYaxis()->SetRangeUser( 0., ymax );
@@ -210,7 +272,7 @@ void PlotSensitivityNA61( std::string dir_local,
 //	    PlotHisto( hd, "p" );
       PlotHisto( hmc, icount, "histE1same", 0 );
 	    
-/* plot MC sperad if requested */
+/* skip the MC sperad for now */
 
       if ( plot_mc_spread )
       {
@@ -235,8 +297,8 @@ void PlotSensitivityNA61( std::string dir_local,
            huni->SetLineColor(kGreen);
            huni->SetStats(0);
            imax = huni->GetMaximumBin();
-           if ( ymax < (huni->GetBinContent(imax)+2.*huni->GetBinError(imax)) )
-	      ymax = huni->GetBinContent(imax)+2.*huni->GetBinError(imax);
+           if ( ymax < (huni->GetBinContent(imax)+5.*huni->GetBinError(imax)) )
+	      ymax = huni->GetBinContent(imax)+5.*huni->GetBinError(imax);
            hd->GetYaxis()->SetRangeUser( 0., ymax );
            huni->GetYaxis()->SetRangeUser( 0., ymax );
            hmc->GetYaxis()->SetRangeUser( 0., ymax );
@@ -250,8 +312,27 @@ void PlotSensitivityNA61( std::string dir_local,
       PlotHisto( hmc, icount, "histE1same", 0 );
       PlotHisto( hd, icount, "psame", 0 );
       
-      // only one canvas in case of NA61-like benchmark
-      size_t icnv = 0;
+      size_t icnv = -1;
+
+      if ( experiment == "HARP" )
+      {
+         if ( hdname.find("FW_") != std::string::npos )
+	 {
+	    icnv = 0;
+	 }
+	 else if ( hdname.find("LA_") != std::string::npos )
+	 {
+	    icnv = 1;
+	 }
+	 else if ( hdname.find("momentum_") != std::string::npos )
+	 {
+	    icnv = 2;
+	 }
+      }
+      else
+      {
+         icnv = 0;
+      }
       
       std::cout << " canvas.size() = " << canvas.size() << std::endl;
       if ( icnv >= 0 && icnv < canvas.size() )
@@ -303,19 +384,61 @@ void PlotSensitivityNA61( std::string dir_local,
            hbest->SetLineColor(kMagenta);
 	   hbest->SetLineWidth(2);
            hbest->SetStats(0);
+           imax = hbest->GetMaximumBin();
+           if ( ymax < (hbest->GetBinContent(imax)+5.*hbest->GetBinError(imax)) )
+	      ymax = hbest->GetBinContent(imax)+5.*hbest->GetBinError(imax);
+           hd->GetYaxis()->SetRangeUser( 0., ymax );
+           hbest->GetYaxis()->SetRangeUser( 0., ymax );
+           hmc->GetYaxis()->SetRangeUser( 0., ymax );
 	   PlotHisto( hbest, icount, "histE1same", 1 );
 	   chi2_sim_best_fit[icnv] += Chi2( hd, hbest );
          
          }
       }
       
+      if ( plot_sim_retro )
+      {
+         TList* keys_sim_retro = file_sim_retro->GetListOfKeys();
+         int nkeys_sim_retro   = keys_sim_retro->GetEntries();
+         for ( int iretro=0; iretro<nkeys_sim_retro; ++iretro )
+         {
+           if ( iretro > 1 ) continue; // it's >1 because there might also be "Default" dir
+	   TKey* key_retro = (TKey*)(keys_sim_retro->At(iretro));
+           std::string key_retro_name = key_retro->GetClassName();
+           if ( key_retro_name.find("Directory") == std::string::npos ) continue;
+
+           TObject* obj_retro = keys_sim_retro->At(iretro);
+                  
+           std::string dir_retro_name = obj_retro->GetName();
+
+	   // skip Default, if any, as we've already plotted it
+	   //
+	   if ( dir_retro_name.find("Default") != std::string::npos ) continue;
+
+	   std::string hretroname = dir_retro_name + "/MC4Professor/" + hdname;
+	   TH1D* hretro = (TH1D*)file_sim_retro->Get( hretroname.c_str() );
+	   if ( !hretro ) continue;
+           hretro->SetLineColor(kGreen+2);
+	   hretro->SetLineWidth(2);
+           hretro->SetStats(0);
+           imax = hretro->GetMaximumBin();
+           if ( ymax < (hretro->GetBinContent(imax)+5.*hretro->GetBinError(imax)) )
+	      ymax = hretro->GetBinContent(imax)+5.*hretro->GetBinError(imax);
+           hd->GetYaxis()->SetRangeUser( 0., ymax );
+           hmc->GetYaxis()->SetRangeUser( 0., ymax );
+	   PlotHisto( hretro, icount, "histE1same", 1 );
+	   chi2_sim_retro[icnv] += Chi2( hd, hretro );
+         }
+      }
+
+
       // draw histo titles
       //
       std::string htitle = hmc->GetTitle();
       //
       // TMP stuff, need to be fixed in the analyzer...
       //
-      htitle += " [mrad]";
+      if ( experiment == "NA61" ) htitle += " [mrad]";
       //
       double x1 = hd->GetBinCenter(1) - hd->GetBinWidth(1);
       double x2 = hd->GetBinCenter(hd->GetNbinsX()) + hd->GetBinWidth(hd->GetNbinsX());
@@ -326,7 +449,7 @@ void PlotSensitivityNA61( std::string dir_local,
       // NOTE: we're already at the hd/hmc histogram, and that's where
       //       we need to be in order to draw a text over it
       // 
-      hltxt->Draw();
+// -->      hltxt->Draw();
       	    
       hkey_def = (TKey*)itr_def();
 
@@ -340,7 +463,7 @@ void PlotSensitivityNA61( std::string dir_local,
       TLatex* gltxt = new TLatex( 0.1, 0.975, gtitle.c_str() );
       gltxt->SetTextSize(0.025);
       canvas[ih]->cd();
-      gltxt->Draw();
+// -->       gltxt->Draw();
       canvas[ih]->Update(); 
       std::string output = canvas[ih]->GetName();
       output += ".png";
@@ -352,6 +475,7 @@ void PlotSensitivityNA61( std::string dir_local,
       std::cout << " DEFAULT:      chi2/NDF = " << chi2_def[indf] <<  "/" << NDF[indf] << std::endl;
       std::cout << " FITS:         chi2/NDF = " << chi2_fit[indf] <<  "/" << NDF[indf] << std::endl;
       std::cout << " SIM BEST FIT: chi2/NDF = " << chi2_sim_best_fit[indf] <<  "/" << NDF[indf] << std::endl;
+      std::cout << " SIM FIT 2019: chi2/NDF = " << chi2_sim_retro[indf] <<  "/" << NDF[indf] << std::endl;
    }
   
 // ---> do it later if needs be...   file->Close();
@@ -368,6 +492,7 @@ void PrepareCanvas()
    chi2_def.clear();
    chi2_fit.clear();
    chi2_sim_best_fit.clear();
+   chi2_sim_retro.clear();
    NDF.clear();
    
    if ( experiment.empty() )
@@ -375,28 +500,141 @@ void PrepareCanvas()
       std::cout << " experiment is not defined; can NOT prepare canvas " << std::endl;
    }
    
-   std::string cname = "cnv_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
-                     + experiment;
-   canvas.push_back( new TCanvas( cname.c_str(), "", 920, 690 ) );
-   std::string padname = "pad_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
-                       + experiment;
-   pads.push_back( new TPad( padname.c_str(), "", 0.01, 0.01, 0.99, 0.97 ) );
-   pads.back()->Divide( 4, 3, 0.01, 0.01 );
+   if ( experiment == "HARP" )
+   {
+      std::string cname = "cnv_" + model + "_" + beam + momentum + "_" + target + "_" +secondary + "_"
+                        + experiment + "_FW";
+      canvas.push_back( new TCanvas( cname.c_str(), "", 500, 500 ) );
+      std::string padname = "pad_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
+                          + experiment + "_FW";;
+      pads.push_back( new TPad( padname.c_str(), "", 0.01, 0.01, 0.99, 0.97 ) );
+      // --> canvas.back()->Divide( 2, 2, 0.01, 0.01 );
+      pads.back()->Divide( 2, 2, 0.01, 0.01 );
+      canvas.back()->cd();
+      pads.back()->Draw();
+      chi2_def.push_back(0.);
+      chi2_fit.push_back(0.);
+      chi2_sim_best_fit.push_back(0.);
+      NDF.push_back(0);
+      cname = "cnv_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
+            + experiment + "_LA";
+      canvas.push_back( new TCanvas( cname.c_str(), "", 600, 500 ) );
+      padname = "pad_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
+              + experiment + "_LA";;
+      pads.push_back( new TPad( padname.c_str(), "", 0.01, 0.01, 0.99, 0.99 ) ); // 0.97 ) );
+      pads.back()->SetLeftMargin(0.35);
+      pads.back()->SetBottomMargin(0.2);
+      // --> canvas.back()->Divide( 3, 3, 0.01, 0.01 );
+      // --> pads.back()->Divide( 3, 3, 0.01, 0.01 );
+      pads.back()->Divide( 1, 1, 0.001, 0.001 );
+      canvas.back()->cd();
+      pads.back()->Draw();
+      chi2_def.push_back(0.);
+      chi2_fit.push_back(0.);
+      chi2_sim_best_fit.push_back(0.);
+      NDF.push_back(0);
+      cname = "cnv_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
+            + experiment + "_theta";
+      canvas.push_back( new TCanvas( cname.c_str(), "", 1200, 500 ) );
+      padname = "pad_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
+              + experiment + "theta";;
+      pads.push_back( new TPad( padname.c_str(), "", 0.01, 0.01, 0.99, 0.97 ) );
+      // --> canvas.back()->Divide( 5, 2, 0.01, 0.01 );
+      pads.back()->Divide( 5, 2, 0.01, 0.01 );
+      canvas.back()->cd();
+      pads.back()->Draw();
+      chi2_def.push_back(0.);
+      chi2_fit.push_back(0.);
+      chi2_sim_best_fit.push_back(0.);
+      chi2_sim_retro.push_back(0.);
+      NDF.push_back(0);
+   }
+   else if ( experiment == "NA61" )
+   {
+      std::string cname = "cnv_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
+                        + experiment;
+      canvas.push_back( new TCanvas( cname.c_str(), "", 920, 690 ) );
+      std::string padname = "pad_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
+                          + experiment;
+      pads.push_back( new TPad( padname.c_str(), "", 0.01, 0.01, 0.99, 0.97 ) );
+      pads.back()->Divide( 4, 3, 0.01, 0.01 );
       // --> canvas.back()->Divide( 4, 3, 0.01, 0.01 );
-   canvas.back()->cd();
-   pads.back()->Draw();
-   chi2_def.push_back(0.);
-   chi2_fit.push_back(0.);
-   chi2_sim_best_fit.push_back(0.);
-   NDF.push_back(0);
+      canvas.back()->cd();
+      pads.back()->Draw();
+      chi2_def.push_back(0.);
+      chi2_fit.push_back(0.);
+      chi2_sim_best_fit.push_back(0.);
+      chi2_sim_retro.push_back(0.);
+      NDF.push_back(0);
+   }
 
    return;
 
 }
-/*
+
 void PlotHisto( TH1* histo, int icount, std::string opt, int drawtype )
 {
    
+   if ( experiment == "HARP" )
+   {
+      
+      // disregard icount, extract histo id from its name
+      //
+      std::string hname = histo->GetName();
+      int icnv = -1;
+      int idh = -1;
+      size_t pos = hname.find( "FW_" );
+      if ( pos != std::string::npos )
+      {
+         icnv = 0;
+         idh = std::atoi( (hname.substr(pos+3)).c_str() ); 
+      }
+      pos = hname.find( "LA_" );
+      if ( pos != std::string::npos )
+      {
+         icnv = 1;
+         idh = std::atoi( (hname.substr(pos+3)).c_str() ); 
+      }
+      pos = hname.find( "momentum_" );
+      if ( pos != std::string::npos )
+      {
+         icnv = 2;
+         idh = std::atoi( (hname.substr(pos+9)).c_str() ); 
+      }
+      if ( icnv < 0 ) return;
+/*
+      TCanvas* cnv = canvas[icnv];
+      if ( idh < 0 || idh >= cnv->GetListOfPrimitives()->GetSize() ) return;
+      cnv->cd(idh+1);
+      gPad->Update();
+      cnv->Update();
+
+*/
+      TPad* pad = pads[icnv];
+// -->      if ( idh < 0 || idh >= pad->GetListOfPrimitives()->GetSize() ) return;
+      pad->cd(1); //idh+1);
+      gPad->Update();
+      pad->Update();
+      canvas[icnv]->Update();
+//      histo->DrawCopy( opt.c_str() );
+      if ( drawtype == 0 )
+      {
+         histo->Draw( opt.c_str() );
+      }
+      else if ( drawtype == 1 )
+      {
+         histo->DrawCopy( opt.c_str() );
+      }
+      gPad->Update();
+/*
+      cnv->Update();
+*/      
+      pad->Update();
+      canvas[icnv]->Update();
+   }
+   else if ( experiment == "NA61" )
+   {
+
       // ---> if ( icount < 0 || icount >= canvas[0]->GetListOfPrimitives()->GetSize() ) return;
       if ( icount < 0 || icount >= pads[0]->GetListOfPrimitives()->GetSize() ) return;
       // --> canvas[0]->cd(icount+1);
@@ -416,13 +654,57 @@ void PlotHisto( TH1* histo, int icount, std::string opt, int drawtype )
       pads[0]->Update();
       canvas[0]->Update();
       
+   }
+      
    return;
 
 }
-*/
-/*
+
 void PlotGraph( TGraph* gr, int icount, std::string opt )
 {
+
+   if ( experiment == "HARP" )
+   {
+      
+      // disregard icount, extract histo id from its name
+      //
+      std::string gname = gr->GetName();
+      int icnv = -1;
+      int idh = -1;
+      size_t pos = gname.find( "FW_" );
+      if ( pos != std::string::npos )
+      {
+         icnv = 0;
+         idh = std::atoi( (gname.substr(pos+3)).c_str() ); 
+      }
+      pos = gname.find( "LA_" );
+      if ( pos != std::string::npos )
+      {
+         icnv = 1;
+         idh = std::atoi( (gname.substr(pos+3)).c_str() ); 
+      }
+      pos = gname.find( "momentum_" );
+      if ( pos != std::string::npos )
+      {
+         icnv = 2;
+         idh = std::atoi( (gname.substr(pos+9)).c_str() ); 
+      }
+      if ( icnv < 0 ) return;
+
+      TPad* pad = pads[icnv];
+      if ( idh < 0 || idh >= pad->GetListOfPrimitives()->GetSize() ) return;
+      pad->cd(idh+1);
+      gPad->Update();
+      pad->Update();
+      canvas[icnv]->Update();
+      gr->Draw( opt.c_str() );
+      gPad->Update();
+      pad->Update();
+      canvas[icnv]->Update();
+
+   }
+   else if ( experiment == "NA61" )
+   {
 
       // ---> if ( icount < 0 || icount >= canvas[0]->GetListOfPrimitives()->GetSize() ) return;
       if ( icount < 0 || icount >= pads[0]->GetListOfPrimitives()->GetSize() ) return;
@@ -435,12 +717,13 @@ void PlotGraph( TGraph* gr, int icount, std::string opt )
       pads[0]->Update();
       canvas[0]->Update();
       
+   }
+
    return;
 
 }
-*/
-/*
-double Chi2( TH1* hdata, TH1* hsim  )
+
+double Chi2( TH1* hdata, TH1* hsim /*, int& NDF */ )
 {
 
    double Chi2 = 0.;
@@ -513,6 +796,49 @@ double Chi2( TH1* hdata, TGraphAsymmErrors* gfits )
    }
 
    return Chi2;
+
+}
+
+/*
+double Chi2( TH1* hdata, TGraph* gfits  )
+{
+
+   double Chi2=0.;
+
+   int     NXData = gdata->GetN();
+
+   //   std::cout << "NXData = " << NXData << std::endl; 
+
+   double* XData  = gdata->GetX();
+   double* YData  = gdata->GetY();
+   double* EYData = gdata->GetEY();
+         
+   int NXSim  = hsim->GetNbinsX();
+
+   //   std::cout << " NXSim = " << NXSim << std::endl;
+
+      for ( int k=1; k<=NXSim; ++k ) 
+      { 
+         double xx1 = hsim->GetBinLowEdge(k);
+	 double xx2 = hsim->GetBinWidth(k);
+	 for (int kk=0; kk<NXData; ++kk )
+	 {
+	   if ( xx1 < XData[kk] && xx1+xx2 > XData[kk] ) // in principle, this is not safe because (in general) 
+                                                         // the bin width maybe different..
+	    {
+	       double yy1  = hsim->GetBinContent(k);
+	       double eyy1 = hsim->GetBinError(k);
+	       if ( ( eyy1*eyy1 + EYData[kk]*EYData[kk] ) > 0 )
+	       {
+	          Chi2 += ( yy1 - YData[kk] )*( yy1 - YData[kk] ) / ( eyy1*eyy1 + EYData[kk]*EYData[kk] );
+// -->	          ++NDF;
+	       } 
+	       break;
+	    }
+	 }
+      }      
+
+      return Chi2;
 
 }
 */

@@ -19,7 +19,7 @@ int main()
    std::vector<std::string> analysis_files;
    
 //   std::string analysis_files_dir ="/wclustre/g4v/yarba_j/g4vmp-study/01-18-22" ;   
-   std::string analysis_files_dir ="/wclustre/g4v/yarba_j/g4vmp-study/ana-g4.11.0-NucDestr-NP250" ;   
+   std::string analysis_files_dir = "/wclustre/g4v/yarba_j/g4vmp-study/ana-g4.11.0-proton-NucDestr-NP250" ;   
 
    std::string analysis_file = "";
 
@@ -182,7 +182,7 @@ int main()
 
 	       // skip histots if or if not certain secondary 
 	       std::string hname = h->GetName();
-
+/*
 	       if ( hname.find( "_k0s_" )    != std::string::npos ||
 	            hname.find( "_kplus_" )  != std::string::npos ||
 		    hname.find( "_kminus_" ) != std::string::npos ||
@@ -191,6 +191,10 @@ int main()
 //		    hname.find( "_proton_" ) != std::string::npos )
 		    ( ( dir_name.find("ITEP") == std::string::npos || dir_name.find("ITEP") == std::string::npos )  
 		      && hname.find( "_proton_" ) != std::string::npos )  )
+*/
+	       if ( hname.find("neutron") == std::string::npos &&
+	            hname.find("Neutron") == std::string::npos 
+	          )
 	       {
 		  key = (TKey*)next();
 		  continue;
@@ -329,12 +333,18 @@ int main()
 	       }
 */
 // --->	       
-
+/*
 	       if ( hname.find( "_k0s_" )    != std::string::npos ||
 	            hname.find( "_kplus_" )  != std::string::npos ||
 		    hname.find( "_kminus_" ) != std::string::npos ||
 		    hname.find( "_lambda_" ) != std::string::npos ||
-		    hname.find( "_proton_" ) != std::string::npos )
+//		    hname.find( "_proton_" ) != std::string::npos )
+		    ( ( dir_name.find("ITEP") == std::string::npos || dir_name.find("ITEP") == std::string::npos )  
+		      && hname.find( "_proton_" ) != std::string::npos )  )
+*/
+	       if ( hname.find("neutron") == std::string::npos &&
+	            hname.find("Neutron") == std::string::npos 
+	          )
 	       {
 // -->	          std::cout << " ... skipping " << hname << std::endl;
 		  key = (TKey*)next();

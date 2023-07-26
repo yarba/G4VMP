@@ -7,7 +7,7 @@ process_name:processA
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   250000
+  maxEvents:   250
 }
 
 services: 

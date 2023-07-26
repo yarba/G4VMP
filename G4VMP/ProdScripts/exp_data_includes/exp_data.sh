@@ -159,9 +159,14 @@ exp_data_proton5.0GeV_C_ITEP() {
 
 }
 
+# NOTE: can NOT find record on neutron production on Cu - need to explore/investigate
+#       record 2488 that was listed here before is for 7.5GeV/c protob on Cu 
+#       (BTW, same story of missing records on secondary neutrons for e.g. U... 
+#        even if we haven't used it in the fits yet...)
+#
 exp_data_proton5.0GeV_Cu_ITEP() {
 
-/usr/bin/printf "            DBRecords: [ 2422, 2423, 2424, 2425, 2488 ]"
+/usr/bin/printf "            DBRecords: [ 2422, 2423, 2424, 2425 ]"
 
 }
 

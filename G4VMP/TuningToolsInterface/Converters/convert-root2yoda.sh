@@ -4,8 +4,8 @@
 DIR=${1}
 
 # --> TOOLDIR=/work1/g4v/yarba_j/Global-Fits-Tools/Go-HEP-stop-gap/yoda/bin
-TOOLDIR=/work1/g4v/yarba_j/Professor/gcc-7.3.0/YODA-1.6.7-install/bin
-# --> TOOLDIR=/work1/g4v/yarba_j/Global-Fits-Tools/gcc-9.3.0/YODA-1.9.2-install/bin
+# --> TOOLDIR=/work1/g4v/yarba_j/Professor/gcc-7.3.0/YODA-1.6.7-install/bin
+TOOLDIR=/work1/g4v/yarba_j/Global-Fits-Tools/gcc9.3.0+p3915/YODA-1.9.7-install/bin
 
 # NOTE: the A option (capital) means don't display whatever starts with "."
 list=`ls -AlF ${DIR} | grep -v total | awk '{print $NF}'`
