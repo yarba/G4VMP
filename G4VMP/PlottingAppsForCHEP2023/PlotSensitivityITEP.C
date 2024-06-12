@@ -50,7 +50,7 @@ std::string dir_fits =
 //
 // this is a test Apprentice vs Professor
 //
-   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP/tunes_poly3"; // Professor
+   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP-Fall2022/tunes_poly3"; // Professor
 //   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP/tune_val+errs_px3qx0"; // Apprentice
 
 // std::string dir_sim_best_fit = "bestfit-nucdestr-4pars-2022";  
@@ -94,7 +94,7 @@ void PlotSensitivityITEP( std::string dir_local,
 /* */
 //   theta_itep771.push_back("_59p1deg");
    theta_itep771.push_back("_89deg");
-   theta_itep771.push_back("_119deg");
+// -->   theta_itep771.push_back("_119deg");
 //   theta_itep771.push_back("_159p6deg");
 /* */
    
@@ -245,7 +245,7 @@ void PlotSensitivityITEP( std::string dir_local,
       std::string hmcname = def_dir_name + "/MC4Professor/" + hdname;
       TH1D* hmc = (TH1D*)file->Get( hmcname.c_str() );
       hmc->SetLineColor(kRed);
-      hmc->SetLineWidth(2);
+      hmc->SetLineWidth(3);
       hmc->SetStats(0);
       imax = hmc->GetMaximumBin();
       if ( ymax < (hmc->GetBinContent(imax)+5.*hmc->GetBinError(imax)) )
@@ -257,6 +257,7 @@ void PlotSensitivityITEP( std::string dir_local,
 
 /* plot MC sperad if requested */
 
+      TH1D* huni4lg = 0;
       if ( plot_mc_spread )
       {
          for ( int ikd=0; ikd<nkeys; ++ikd )
@@ -277,6 +278,7 @@ void PlotSensitivityITEP( std::string dir_local,
 	   std::string huniname = dir_name + "/MC4Professor/" + hdname;
 	   TH1D* huni = (TH1D*)file->Get( huniname.c_str() );
 	   if ( !huni ) continue;
+	   if ( !huni4lg ) huni4lg = huni; 
            huni->SetLineColor(kGreen);
            huni->SetStats(0);
            imax = huni->GetMaximumBin();
@@ -295,12 +297,63 @@ void PlotSensitivityITEP( std::string dir_local,
       PlotHisto( hmc, icount, "histE1same", 0 );
       PlotHisto( hd, icount, "psame", 0 );
 
+      size_t pos = 0;
+      std::string txt = hmc->GetTitle();
+      pos = txt.find("theta");
+      txt = txt.substr(pos);
+      txt = "#" + txt;
+      std::cout << "txt = " << txt << std::endl;
+      TLatex* ltxt = new TLatex( 0.035, ymax*0.9, txt.c_str() );
+      ltxt->Draw();
+
+      TLegend* lg = new TLegend( 0.175, 0.6, 0.775, 0.775 );
+      lg->SetFillColor(0);
+      lg->SetBorderSize(0);
+      TLegendEntry* dentry = lg->AddEntry( hd, "Data","p");
+      dentry->SetTextFont(62);
+      dentry->SetTextSize(0.04);
+      TLegendEntry* mcentry = lg->AddEntry( hmc, "Geant4.11.1/FTF Default","L");
+      mcentry->SetTextFont(62);
+      mcentry->SetTextColor(hmc->GetLineColor());
+      mcentry->SetTextSize(0.04);
+      if ( huni4lg )
+      {
+//         TLegendEntry* uentry = lg->AddEntry( huni4lg, "Geant4.11.1/FTF with different parameters", "L" );
+         // alt could be AddEntry(huni4lg,"#splitline{line1}{line2}{line3},"L");
+	 TLegendEntry* uentry1 = lg->AddEntry( huni4lg, "Geant4.11.1/FTF : the spread", "L" );
+	 uentry1->SetTextFont(62);
+	 uentry1->SetTextColor(huni4lg->GetLineColor());
+	 uentry1->SetTextSize(0.04);
+	 TLegendEntry* uentry2 = lg->AddEntry( "", "in the simulated results due to", "");
+	 uentry2->SetTextFont(62);
+	 uentry2->SetTextColor(huni4lg->GetLineColor());
+	 uentry2->SetTextSize(0.04);
+	 TLegendEntry* uentry3 = lg->AddEntry( "", "running with different parameters", "");
+	 uentry3->SetTextFont(62);
+	 uentry3->SetTextColor(huni4lg->GetLineColor());
+	 uentry3->SetTextSize(0.04);
+      }
+
       // only one canvas in case of ITEP-like benchmark
       size_t icnv = 0;
       
       if ( icnv >= 0 && icnv < canvas.size() )
       {
          double thechi2 = Chi2( hd, hmc );
+
+	 std::string schi2 = std::to_string( (thechi2/hd->GetNbinsX()) );
+	 pos = schi2.find(".");
+	 if ( pos != std::string::npos )
+	 {
+	    schi2 = schi2.substr(0,pos+2);
+	 } 
+	 schi2 = "Geant4.11.1/FTF Default :   #chi^{2}/NDF=" + schi2;
+	 std::cout << "schi2 = " << schi2 << std::endl;
+//	 TLegendEntry* entry = lg->AddEntry( hmc, schi2.c_str(), "L");
+//	 entry->SetTextFont(62);
+//	 entry->SetTextColor(hmc->GetLineColor());
+//	 entry->SetTextSize(0.04);
+
 	 chi2_def[icnv] += thechi2; // --> Chi2( hd, hmc );
 	 NDF[icnv] += hd->GetNbinsX();
 	 std::cout << " thechi2 = " << thechi2 << std::endl;
@@ -347,12 +400,36 @@ void PlotSensitivityITEP( std::string dir_local,
 	   PlotHisto( hbest, icount, "histE1same", 1 );
 // -->	   chi2_sim_best_fit[icnv] += Chi2( hd, hbest );
          double thebestchi2 = Chi2( hd, hbest );
+
+	   std::string sbchi2 = std::to_string( (thebestchi2/hd->GetNbinsX()) );
+	   pos = sbchi2.find(".");
+	   if ( pos != std::string::npos )
+	   {
+	      if (sbchi2.find("0") == 0)
+	      {
+	         sbchi2 = sbchi2.substr(0,pos+3);
+	      }
+	      else
+	      {
+	         sbchi2 = sbchi2.substr(0,pos+2);
+	      }
+	   } 
+	   sbchi2 = "Geant4.11.1/FTF Best Fit :   #chi^{2}/NDF=" + sbchi2;
+	   std::cout << "NDF = " << hd->GetNbinsX() << std::endl;
+	   std::cout << "sbchi2 = " << sbchi2 << std::endl;
+	   TLegendEntry* bentry = lg->AddEntry( hbest, sbchi2.c_str(), "L");
+	   bentry->SetTextFont(62);
+	   bentry->SetTextColor(hbest->GetLineColor());
+	   bentry->SetTextSize(0.04);
+
 	 chi2_sim_best_fit[icnv] += thebestchi2; // --> Chi2( hd, hmc );
 	 std::cout << " thebestchi2 = " << thebestchi2 << std::endl;
 	 std::cout << " chi2_sim_best_fit[" << icnv << "] / NDF = " 
 	           << chi2_sim_best_fit[icnv] << "/" << NDF[icnv] << std::endl;
 	 }
       }
+      
+      lg->Draw();
       
       if ( plot_sim_retro )
       {
@@ -413,7 +490,8 @@ void PlotSensitivityITEP( std::string dir_local,
 // -->       gltxt->Draw();
       canvas[ih]->Update(); 
       std::string output = canvas[ih]->GetName();
-      output += ".png";
+//      output += ".png";
+      output += ".eps";
       canvas[ih]->Print( output.c_str() );
    }
    
@@ -447,7 +525,7 @@ void PrepareCanvas()
    
    std::string cname = "cnv_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
                      + experiment;
-   canvas.push_back( new TCanvas( cname.c_str(), "", 920, 350 ) ); // 690 ) );
+   canvas.push_back( new TCanvas( cname.c_str(), "", 500, 500 )); // 920, 350 ) ); // 690 ) );
    std::string padname = "pad_" + model + "_" + beam + momentum + "_" + target + "_" + secondary + "_"
                        + experiment;
    pads.push_back( new TPad( padname.c_str(), "", 0.01, 0.01, 0.99, 0.99) ); // 0.95 ) ); //0.97 ) );

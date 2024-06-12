@@ -12,8 +12,8 @@ std::string dir_fits =
 //
 // this is a test Apprentice vs Professor
 //
-   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP/tunes_poly3"; // Professor
-//   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP/tune_val+errs_px3qx0"; // Apprentice
+   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP-July2023/tunes-yoda1.9.7-iaea-itep-poly3"; // Professor
+//   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP-July2023/tune-pyapp_val+errs_px3qx0"; // Apprentice
 
 // std::string dir_sim_best_fit = "bestfit-nucdestr-iaea-itep-harp-2022";  
 std::string dir_sim_best_fit = "tune-candidate-NucDestrProc1QEX-2022-tst3";

@@ -36,7 +36,7 @@ TFile*      file            = 0;
 
 // later...
 // NA61
-std::string momentum   = "31.0GeV";
+std::string momentum   = "60.0GeV";
 std::string target     = "C";
 std::string experiment = "NA61";
 
@@ -53,14 +53,18 @@ std::string dir_fits =
 //     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-bestfit-nucdestr-qex-proc0-HARP-NA61/tunes-poly4-scan25";
 //     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-bestfit-nucdestr-qex-proc0-HARP-NA61/tunes-poly4-scan25";
 //     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc0-HARP-NA61/tunes-poly4-scan25";
-     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc0-HARP-NA61-tst3/tunes-poly4-all-no-scan" ;  
+//     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc0-HARP-NA61-tst3/tunes-poly4-all-no-scan" ;  
+// -->     "/work1/g4v/yarba_j/Prof2.4.0-g4.11.1.r07-diff-np200/tunes-proton-HARP-NA61-poly3" ;  
+// -->     "/work1/g4v/yarba_j/Prof2.4.0-g4.11.1.r07-diff-np200/tunes-pions-HARP-NA61-poly3" ;  
+     "/work1/g4v/yarba_j/Prof2.4.0-g4.11.1.r07-diff-np200/tunes-piplus-NA61-poly3" ;  
 //
 //     "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc1-HARP-NA61-tst3/tunes-all-poly4-no-scan";
 //
-// std::string dir_sim_best_fit = "09-09-21-best-fits";
-// std::string dir_sim_best_fit = "11-10-21-best-fits";  
-// std::string dir_sim_best_fit = "bestfit-qex-proc0-nucdestr-p1";  
-std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst3";
+// --> proton beam -->
+// std::string dir_sim_best_fit = "tune-candidate-NucDestrProc1QEX-2022-tst3";
+// --> pion beam --> 
+// std::string dir_sim_best_fit = "bestfit-pion-proc1-qex-2022";
+std::string dir_sim_best_fit = "tune2v1";
 
 std::vector<TCanvas*> canvas;
 std::vector<TPad*> pads;
@@ -300,7 +304,7 @@ void PlotSensitivityNA61( std::string dir_local,
 	   std::string hbestname = dir_best_name + "/MC4Professor/" + hdname;
 	   TH1D* hbest = (TH1D*)file_sim_best_fit->Get( hbestname.c_str() );
 	   if ( !hbest ) continue;
-           hbest->SetLineColor(kMagenta);
+           hbest->SetLineColor(kCyan+1); // kMagenta);
 	   hbest->SetLineWidth(2);
            hbest->SetStats(0);
 	   PlotHisto( hbest, icount, "histE1same", 1 );

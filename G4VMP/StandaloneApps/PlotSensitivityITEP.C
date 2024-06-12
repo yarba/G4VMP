@@ -36,8 +36,8 @@ TFile*      file            = 0;
 
 // later...
 // --> proton beam only --> 
-// std::string momentum   = "7.5GeV";
-std::string momentum   = "5.0GeV";
+std::string momentum   = "7.5GeV";
+// std::string momentum   = "5.0GeV";
 std::string target     = "Pb";
 std::string experiment = "ITEP";
 
@@ -50,8 +50,8 @@ std::string dir_fits =
 //
 // this is a test Apprentice vs Professor
 //
-   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP/tunes_poly3"; // Professor
-//   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP/tune_val+errs_px3qx0"; // Apprentice
+   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP-July2023/tunes-yoda1.9.7-iaea-itep-poly3"; // Professor
+//   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP-July2023/tune-pyapp_val+errs_px3qx0"; // Apprentice
 
 // std::string dir_sim_best_fit = "bestfit-nucdestr-4pars-2022";  
 // std::string dir_sim_best_fit = "bestfit-nucdestr-iaea-itep-harp-2022";
@@ -116,8 +116,8 @@ void PlotSensitivityITEP( std::string dir_local,
    
    file = TFile::Open( fname.c_str() );
    
-   std::string fitsname = dir_fits + "/" + "ipolhistos.root";
-// --> Apprentice -->   std::string fitsname = dir_fits + "/" + "predictions_tnc_25_1.root";
+   std::string fitsname = dir_fits + "/" + "ipolhistos.root"; // Professor
+// -->   std::string fitsname = dir_fits + "/" + "predictions_tnc_25_1.root";  // Apprentice
    TFile* file_fits = 0 ;
    if ( plot_fits )
    {

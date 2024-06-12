@@ -12,7 +12,7 @@ std::string dir_fits =
 //
 // this is a test Apprentice vs Professor
 //
-   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP/tunes_poly3"; // Professor
+   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP-Fall2022/tunes_poly3"; // Professor
 //   "/work1/g4v/yarba_j/Apprentice-vs-Prof-g4.11.0-FTFP/tune_val+errs_px3qx0"; // Apprentice
 
 // std::string dir_sim_best_fit = "bestfit-nucdestr-iaea-itep-harp-2022";  
@@ -110,6 +110,7 @@ void PlotSensitivityIAEA( std::string dir_local,
       std::cout << " processing/plotting data histo --> " << hdname << std::endl;
 
 #include "TheHistos_Fragment.C"
+// #include "TheHistos_BW_Fragment.C"
       
       hkey_def = (TKey*)itr_def();
 
@@ -148,7 +149,8 @@ void PlotSensitivityIAEA( std::string dir_local,
 // -->      gltxt->Draw();
       canvas[ih]->Update(); 
       std::string output = canvas[ih]->GetName();
-      output += ".png";
+//      output += ".png";
+      output += ".eps";
       canvas[ih]->Print( output.c_str() );
    }
    

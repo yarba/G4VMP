@@ -1,13 +1,14 @@
 
 // #include "ftf-params-process-level-include.fcl"
-#include "ftf-Tune2022-v0.fcl"
+// #include "ftf-Tune2022-v0.fcl"
+#include "ftf-Test-Params_Aug2023.fcl"
 
 process_name:processA
 
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   250000
+  maxEvents:   750000
 }
 
 services: 
@@ -82,9 +83,11 @@ physics: {
 	momentum: [ 0., 0., 5. ] // in GeV 
      }
 
-//     FTFPDefault           : @local::FTFPDefault    
+     FTFPDefault           : @local::FTFPDefault    
 //     FTFPPiplusPr1QEX       : @local::FTFPPiplusPr1QEX    
-     FTFPPionTune2022v0      : @local::FTFPPionTune2022v0    
+//     FTFPPionTune2022v0      : @local::FTFPPionTune2022v0    
+     FTFPTune2v1      : @local::FTFPTune2v1    
+//     FTFPPionNucDestr      : @local::FTFPPionNucDestr    
 
   }
   
@@ -117,11 +120,15 @@ physics: {
      }
 
 //     FTFPPiplusPr1QEXHARP:
-     FTFPPionTune2022v0HARP:
+//     FTFPPionTune2022v0HARP:
+     FTFPTune2v1HARP:
+//     FTFPPionNucDestrHARP:
      {
         module_type: AnalyzerHARP
 //	ProductLabel: "FTFPPiplusPr1QEX"
-	ProductLabel: "FTFPPionTune2022v0"
+//	ProductLabel: "FTFPPionTune2022v0"
+	ProductLabel: "FTFPTune2v1"
+//	ProductLabel: "FTFPPionNucDestr"
 	IncludeExpData: 
 	{
 	   UseASCIIRecords: true
@@ -148,12 +155,16 @@ physics: {
   path1:   [ PrimaryGenerator 
 //             , FTFPDefault
 //	     , FTFPPiplusPr1QEX
-	     , FTFPPionTune2022v0
+//	     , FTFPPionTune2022v0
+	     , FTFPTune2v1
+//	     , FTFPPionNucDestr
 	   ]
   path2:   [ 
 //             FTFPDefaultHARP, 
 //	     FTFPPiplusPr1QEXHARP
-	     FTFPPionTune2022v0HARP
+//	     FTFPPionTune2022v0HARP
+	     , FTFPTune2v1HARP
+//	     , FTFPPionNucDestrHARP
 	   ] 
   stream1: [ out1 ]
 
@@ -163,7 +174,7 @@ physics: {
   #       Otherwise, they will NOT be included in the exec.
   #       If you don't have an end_path, things will magically work though... 
   #        
-   end_paths:     [ path2, stream1 ]
+   end_paths:     [ path2 ] //, stream1 ]
 //  end_paths:     [ stream1 ]
 
 }

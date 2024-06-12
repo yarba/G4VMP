@@ -1,6 +1,7 @@
 
 // #include "ftf-params-process-level-include.fcl"
-#include "ftf-Tune2022-v0.fcl"
+// #include "ftf-Tune2022-v0.fcl"
+#include "ftf-Test-Params_Aug2023.fcl"
 
 process_name:processA
 
@@ -83,7 +84,9 @@ physics: {
      }
 
      FTFPDefault           : @local::FTFPDefault
-     FTFPTune2022v0        : @local::FTFPTune2022v0
+//     FTFPTune2022v0        : @local::FTFPTune2022v0
+     FTFPTune1v1        : @local::FTFPTune1v1
+//     FTFPProtonProc1Only        : @local::FTFPProtonProc1Only 
     
   }
   
@@ -115,10 +118,14 @@ physics: {
 	}
      }
 
-     FTFPTune2022v0HARP:
+//     FTFPTune2022v0HARP:
+     FTFPTune1v1HARP:
+//     FTFPProtonProc1OnlyHARP :
      {
         module_type: AnalyzerHARP
-	ProductLabel: "FTFPTune2022v0"
+//	ProductLabel: "FTFPTune2022v0"
+	ProductLabel: "FTFPTune1v1"
+//	ProductLabel: "FTFPProtonProc1Only"
 	IncludeExpData: 
 	{
 	   UseASCIIRecords: true
@@ -144,11 +151,15 @@ physics: {
   
   path1:   [ PrimaryGenerator 
              , FTFPDefault
-	     , FTFPTune2022v0 
+//	     , FTFPTune2022v0 
+	     , FTFPTune1v1
+//	     , FTFPProtonProc1Only 
 	   ]
   path2:   [ 
                FTFPDefaultHARP 
-	     , FTFPTune2022v0HARP
+//	     , FTFPTune2022v0HARP
+	     FTFPTune1v1HARP
+//	     FTFPProtonProc1OnlyHARP
 	   ] 
   stream1: [ out1 ]
 
@@ -158,7 +169,7 @@ physics: {
   #       Otherwise, they will NOT be included in the exec.
   #       If you don't have an end_path, things will magically work though... 
   #        
-   end_paths:     [ path2, stream1 ]
+   end_paths:     [ path2 ] // , stream1 ]
 //  end_paths:     [ stream1 ]
 
 }

@@ -1,13 +1,14 @@
 
 // #include "ftf-params-process-level-include.fcl"
-#include "ftf-Tune2022-v0.fcl"
+// #include "ftf-Tune2022-v0.fcl"
+#include "ftf-Test-Params_Aug2023.fcl"
 
 process_name:processA
 
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   100000
+  maxEvents:   1000000
 }
 
 services: 
@@ -83,7 +84,8 @@ physics: {
      }
 
      FTFPDefault           : @local::FTFPDefault
-     FTFPTune2022v0        : @local::FTFPTune2022v0
+//     FTFPProtonTune2022v0        : @local::FTFPProtonTune2022v0
+     FTFPTune1v1        : @local::FTFPTune1v1
     
   }
   
@@ -115,10 +117,12 @@ physics: {
 	}
      }
 
-     FTFPTune2022v0HARP:
+//     FTFPProtonTune2022v0HARP:
+     FTFPTune1v1HARP:
      {
         module_type: AnalyzerHARP
-	ProductLabel: "FTFPTune2022v0"
+//	ProductLabel: "FTFPProtonTune2022v0"
+	ProductLabel: "FTFPTune1v1"
 	IncludeExpData: 
 	{
 	   UseASCIIRecords: true
@@ -143,12 +147,14 @@ physics: {
   }
   
   path1:   [ PrimaryGenerator 
-             , FTFPDefault
-	     , FTFPTune2022v0 
+//             , FTFPDefault
+//	     , FTFPProtonTune2022v0 
+	     , FTFPTune1v1
 	   ]
   path2:   [ 
-             FTFPDefaultHARP 
-	     , FTFPTune2022v0HARP
+//             FTFPDefaultHARP 
+//	     , FTFPProtonTune2022v0HARP
+	     FTFPTune1v1HARP
 	   ] 
   stream1: [ out1 ]
 

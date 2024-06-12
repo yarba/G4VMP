@@ -1,12 +1,13 @@
 
-#include "ftf-Tune2022-v0.fcl"
+// #include "ftf-Tune2022-v0.fcl"
+#include "ftf-Test-Params_Aug2023.fcl"
 
 process_name:processA
 
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   100000
+  maxEvents:   10000
 }
 
 services: 
@@ -82,7 +83,12 @@ physics: {
      }
 
      FTFPDefault           : @local::FTFPDefault
-     FTFPPionTune2022v0    : @local::FTFPPionTune2022v0
+//     FTFPPionTune2022v0    : @local::FTFPPionTune2022v0
+//     FTFPPionNDiffMTg    : @local::FTFPPionNDiffMTg
+//     FTFPPionAvPt2 : @local::FTFPPionAvPt2
+     FTFPPionProc3Only : @local::FTFPPionProc3Only
+//     FTFPPionTgtDiffOn : @local::FTFPPionTgtDiffOn
+//     FTFPTune2v1      : @local::FTFPTune2v1    
     
   }
   
@@ -134,10 +140,17 @@ physics: {
      }
 
   
-     FTFPPionTune2022v0NA61:
+//     FTFPPionTune2022v0NA61:
+//     FTFPPionNDiffMTgNA61:
+//     FTFPPionAvPt2NA61:
+     FTFPPionProc3OnlyNA61:
+//     FTFPPionTgtDiffOnNA61:
+//     FTFPTune2v1NA61:
      {
         module_type: AnalyzerNA61
-	ProductLabel: "FTFPPionTune2022v0"
+	ProductLabel: "FTFPPionProc3Only" 
+//	ProductLabel: "FTFPPionTgtDiffOn" 
+//	ProductLabel: "FTFPTune2v1"
 	MultiplicitySpectra: true
 	IncludeExpData: 
 	{
@@ -182,11 +195,15 @@ physics: {
   
   path1:   [ PrimaryGenerator 
 	     , FTFPDefault 
-             , FTFPPionTune2022v0
+             , FTFPPionProc3Only 
+//             , FTFPPionTgtDiffOn 
+//	     , FTFPTune2v1
 	   ]
   path2:   [ 
              FTFPDefaultNA61
-             , FTFPPionTune2022v0NA61
+             , FTFPPionProc3OnlyNA61 
+//             , FTFPPionTgtDiffOnNA61 
+//	     , FTFPTune2v1NA61
 	   ] 
   stream1: [ out1 ]
 

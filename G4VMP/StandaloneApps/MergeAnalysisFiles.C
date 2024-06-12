@@ -24,7 +24,10 @@ void MergeAnalysisFiles( std::string exp, std::string beam, std::string label )
 //   std::string subdir = "ana-g4.11.0-QEX-Proc0-NP250-tst2";
 //   std::string subdir = "ana-g4.11.0-QEX-Proc1-HARP-NA61-NP150-tst3";
 //   std::string subdir = "ana-g4.11.0.r06-pion-NucDestr-NP250";
-   std::string subdir = "ana-g4.11.0.r06-pion-Proc1-QEX-NP150";
+//   std::string subdir = "ana-g4.11.0.r06-pion-Proc1-QEX-NP150";
+//   std::string subdir = "ana-g4.11.1.r07-proton-Diff-NP200";
+//   std::string subdir = "ana-g4.11.1.r07-pion-Diff-NP200";
+   std::string subdir = "09-11-23";
    sdnames.push_back(subdir);
    
    TFileMerger* fm = new TFileMerger();

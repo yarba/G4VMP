@@ -118,12 +118,42 @@
       PlotHisto( hmc, icount, "histE1same", 0 );
       PlotHisto( hd, icount, "psame", 0 );
 
+      size_t pos = 0;
+      std::string txt = hmc->GetTitle();
+      pos = txt.find("theta");
+      txt = txt.substr(pos);
+      txt = "#" + txt;
+      std::cout << "txt = " << txt << std::endl;
+      TLatex* ltxt = new TLatex( 2., 0.3, txt.c_str() );
+      ltxt->Draw();
+
+      TLegend* lg = new TLegend( 0.125, 0.125, 0.725, 0.275 );
+      lg->SetFillColor(0);
+      lg->SetBorderSize(0);
+      TLegendEntry* dentry = lg->AddEntry( hd, "Data", "p");
+      dentry->SetTextFont(62);
+      dentry->SetTextSize(0.04);
+
       // only one canvas in case of ITEP-like benchmark
       size_t icnv = 0;
       
       if ( icnv >= 0 && icnv < canvas.size() )
       {
          double thechi2 = Chi2( hd, hmc );
+
+	 std::string schi2 = std::to_string( (thechi2/hd->GetNbinsX()) );
+	 pos = schi2.find(".");
+	 if ( pos != std::string::npos )
+	 {
+	    schi2 = schi2.substr(0,pos+2);
+	 } 
+	 schi2 = "Geant4.11.1/FTF Default :   #chi^{2}/NDF=" + schi2;
+	 std::cout << "schi2 = " << schi2 << std::endl;
+	 TLegendEntry* entry = lg->AddEntry( hmc, schi2.c_str(), "L");
+	 entry->SetTextColor(hmc->GetLineColor());
+	 entry->SetTextFont(62);
+	 entry->SetTextSize(0.04);
+
 	 chi2_def[icnv] += thechi2; // --> Chi2( hd, hmc );
 	 NDF[icnv] += hd->GetNbinsX();
 	 std::cout << " thechi2 = " << thechi2 << std::endl;
@@ -175,9 +205,34 @@
 	   PlotHisto( hbest, icount, "histE1same", 1 );
 // -->	   chi2_sim_best_fit[icnv] += Chi2( hd, hbest );
          double thebestchi2 = Chi2( hd, hbest );
+
+	 std::string sbchi2 = std::to_string( (thebestchi2/hd->GetNbinsX()) );
+	 pos = sbchi2.find(".");
+	 if ( pos != std::string::npos )
+	 {
+	    if (sbchi2.find("0") == 0)
+	    {
+	       sbchi2 = sbchi2.substr(0,pos+3);
+	    }
+	    else
+	    {
+	       sbchi2 = sbchi2.substr(0,pos+2);
+	    }
+	 } 
+	 sbchi2 = "Geant4.11.1/FTF Best Fit :   #chi^{2}/NDF=" + sbchi2;
+	 std::cout << "NDF = " << hd->GetNbinsX() << std::endl;
+	 std::cout << "sbchi2 = " << sbchi2 << std::endl;
+	 TLegendEntry* bentry = lg->AddEntry( hbest, sbchi2.c_str(), "L");
+	 bentry->SetTextFont(62);
+	 bentry->SetTextColor(hbest->GetLineColor());
+	 bentry->SetTextSize(0.04);
+
 	 chi2_sim_best_fit[icnv] += thebestchi2; // --> Chi2( hd, hmc );
 	 std::cout << " thebestchi2 = " << thebestchi2 << std::endl;
 	 std::cout << " chi2_sim_best_fit[" << icnv << "] / NDF = " 
 	           << chi2_sim_best_fit[icnv] << "/" << NDF[icnv] << std::endl;
 	 }
       }
+      
+      lg->Draw();
+      

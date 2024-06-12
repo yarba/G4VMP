@@ -4,14 +4,15 @@
 // #include "ftf-fit-qex-proc1-nucdestr-p1-NA61.fcl"
 // #include "ftf-fit12pars-harp-na61.fcl"
 // #include "ftf-params-process-level-include.fcl"
-#include "ftf-Tune2022-v0.fcl"
+// #include "ftf-Tune2022-v0.fcl"
+#include "ftf-Test-Params_Aug2023.fcl"
 
 process_name:processA
 
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   100000
+  maxEvents:   1000000
 }
 
 services: 
@@ -87,7 +88,8 @@ physics: {
      }
 
      FTFPDefault           : @local::FTFPDefault
-     FTFPProtonTune2022v0        : @local::FTFPProtonTune2022v0
+//     FTFPProtonTune2022v0        : @local::FTFPProtonTune2022v0
+     FTFPTune1v1        : @local::FTFPTune1v1
     
   }
   
@@ -124,10 +126,12 @@ physics: {
      }
 
   
-     FTFPProtonTune2022v0NA61:
+//     FTFPProtonTune2022v0NA61:
+     FTFPTune1v1NA61:
      {
         module_type: AnalyzerNA61
-	ProductLabel: "FTFPProtonTune2022v0"
+//	ProductLabel: "FTFPProtonTune2022v0"
+	ProductLabel: "FTFPTune1v1"
 	IncludeExpData: 
 	{
 	   UseASCIIRecords: true
@@ -156,12 +160,14 @@ physics: {
   }
   
   path1:   [ PrimaryGenerator 
-	     , FTFPDefault 
-             , FTFPProtonTune2022v0
+//	     , FTFPDefault 
+//             , FTFPProtonTune2022v0
+             , FTFPTune1v1
 	   ]
   path2:   [ 
-             FTFPDefaultNA61
-             , FTFPProtonTune2022v0NA61
+//             FTFPDefaultNA61
+//             , FTFPProtonTune2022v0NA61
+             FTFPTune1v1NA61
 	   ] 
   stream1: [ out1 ]
 

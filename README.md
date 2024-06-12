@@ -11,12 +11,15 @@ git clone git@github.com:yarba/G4VMP.git (SSH)
 
 git clone https://github.com/yarba/G4VMP.git (HTTPS)
 
-This revision is compatible with geant4-11-00-ref-06 as well as art v3_11_01 
-and art_root_io v1_10_01 (via setup of critic v2_10_01 portmanteau).
-Compiler gcc/g++ and CLHEP 2.4.5.1 will be set up as part of art.
+This revision is compatible with geant4-11-01-ref-07 as well as art v3_13_02 
+and art_root_io v1_12_04 (via setup of critic v2_12_04 portmanteau).
+Compiler gcc/g++ and CLHEP 2.4.6.4a will be set up as part of art.
 Root will be set up as part of art_root_io.
-Also required are cmake v3_23_1 and mrb v6_04_01 (both are required by art v3_11_01).
-To build Geant4 one also needs xerces_c v3_2_3.
+Also required are cmake v3_25_2 and mrb v6_08_01 (both are required by art v3_13_02).
+To build Geant4 one also needs xerces_c v3_2_3e.
+Specifically, starting this revision the software transitions to buld with gcc12.1.0 (e26).
+Transition to 11.1.r07 (i.e. post-11.2.b01) required changes in G4VMP/CMakeLists.txt
+since library G4persistency has split into G4mctruth, G4geomtext and (optional) G4gdml libraries. 
 
 ==========================================
 
@@ -24,11 +27,11 @@ Example procedure:
 
 source /cvmfs/geant4-ib.opensciencegrid.org/products/setup
 
-setup critic v2_10_01 -q e20:prof
+setup critic v2_12_04 -q e26:prof
 
-setup xerces_c v3_2_3 -q e20:prof
+setup xerces_c v3_2_3e -q e206 (NOTE: No more "prof", etc.)
 
-setup cmake v3_22_2 (NOTE: since art 3.13.1 something changed in cet, and cmake v3_25_2 is necessary)
+setup cmake v3_25_2 
 
 cd \<path-to-your-g4-area\>
 
@@ -37,20 +40,20 @@ cd \<path-to-your-g4-area\>
 
 Geant4 collaborators can obtain the source code from the repo (authentination required):
 
-git clone ssh://git@gitlab.cern.ch:7999/geant4/geant4-dev.git geant4-11-00-ref-06
+git clone ssh://git@gitlab.cern.ch:7999/geant4/geant4-dev.git geant4-11-01-ref-07
 
-cd geant4-11-00-ref-06
+cd geant4-11-01-ref-07
 
-git checkout geant4-11-00-ref-06
+git checkout geant4-11-01-ref-07
 
 
 export G4INSTALL=$PWD
 
 cd ..
 
-mkdir geant4-11-00-ref-06-build
+mkdir geant4-11-01-ref-07-build
 
-cd geant4-11-00-ref-06-build
+cd geant4-11-01-ref-07-build
 
 NOTE: make sure to include -DGEANT4_USE_GDML=ON 
       in case geometry input is envisioned
@@ -78,7 +81,7 @@ make install
 
 cd \<your-G4VMP-area\>
 
-setup mrb v6_04_01
+setup mrb v6_08_01
 
 export MRB_PROJECT=G4VMP
 
@@ -90,9 +93,9 @@ source localProducts*/setup
 
 JUST an EXAMPLE: 
 
-mrb newDev -v dev -q e20:prof
+mrb newDev -v dev -q e26:prof
 
-source localProducts_G4VMP_dev_e20_prof/setup
+source localProducts_G4VMP_dev_e26_prof/setup
   
 NOTE: Add NEW PACKAGE to $MRB_SOURCE/srcs (e.g. G4VMP), THEN run "mrb uc" so that 
       srcs/CMakeLists.txt is updated accordingly, and files .cmake_add_subdirs and
@@ -111,7 +114,7 @@ mrbsetenv
 
 cd $MRB_SOURCE}/srcs/G4VMP
 
-source ./geant4make-no-ups.sh geant4-11-00-ref-06 \<path-to-your-g4-area\>
+source ./geant4make-no-ups.sh geant4-11-01-ref-07 \<path-to-your-g4-area\>
 
 cd $MRB_BUILDDIR
 

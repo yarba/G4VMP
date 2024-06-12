@@ -32,14 +32,14 @@ fi
 #sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=C,momz=5.0,NUniv=${nuni},maxevents=100000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
-#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
-# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Cu,momz=5.0,NUniv=${nuni},maxevents=50000" \
-#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
+ 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Cu,momz=5.0,NUniv=${nuni},maxevents=50000" \
+	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 #sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Pb,momz=5.0,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 #
-# 5 GeV/c pi+ on C, Cu, Pb
+# 5 GeV/c pi+ on C, Cu, Ta, Pb
 #
 #sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=C,momz=5.0,NUniv=${nuni},maxevents=100000" \
@@ -47,11 +47,14 @@ fi
 #sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=Cu,momz=5.0,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
-sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
- 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=Pb,momz=5.0,NUniv=${nuni},maxevents=50000" \
-	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=Ta,momz=5.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=Pb,momz=5.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 #
-# 5 GeV/c pi- on C, Cu, Pb
+# 5 GeV/c pi- on C, Cu, Ta, Pb
 #
 #sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=C,momz=5.0,NUniv=${nuni},maxevents=100000" \
@@ -59,9 +62,12 @@ sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g
 #sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=Cu,momz=5.0,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
-sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
- 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=Pb,momz=5.0,NUniv=${nuni},maxevents=50000" \
-	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=Ta,momz=5.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=Pb,momz=5.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 
 
 #
@@ -77,12 +83,27 @@ sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Pb,momz=7.5,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 #
-# 8 GeV/c proton on Ta
+# 8 GeV/c proton on C, Ta
 #
+sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+ 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=C,momz=8.0,NUniv=${nuni},maxevents=100000" \
+	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 #sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Ta,momz=8.0,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 
+# 12 GeV/c proton on C, Cu, Pb
+#
+#sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=C,momz=12.0,NUniv=${nuni},maxevents=100000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Cu,momz=12.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,target=Pb,momz=12.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#
 # 12 GeV/c pi+ on C, Cu, Pb
 #
 #sbatch -N 1 -n 10 -c 1 -p cpu_gce --qos=regular  --exclusive -A g4v \
@@ -91,9 +112,12 @@ sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g
 #sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=Cu,momz=12.0,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
-sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
- 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=Pb,momz=12.0,NUniv=${nuni},maxevents=50000" \
-	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=Ta,momz=12.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piplus,pdgcode=211,target=Pb,momz=12.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
 #
 # 12 GeV/c pi- on C, Cu, Pb
 #
@@ -103,9 +127,12 @@ sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g
 #sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --exclusive -A g4v \
 # 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=Cu,momz=12.0,NUniv=${nuni},maxevents=50000" \
 #	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
-sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
- 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=Pb,momz=12.0,NUniv=${nuni},maxevents=50000" \
-	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=Ta,momz=12.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}
+#sbatch -N 1 -n 15 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4v \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=piminus,pdgcode=-211,target=Pb,momz=12.0,NUniv=${nuni},maxevents=50000" \
+#	slurm_multiU_master.sh sim_multiU_wcic.sh ${nu1} ${nu2}#
 
 
 

@@ -32,13 +32,13 @@ TFile*      file            = 0;
 
 // later...
 // NA61
-std::string momentum  = "60.0GeV";
-std::string target    = "C";
-std::string secondary = "piplus"; 
+// std::string momentum  = "31.0GeV";
+// std::string target    = "C";
+// std::string secondary = "piplus"; 
 // HARP
-// std::string momentum  = "5.0GeV";
-// std::string target    = "Pb";
-// std::string secondary = "piminus"; 
+std::string momentum  = "12.0GeV";
+std::string target    = "Pb";
+std::string secondary = "piplus"; 
 
 
 //std::string dir_fits = 
@@ -57,7 +57,9 @@ std::string dir_fits =
 //   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-nucdestr-ITEP-HARP/tunes-no-FW-protons-poly3-fix-p2-p3";
 //   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-proc1-qex-HARP-NA61-np250/tunes-incl-FW-protons-poly3";
 //   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-proc1-qex-HARP-NA61-np150/tunes-piplus-beam-poly4";
-   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-proc1-qex-HARP-NA61-np150/tunes-all-pions-poly4";
+//   "/work1/g4v/yarba_j/Prof-g4.11.0.r06-FTF-pion-proc1-qex-HARP-NA61-np150/tunes-all-pions-poly4";
+     "/work1/g4v/yarba_j/Prof2.4.0-g4.11.1.r07-diff-np200/tunes-proton-HARP-NA61-poly3-tst1" ;  
+//     "/work1/g4v/yarba_j/Prof2.4.0-g4.11.1.r07-diff-np200/tunes-pions-HARP-NA61-poly3" ;  
 //
 //   "/work1/g4v/yarba_j/Prof-g4.11.0-FTF-qex-proc1-HARP-NA61-tst3/tunes-all-poly4-no-scan";
 //
@@ -74,9 +76,12 @@ std::string dir_fits =
 // std::string dir_sim_best_fit = "bestfit-nucdestr-iaea-itep-harp-2022";
 // std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst3";
 // std::string dir_sim_best_fit = "bestfit-pion-nucdestr-2022";
-std::string dir_sim_best_fit = "bestfit-pion-proc1-qex-2022";
+// std::string dir_sim_best_fit = "bestfit-pion-proc1-qex-2022";
+std::string dir_sim_best_fit = "tune1v1";
 
-std::string dir_sim_retro = "bestfit-pion-nucdestr-2019";
+//std::string dir_sim_retro = "bestfit-pion-nucdestr-2019";
+std::string dir_sim_retro = "tune-candidate-NucDestrProc1QEX-2022-tst3";
+// std::string dir_sim_retro = "bestfit-pion-proc1-qex-2022";
 
 std::vector<TCanvas*> canvas;
 std::vector<TPad*> pads;
@@ -351,7 +356,7 @@ void PlotSensitivity( std::string dir_local,
 	   std::string hbestname = dir_best_name + "/MC4Professor/" + hdname;
 	   TH1D* hbest = (TH1D*)file_sim_best_fit->Get( hbestname.c_str() );
 	   if ( !hbest ) continue;
-           hbest->SetLineColor(kMagenta);
+           hbest->SetLineColor(kCyan+1); // kMagenta);
 	   hbest->SetLineWidth(2);
            hbest->SetStats(0);
            imax = hbest->GetMaximumBin();

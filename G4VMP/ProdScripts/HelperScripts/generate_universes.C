@@ -167,11 +167,11 @@ ModelParam bertiniTrailingRadius("TrailingRadius","Bertini", 0.0, 5.0 );
 ModelParam  ftfMesonNucDestrP1Tgt( "MESON_NUCDESTR_P1_TGT", "FTFP", 0.001026, 0.001026 ); // 0., 0.01 );
 ModelParam  ftfMesonNucDestrP1TgtADEP( "USE_MESON_NUCDESTR_P1_ADEP_TGT", "FTFP", 1, 1 );
 //
-ModelParam  ftfMesonNucDestrP2Tgt( "MESON_NUCDESTR_P2_TGT", "FTFP", 2., 16. );
-ModelParam  ftfMesonNucDestrP3Tgt( "MESON_NUCDESTR_P3_TGT", "FTFP", 0., 4. );
+ModelParam  ftfMesonNucDestrP2Tgt( "MESON_NUCDESTR_P2_TGT", "FTFP", 2., 16. ); // D=4
+ModelParam  ftfMesonNucDestrP3Tgt( "MESON_NUCDESTR_P3_TGT", "FTFP", 0., 4. );  // D=2.1
 //
-ModelParam  ftfMesonPtNucDestrP1( "MESON_PT2_NUCDESTR_P1", "FTFP", 0., 0.25 );
-ModelParam  ftfMesonPtNucDestrP2( "MESON_PT2_NUCDESTR_P2", "FTFP", 0., 0.25 );
+ModelParam  ftfMesonPtNucDestrP1( "MESON_PT2_NUCDESTR_P1", "FTFP", 0., 0.25 ); // D=0.035
+ModelParam  ftfMesonPtNucDestrP2( "MESON_PT2_NUCDESTR_P2", "FTFP", 0., 0.25 ); // D=0.04
 //
 // skip PT2's P3 and P4
 //
@@ -195,25 +195,27 @@ ModelParam  ftfPionProc4A1( "PION_PROC4_A1", "FTFP",   0.5,  1.5 ); // D=1.
 // ModelParam  ftfPionProc4B1( "PION_PROC4_B1", "FTFP",   0.,  1. ); // D=0.
 ModelParam  ftfPionProc4A2( "PION_PROC4_A2", "FTFP",  -16.5,  -5.5 ); // D=-11.02
 ModelParam  ftfPionProc4B2( "PION_PROC4_B2", "FTFP",   0.5,  1.5 ); // D=1.
-
+ModelParam  ftfPionDiffMTgt( "PION_DIFF_M_TGT", "FTFP", 1.16, 3.0 ); // D=1.16
+ModelParam  ftfPionNDiffMTgt( "PION_NONDIFF_M_TGT", "FTFP", 1.16, 3.0 ); // D=1.16
+ModelParam  ftfPionAvgPt2( "PION_AVRG_PT2", "FTFP", 0.08, 1.0 ); // D=0.3 // NOTE: was 0.15 in 10.4 
 
 
 // ** selected FTF parameters of nuclear destruction for baryon/proton **
 //
-ModelParam  ftfBaryonNucDestrP1Tgt( "BARYON_NUCDESTR_P1_TGT", "FTFP", 0.001732, 0.001732 ); // 0., 0.01 );
+ModelParam  ftfBaryonNucDestrP1Tgt( "BARYON_NUCDESTR_P1_TGT", "FTFP", 0.00173, 0.00173 ); // 0., 0.01 );
 ModelParam  ftfBaryonNucDestrP1TgtADEP( "USE_BARYON_NUCDESTR_P1_ADEP_TGT", "FTFP", 1, 1 );
 //
-ModelParam  ftfBaryonNucDestrP2Tgt( "BARYON_NUCDESTR_P2_TGT", "FTFP", 4.276, 4.276 ); // 2., 16. );
-ModelParam  ftfBaryonNucDestrP3Tgt( "BARYON_NUCDESTR_P3_TGT", "FTFP", 0.274, 0.274 ); // 0., 4. );
+ModelParam  ftfBaryonNucDestrP2Tgt( "BARYON_NUCDESTR_P2_TGT", "FTFP", 4.276, 4.276 ); // 2., 16. ); // D=4.
+ModelParam  ftfBaryonNucDestrP3Tgt( "BARYON_NUCDESTR_P3_TGT", "FTFP", 0.274, 0.274 ); // 0., 4. );  // D=2.1
 //
-ModelParam  ftfBaryonPtNucDestrP1( "BARYON_PT2_NUCDESTR_P1", "FTFP", 0., 0.25 );
-ModelParam  ftfBaryonPtNucDestrP2( "BARYON_PT2_NUCDESTR_P2", "FTFP", 0., 0.25 );
+ModelParam  ftfBaryonPtNucDestrP1( "BARYON_PT2_NUCDESTR_P1", "FTFP", 0., 0.25 ); // D=0.035
+ModelParam  ftfBaryonPtNucDestrP2( "BARYON_PT2_NUCDESTR_P2", "FTFP", 0., 0.25 ); // D=0.04
 //
 // skip PT2's P3 and P4
 //
 // EXCI_E is in the units of CLHEP::MeV which is set to 1. in the CLHEP/Units
 //
-ModelParam  ftfBaryonExciEWndNucln( "BARYON_EXCI_E_PER_WNDNUCLN", "FTFP", 26.11, 26.11 );  // 0., 100. );
+ModelParam  ftfBaryonExciEWndNucln( "BARYON_EXCI_E_PER_WNDNUCLN", "FTFP", 26.1, 26.1 );  // 0., 100. );
 
 // ** selected FTF parameters of quarck exchange w/o or with exitation, for baryon/proton **
 //
@@ -230,6 +232,9 @@ ModelParam  ftfBaryonProc4A1( "BARYON_PROC4_A1", "FTFP",   0.,  1. );
 // ModelParam  ftfBaryonProc4B1( "BARYON_PROC4_B1", "FTFP",   0.,  1. ); // D=0.
 ModelParam  ftfBaryonProc4A2( "BARYON_PROC4_A2", "FTFP",  -5.,  0. );
 ModelParam  ftfBaryonProc4B2( "BARYON_PROC4_B2", "FTFP",   0.,  5. );
+ModelParam  ftfBaryonDiffMTgt( "BARYON_DIFF_M_TGT", "FTFP", 1.16, 3.0 ); // D=1.16
+ModelParam  ftfBaryonNDiffMTgt( "BARYON_NONDIFF_M_TGT", "FTFP", 1.16, 3.0 ); // D=1.16
+ModelParam  ftfBaryonAvgPt2( "BARYON_AVRG_PT2", "FTFP", 0.08, 1.0 ); // D=0.3 // NOTE: was 0.15 in 10.4 
 
 ModelParam blah("xyz","no-such-hadron-model", 0.0, 999.9 );
 
@@ -457,6 +462,9 @@ void generate_universes(std::string basename = "paramstep",  // output file base
   }
   else if ( hadronModel == "FTFP" )
   {
+
+// meson/pion projectile
+
 /* */
      ftfMesonNucDestrP1Tgt.SetEnabled(true); 
      multiUniv.Add( &ftfMesonNucDestrP1Tgt );
@@ -466,6 +474,7 @@ void generate_universes(std::string basename = "paramstep",  // output file base
 //     multiUniv.Add( &ftfMesonNucDestrP2Tgt ); // ( "MESON_NUCDESTR_P2_TGT", "FTFP", 2., 16. );
 //     ftfMesonNucDestrP3Tgt.SetEnabled(true);     
 //     multiUniv.Add( &ftfMesonNucDestrP3Tgt ); // ( "MESON_NUCDESTR_P3_TGT", "FTFP", 0., 4. );
+/* */
 /*
      ftfMesonPtNucDestrP1.SetEnabled(true); 
      multiUniv.Add( &ftfMesonPtNucDestrP1 );
@@ -474,8 +483,10 @@ void generate_universes(std::string basename = "paramstep",  // output file base
 // --> remove for now -->     ftfMesonNucDestrR2.SetEnabled(true); // ( "MESON_NUCDESTR_R2", "FTFP", 0.5e-24, 2.0e-24 );
 // --> remove for now -->     multiUniv.Add( &ftfMesonNucDestrR2 ); 
 */
+/* */
      ftfMesonExciEWndNucln.SetEnabled(true); // ( "MESON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100. );
      multiUniv.Add( &ftfMesonExciEWndNucln );
+/* */
 /* */
 
      ftfPionProc1A1.SetEnabled(true);
@@ -487,8 +498,17 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      ftfPionProc1B2.SetEnabled(true);
      multiUniv.Add( &ftfPionProc1B2 );
 
+     ftfPionDiffMTgt.SetEnabled(true);  // ( "FTF_PION_DIFF_M_TGT", 1.16, 3.0 ); // D=1.16
+     multiUniv.Add( &ftfPionDiffMTgt );
+     ftfPionNDiffMTgt.SetEnabled(true); // ( "FTF_PION_NONDIFF_M_TGT", 1.16, 3.0 ); // D=1.16
+     multiUniv.Add( &ftfPionNDiffMTgt );
+     ftfPionAvgPt2.SetEnabled(true);    // ( "FTF_PION_AVRG_PT2", 0.08, 1.0 ); // D=0.3 // NOTE: was 0.15 in 10.4 
+     multiUniv.Add( &ftfPionAvgPt2 );
+/* */
 
-/*
+// baryon projectile
+
+/* 
      ftfBaryonNucDestrP1Tgt.SetEnabled(true); 
      multiUniv.Add( &ftfBaryonNucDestrP1Tgt );
      ftfBaryonNucDestrP1TgtADEP.SetEnabled(true);  
@@ -506,7 +526,7 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      ftfBaryonPtNucDestrP2.SetEnabled(true); 
      multiUniv.Add( &ftfBaryonPtNucDestrP2 );
 */
-/*
+/* 
      ftfBaryonExciEWndNucln.SetEnabled(true); // ( "BARYON_EXCI_E_PER_WNDNUCLN", "FTFP", 0., 100. );
      multiUniv.Add( &ftfBaryonExciEWndNucln );
 */
@@ -529,6 +549,14 @@ void generate_universes(std::string basename = "paramstep",  // output file base
      multiUniv.Add( &ftfBaryonProc1A2 );
      ftfBaryonProc1B2.SetEnabled(true);
      multiUniv.Add( &ftfBaryonProc1B2 );
+*/
+/* 
+     ftfBaryonDiffMTgt.SetEnabled(true);  // ( "FTF_BARYON_DIFF_M_TGT", 1.16, 3.0 ); // D=1.16
+     multiUniv.Add( &ftfBaryonDiffMTgt );
+     ftfBaryonNDiffMTgt.SetEnabled(true); // ( "FTF_BARYON_NONDIFF_M_TGT", 1.16, 3.0 ); // D=1.16
+     multiUniv.Add( &ftfBaryonNDiffMTgt );
+     ftfBaryonAvgPt2.SetEnabled(true);    // ( "FTF_BARYON_AVRG_PT2", 0.08, 1.0 ); // D=0.3 // NOTE: was 0.15 in 10.4 
+     multiUniv.Add( &ftfBaryonAvgPt2 );
 */
 /*
      ftfBaryonProc4A1.SetEnabled(true);

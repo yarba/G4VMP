@@ -36,7 +36,7 @@ TFile*      file            = 0;
 
 // later...
 // NA61
-std::string momentum   = "60.0GeV"; // "31.0GeV";
+std::string momentum   = "31.0GeV"; // "31.0GeV";
 std::string target     = "C";
 std::string experiment = "NA61";
 
@@ -61,9 +61,9 @@ std::string dir_fits =
 // std::string dir_sim_best_fit = "11-10-21-best-fits";  
 // std::string dir_sim_best_fit = "bestfit-qex-proc0-nucdestr-p1";  
 //
-// --> proton beam --> std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst3";
-// --> pion beam --> 
-std::string dir_sim_best_fit = "bestfit-pion-proc1-qex-2022";
+// --> proton beam --> 
+std::string dir_sim_best_fit = "tune-candidate-NucDestrProc0QEX-2022-tst3";
+// --> pion beam --> std::string dir_sim_best_fit = "bestfit-pion-proc1-qex-2022";
 
 std::vector<TCanvas*> canvas;
 std::vector<TPad*> pads;
@@ -214,8 +214,14 @@ void PlotSensitivityNA61( std::string dir_local,
       hd->SetTitle("");
       hd->GetXaxis()->SetLabelFont(62);
       hd->GetYaxis()->SetLabelFont(62);
-      // hd->GetYaxis()->SetTitle("d#sigma / d#theta dp [mb/(GeV/c/rad)]");
-      hd->GetYaxis()->SetTitle("multiplicity [1/(GeV/c/rad)]");
+      if ( bm.find("pi") != std::string::npos )
+      {
+         hd->GetYaxis()->SetTitle("multiplicity [1/(GeV/c/rad)]");
+      }
+      else
+      {
+         hd->GetYaxis()->SetTitle("d#sigma / d#theta dp [mb/(GeV/c/rad)]");
+      }
       hd->GetXaxis()->SetTitleFont(62);
       hd->GetYaxis()->SetTitleFont(62);
       hd->GetXaxis()->SetTitleOffset(1.);
@@ -224,7 +230,7 @@ void PlotSensitivityNA61( std::string dir_local,
       hd->GetYaxis()->SetTitleSize(0.05);
       hd->GetXaxis()->CenterTitle();
       hd->GetYaxis()->CenterTitle();
-      hd->GetYaxis()->SetRangeUser( 0., ymax );
+      hd->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
       icount++;
       PlotHisto( hd, icount, "p", 0 );
 	    
@@ -238,8 +244,8 @@ void PlotSensitivityNA61( std::string dir_local,
       imax = hmc->GetMaximumBin();
       if ( ymax < (hmc->GetBinContent(imax)+5.*hmc->GetBinError(imax)) )
 	 ymax = hmc->GetBinContent(imax)+2.*hmc->GetBinError(imax);
-      hd->GetYaxis()->SetRangeUser( 0., ymax );
-      hmc->GetYaxis()->SetRangeUser( 0., ymax );
+      hd->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
+      hmc->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
 	    	    
 //	    PlotHisto( hd, "p" );
       PlotHisto( hmc, icount, "histE1same", 0 );
@@ -271,9 +277,9 @@ void PlotSensitivityNA61( std::string dir_local,
            imax = huni->GetMaximumBin();
            if ( ymax < (huni->GetBinContent(imax)+5.*huni->GetBinError(imax)) )
 	      ymax = huni->GetBinContent(imax)+5.*huni->GetBinError(imax);
-           hd->GetYaxis()->SetRangeUser( 0., ymax );
-           huni->GetYaxis()->SetRangeUser( 0., ymax );
-           hmc->GetYaxis()->SetRangeUser( 0., ymax );
+           hd->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
+           huni->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
+           hmc->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
 	   PlotHisto( huni, icount, "Lsame", 1 );
       
          }
@@ -284,6 +290,24 @@ void PlotSensitivityNA61( std::string dir_local,
       PlotHisto( hmc, icount, "histE1same", 0 );
       PlotHisto( hd, icount, "psame", 0 );
       
+      size_t pos = 0;
+      std::string txt = hmc->GetTitle();
+      pos = txt.find("theta");
+      txt.insert(pos,"#");
+      txt += " [mrad]";
+      double xmin = hd->GetBinCenter(1) - hd->GetBinWidth(0);
+      double xmax = hd->GetBinCenter( hd->GetNbinsX() ) + hd->GetBinWidth( hd->GetNbinsX() );
+      TLatex* ltxt = new TLatex( xmin+0.2*(xmax-xmin), ymax*1.2, txt.c_str() );
+      ltxt->Draw();
+
+      TLegend* lg = new TLegend( 0.23, 0.65, 0.83, 0.8 );
+      lg->SetFillColor(0);
+      lg->SetBorderSize(0);
+      TLegendEntry* dentry = lg->AddEntry( hd, "Data","p");
+      dentry->SetTextFont(62);
+      dentry->SetTextSize(0.04);
+//      lg->Draw(); 
+
       // only one canvas in case of NA61-like benchmark
       size_t icnv = 0;
       
@@ -291,6 +315,20 @@ void PlotSensitivityNA61( std::string dir_local,
       if ( icnv >= 0 && icnv < canvas.size() )
       {
          double thechi2 = Chi2( hd, hmc );
+
+	 std::string schi2 = std::to_string( (thechi2/hd->GetNbinsX()) );
+	 pos = schi2.find(".");
+	 if ( pos != std::string::npos )
+	 {
+	    schi2 = schi2.substr(0,pos+2);
+	 } 
+	 schi2 = "Geant4.11.1/FTF Default : #chi^{2}/NDF=" + schi2;
+	 std::cout << "schi2 = " << schi2 << std::endl;
+	 TLegendEntry* entry = lg->AddEntry( hmc, schi2.c_str(), "L");
+	 entry->SetTextFont(62);
+	 entry->SetTextColor(hmc->GetLineColor());
+	 entry->SetTextSize(0.04);
+
 	 chi2_def[icnv] += thechi2; // --> Chi2( hd, hmc );
 	 NDF[icnv] += hd->GetNbinsX();
 	 std::cout << " thechi2 = " << thechi2 << std::endl;
@@ -340,12 +378,36 @@ void PlotSensitivityNA61( std::string dir_local,
 	   PlotHisto( hbest, icount, "histE1same", 1 );
 // -->	   chi2_sim_best_fit[icnv] += Chi2( hd, hbest );
 	   double thebestchi2 = Chi2( hd, hbest );
+
+	 std::string sbchi2 = std::to_string( (thebestchi2/hd->GetNbinsX()) );
+	 pos = sbchi2.find(".");
+	 if ( pos != std::string::npos )
+	 {
+	    if (sbchi2.find("0") == 0)
+	    {
+	       sbchi2 = sbchi2.substr(0,pos+3);
+	    }
+	    else
+	    {
+	       sbchi2 = sbchi2.substr(0,pos+2);
+	    }
+	 } 
+	 sbchi2 = "Geant4.11.1/FTF Best Fit : #chi^{2}/NDF=" + sbchi2;
+	 std::cout << "NDF = " << hd->GetNbinsX() << std::endl;
+	 std::cout << "sbchi2 = " << sbchi2 << std::endl;
+	 TLegendEntry* bentry = lg->AddEntry( hbest, sbchi2.c_str(), "L");
+	 bentry->SetTextFont(62);
+	 bentry->SetTextColor(hbest->GetLineColor());
+	 bentry->SetTextSize(0.04);
+
 	   chi2_sim_best_fit[icnv] += thebestchi2;
 	   std::cout << " thebestchi2 = " << thebestchi2 << std::endl;
 	   std::cout << " chi2_sim_best_fit[" << icnv << "] / NDF = " 
 	             << chi2_sim_best_fit[icnv] << "/" << NDF[icnv] << std::endl;         
          }
       }
+      
+      lg->Draw();
       
       // draw histo titles
       //
@@ -378,10 +440,11 @@ void PlotSensitivityNA61( std::string dir_local,
       TLatex* gltxt = new TLatex( 0.32, 0.955, gtitle.c_str() );
 //      gltxt->SetTextSize(0.04 ); // 0.025);
       canvas[ih]->cd();
-      gltxt->Draw();
+// -->      gltxt->Draw();
       canvas[ih]->Update(); 
       std::string output = canvas[ih]->GetName();
-      output += ".png";
+//      output += ".png";
+      output += ".eps";
       canvas[ih]->Print( output.c_str() );
    }
    

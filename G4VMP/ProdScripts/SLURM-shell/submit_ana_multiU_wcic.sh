@@ -16,9 +16,9 @@ fi
 #
 # proton
 # --> CPU --> sbatch -N 1 -n 3 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4p \
-sbatch -N 1 -n 1 -c 1 -p gpu_gce --gres=gpu:v100:0 --nodelist=wcgpu05 --qos=regular --time=23:45:00 --exclusive -A g4p \
- 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,PATH2EVT=/wclustre/g4p/yarba_j/g4vmp-study/11-02-21,NUniv=${nuni}" \
-	slurm_multiU_master.sh ana_HARP_multiU.sh
+#sbatch -N 1 -n 1 -c 1 -p gpu_gce --gres=gpu:v100:0 --nodelist=wcgpu05 --qos=regular --time=23:45:00 --exclusive -A g4p \
+# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,PATH2EVT=/wclustre/g4p/yarba_j/g4vmp-study/11-02-21,NUniv=${nuni}" \
+#	slurm_multiU_master.sh ana_HARP_multiU.sh
 #
 # NEEDS UPDATE...
 #
@@ -100,10 +100,10 @@ sbatch -N 1 -n 1 -c 1 -p gpu_gce --gres=gpu:v100:0 --nodelist=wcgpu05 --qos=regu
 #
 # --> LQ1 example --> sbatch -n 2 --time=23:00:00 --gres=gpu:0 -p gpu --qos=normal -A g4 --exclusive  ${my-script}
 #
-# --> CPU --> sbatch -N 1 -n 1 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4p  \
-# sbatch -N 1 -n 1 -c 1 -p gpu_gce --gres=gpu:v100:0 --nodelist=wcgpu05 --qos=regular --time=23:45:00 --exclusive -A g4p \
-# 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,PATH2EVT=/wclustre/g4p/yarba_j/g4vmp-study/09-03-21,NUniv=${nuni}" \
-#	slurm_multiU_master.sh ana_NA61_multiU.sh
+sbatch -N 1 -n 1 -c 1 -p cpu_gce --qos=regular --time=23:45:00 --exclusive -A g4p  \
+# --> GPU --> sbatch -N 1 -n 1 -c 1 -p gpu_gce --gres=gpu:v100:0 --nodelist=wcgpu05 --qos=regular --time=23:45:00 --exclusive -A g4p \
+ 	--export="WORKDIR_TOP=${MRB_TOP},proc_level=FTFP,beam=proton,pdgcode=2212,PATH2EVT=/wclustre/g4p/yarba_j/g4vmp-study/09-03-21,NUniv=${nuni}" \
+	slurm_multiU_master.sh ana_NA61_multiU.sh
 
 
 # NA49

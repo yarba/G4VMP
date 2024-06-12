@@ -1,13 +1,14 @@
 
 // #include "ftf-params-process-level-include.fcl"
-#include "ftf-Tune2022-v0.fcl"
+// #include "ftf-Tune2022-v0.fcl"
+#include "ftf-Test-Params_Aug2023.fcl"
 
 process_name:processA
 
 source: 
 {
   module_type: EmptyEvent
-  maxEvents:   250
+  maxEvents:   1000000
 }
 
 services: 
@@ -83,8 +84,8 @@ physics: {
      }
 
 //     FTFPDefault           : @local::FTFPDefault    
-//     FTFPPiplusPr1QEX       : @local::FTFPPiplusPr1QEX    
-     FTFPPionTune2022v0      : @local::FTFPPionTune2022v0    
+//     FTFPPionTune2022v0      : @local::FTFPPionTune2022v0    
+     FTFPTune2v1      : @local::FTFPTune2v1    
 
   }
   
@@ -92,13 +93,13 @@ physics: {
   {
   
 //     FTFPDefaultHARP:
-//     FTFPPiplusPr1QEXHARP:
-     FTFPPionTune2022v0HARP:
+//     FTFPPionTune2022v0HARP:
+     FTFPTune2v1HARP:
      {
         module_type: AnalyzerHARP
 //	ProductLabel: "FTFPDefault"
-//	ProductLabel: "FTFPPiplusPr1QEX"
-	ProductLabel: "FTFPPionTune2022v0"
+//	ProductLabel: "FTFPPionTune2022v0"
+	ProductLabel: "FTFPTune2v1"
 	IncludeExpData: 
 	{
 	   UseASCIIRecords: true
@@ -111,7 +112,7 @@ physics: {
 	   //
 	   // this is for running on WC-IC
 	   Path2Records : "/work1/g4v/yarba_j/dossier-json"
-# new record ids for 5GeVc/ pi+ on C, including both *proton* (FW) and pion (FW+LA) production
+# new record ids for 5GeVc/ pi+ on C, pion (FW+LA) production
 	   DBRecords: [
                           9901, 9902, 9903, 9904, 9905, 9906, 9907, 9908, 9909, 9910, 9911, 9912, 9913
 		        , 9953, 9954, 9955, 9956, 9957, 9958, 9959, 9960, 9961, 9962, 9963, 9964, 9965
@@ -123,13 +124,13 @@ physics: {
   
   path1:   [ PrimaryGenerator 
 //             , FTFPDefault
-//             , FTFPPiplusPr1QEX
-             , FTFPPionTune2022v0
+//             , FTFPPionTune2022v0
+	     , FTFPTune2v1
 	   ]
   path2:   [ 
 //             FTFPDefaultHARP 
-//             FTFPPiplusPr1QEXHARP 
-             FTFPPionTune2022v0HARP 
+//             FTFPPionTune2022v0HARP 
+	     FTFPTune2v1HARP
 	   ] 
   stream1: [ out1 ]
 
@@ -139,7 +140,7 @@ physics: {
   #       Otherwise, they will NOT be included in the exec.
   #       If you don't have an end_path, things will magically work though... 
   #        
-   end_paths:     [ path2, stream1 ]
+   end_paths:     [ path2 ] // , stream1 ]
 //  end_paths:     [ stream1 ]
 
 }

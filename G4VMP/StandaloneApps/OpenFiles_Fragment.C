@@ -8,8 +8,8 @@
    
    file = TFile::Open( fname.c_str() );
 
-   std::string fitsname = dir_fits + "/" + "ipolhistos.root";
-// --> Apprentice -->   std::string fitsname = dir_fits + "/" + "predictions_tnc_25_1.root";
+   std::string fitsname = dir_fits + "/" + "ipolhistos.root";  // Professor
+//   std::string fitsname = dir_fits + "/" + "predictions_tnc_25_1.root"; // Apprentice
    TFile* file_fits = 0 ;
    if ( plot_fits )
    {

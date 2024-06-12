@@ -67,7 +67,13 @@ find_library( G4MATERIALS NAMES G4materials PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
 find_library( G4MODELING  NAMES G4modeling PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
 find_library( G4PARMODELS  NAMES G4parmodels PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
 find_library( G4PARTICLES  NAMES G4particles PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
-find_library( G4PERSISTENCY  NAMES G4persistency PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
+# NOTE: Since 11.1.r06 (11.2.b01) G4persistency splits into
+#       G4mctruth, G4geomtext and (optional) G4gdml 
+# --> NO MORE --> find_library( G4PERSISTENCY  NAMES G4persistency PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
+find_library( G4MCTRUTH  NAMES G4mctruth PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
+find_library( G4GEOMTEXT  NAMES G4geomtext PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
+find_library( G4GDML  NAMES G4gdml PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
+#
 find_library( G4PHYSICSLISTS  NAMES G4physicslists PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
 find_library( G4PROCESSES  NAMES G4processes PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
 find_library( G4READOUT  NAMES G4readout PATHS $ENV{G4LIB} NO_DEFAULT_PATH )
@@ -97,7 +103,9 @@ set( G4_LIB_LIST ${XERCESC}
                  ${G4MODELING}
                  ${G4PARMODELS}
                  ${G4PARTICLES}
-                 ${G4PERSISTENCY}
+		 ${G4MCTRUTH}
+		 ${G4GEOMTEXT}
+		 ${G4GDML}
                  ${G4PHYSICSLISTS}
                  ${G4PROCESSES}
                  ${G4READOUT}

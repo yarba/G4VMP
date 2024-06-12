@@ -252,8 +252,11 @@ void PlotSensitivity( std::string dir_local,
       hd->GetYaxis()->SetTitleSize(0.0375);
       hd->GetXaxis()->CenterTitle();
       hd->GetYaxis()->CenterTitle();
-      hd->GetYaxis()->SetRangeUser( 0., ymax );
+      hd->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
       if ( experiment == "NA61" ) icount++;
+      
+// -->      hd->SetMarkerStyle(24);
+      
       PlotHisto( hd, icount, "p", 0 );
 	    
       // extract MC histo of the same name, from "Default"/MC4Professor
@@ -261,19 +264,21 @@ void PlotSensitivity( std::string dir_local,
       std::string hmcname = def_dir_name + "/MC4Professor/" + hdname;
       TH1D* hmc = (TH1D*)file->Get( hmcname.c_str() );
       hmc->SetLineColor(kRed);
-      hmc->SetLineWidth(2);
+      hmc->SetLineWidth(3);
+      // hmc->SetLineStyle(3);
       hmc->SetStats(0);
       imax = hmc->GetMaximumBin();
       if ( ymax < (hmc->GetBinContent(imax)+5.*hmc->GetBinError(imax)) )
 	 ymax = hmc->GetBinContent(imax)+2.*hmc->GetBinError(imax);
-      hd->GetYaxis()->SetRangeUser( 0., ymax );
-      hmc->GetYaxis()->SetRangeUser( 0., ymax );
+      hd->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
+      hmc->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
 	    	    
 //	    PlotHisto( hd, "p" );
       PlotHisto( hmc, icount, "histE1same", 0 );
 	    
 /* skip the MC sperad for now */
 
+      TH1D* huni4lg = 0;
       if ( plot_mc_spread )
       {
          for ( int ikd=0; ikd<nkeys; ++ikd )
@@ -294,14 +299,16 @@ void PlotSensitivity( std::string dir_local,
 	   std::string huniname = dir_name + "/MC4Professor/" + hdname;
 	   TH1D* huni = (TH1D*)file->Get( huniname.c_str() );
 	   if ( !huni ) continue;
-           huni->SetLineColor(kGreen);
+	   if ( !huni4lg ) huni4lg = huni; 
+           huni->SetLineColor(kGreen); // 16); // kBlack); 
+	   // -> huni->SetLineStyle(4);
            huni->SetStats(0);
            imax = huni->GetMaximumBin();
            if ( ymax < (huni->GetBinContent(imax)+5.*huni->GetBinError(imax)) )
 	      ymax = huni->GetBinContent(imax)+5.*huni->GetBinError(imax);
-           hd->GetYaxis()->SetRangeUser( 0., ymax );
-           huni->GetYaxis()->SetRangeUser( 0., ymax );
-           hmc->GetYaxis()->SetRangeUser( 0., ymax );
+           hd->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
+           huni->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
+           hmc->GetYaxis()->SetRangeUser( 0., ymax*1.3 );
 	   PlotHisto( huni, icount, "Lsame", 1 );
       
          }
@@ -312,6 +319,44 @@ void PlotSensitivity( std::string dir_local,
       PlotHisto( hmc, icount, "histE1same", 0 );
       PlotHisto( hd, icount, "psame", 0 );
       
+      size_t pos = 0;
+      std::string txt = hmc->GetTitle();
+      pos = txt.find("theta");
+      txt.insert(pos,"#");
+      txt += " [mrad]";
+      double xmin = hd->GetBinCenter(1) - hd->GetBinWidth(0);
+      double xmax = hd->GetBinCenter( hd->GetNbinsX() ) + hd->GetBinWidth( hd->GetNbinsX() );
+      TLatex* ltxt = new TLatex( xmin+0.3*(xmax-xmin), ymax*1.2, txt.c_str() );
+      ltxt->Draw();
+
+      TLegend* lg = new TLegend( 0.275, 0.6, 0.875, 0.8 );  // 0.775
+      lg->SetFillColor(0);
+      lg->SetBorderSize(0);
+      TLegendEntry* dentry = lg->AddEntry( hd, "Data","p");
+      dentry->SetTextFont(62);
+      dentry->SetTextSize(0.04);
+      TLegendEntry* mcentry = lg->AddEntry( hmc, "Geant4.11.1/FTF Default","L");
+      mcentry->SetTextFont(62);
+      mcentry->SetTextColor(hmc->GetLineColor());
+      mcentry->SetTextSize(0.04);
+      if ( huni4lg )
+      {
+//         TLegendEntry* uentry = lg->AddEntry( huni4lg, "Geant4.11.1/FTF with different parameters", "L" );
+         // alt could be AddEntry(huni4lg,"#splitline{line1}{line2}{line3},"L");
+	 TLegendEntry* uentry1 = lg->AddEntry( huni4lg, "Geant4.11.1/FTF : the spread", "L" );
+	 uentry1->SetTextFont(62);
+	 uentry1->SetTextColor(huni4lg->GetLineColor());
+	 uentry1->SetTextSize(0.04);
+	 TLegendEntry* uentry2 = lg->AddEntry( "", "in the simulated results due to", "");
+	 uentry2->SetTextFont(62);
+	 uentry2->SetTextColor(huni4lg->GetLineColor());
+	 uentry2->SetTextSize(0.04);
+	 TLegendEntry* uentry3 = lg->AddEntry( "", "running with different parameters", "");
+	 uentry3->SetTextFont(62);
+	 uentry3->SetTextColor(huni4lg->GetLineColor());
+	 uentry3->SetTextSize(0.04);
+      }
+
       size_t icnv = -1;
 
       if ( experiment == "HARP" )
@@ -396,6 +441,8 @@ void PlotSensitivity( std::string dir_local,
          }
       }
       
+      lg->Draw();
+
       if ( plot_sim_retro )
       {
          TList* keys_sim_retro = file_sim_retro->GetListOfKeys();
@@ -466,7 +513,8 @@ void PlotSensitivity( std::string dir_local,
 // -->       gltxt->Draw();
       canvas[ih]->Update(); 
       std::string output = canvas[ih]->GetName();
-      output += ".png";
+//      output += ".png";
+      output += ".eps";
       canvas[ih]->Print( output.c_str() );
    }
    

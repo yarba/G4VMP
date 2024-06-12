@@ -96,7 +96,8 @@ G4VMP::AnalyzerNA61::AnalyzerNA61( const fhicl::ParameterSet& p )
    fHistoNSec = 0;
    
    fThetaBinsProton.push_back( 0. );
-// --> tmp comment for pi+ beam study   fThetaBinsProton.push_back( 10. );
+// --> tmp - need to comment for pi+ beam study the 10-20 for sec. proton : 
+   fThetaBinsProton.push_back( 10. );
    fThetaBinsProton.push_back( 20. );
    fThetaBinsProton.push_back( 40. );
    fThetaBinsProton.push_back( 60. );
@@ -148,7 +149,7 @@ G4VMP::AnalyzerNA61::AnalyzerNA61( const fhicl::ParameterSet& p )
    fThetaBinsLambda.push_back( 240. );
    fThetaBinsLambda.push_back( 300. );
 
-   // except for fHistoNSec, instantiate tmp histos here
+   // except for fHistoNSec, instanciate tmp histos here
    //
 
    TH1::SetDefaultSumw2();
